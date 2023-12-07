@@ -43,8 +43,6 @@ export default function LoginPage() {
     }
   };
 
-  
-
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUsername('');

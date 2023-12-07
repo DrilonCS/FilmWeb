@@ -1,15 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
-import 'bootstrap/dist/css/bootstrap.min.css';
-=======
 import { useState } from 'react';
 
->>>>>>> b22c10af973705b1e4bd4fb05808039293bed7b6
 
 export default function SearchPage() {
     const navigate = useNavigate();
-<<<<<<< HEAD
-=======
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState<string[]>([]);
     const [showMore, setShowMore] = useState(false);
@@ -25,7 +19,6 @@ export default function SearchPage() {
     const handleShowMore = () => {
         setShowMore(true);
     };
->>>>>>> b22c10af973705b1e4bd4fb05808039293bed7b6
 
     const navigateToIndex = () => {
         navigate('/');
@@ -33,19 +26,6 @@ export default function SearchPage() {
 
     return (
         <>
-<<<<<<< HEAD
-            <header className="d-flex justify-content-center align-items-center bg-light py-3 mb-5">
-                <h1>SearchPage</h1>
-            </header>
-            <form className="mb-3">
-                <div className="mb-3 col-md-6">
-                    <label htmlFor="search" className="form-label">Search:</label>
-                    <input type="text" id="search" className="form-control" />
-                </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
-            </form>
-            <button onClick={navigateToIndex} className="btn btn-secondary">Zurück zur Startseite</button>
-=======
             <h1>SearchPage</h1>
             <input
                 type="text"
@@ -71,7 +51,6 @@ export default function SearchPage() {
                 <button onClick={handleShowMore}>Show More</button>
             )}
             <button onClick={navigateToIndex}>Zurück zur Startseite</button>
->>>>>>> b22c10af973705b1e4bd4fb05808039293bed7b6
         </>
     );
 }
