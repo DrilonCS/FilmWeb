@@ -12,7 +12,11 @@ export default function LoginPage() {
 
   const navigateToSearch = () => {
     navigate('/search');
-};
+  };
+
+  const navigateToIndex = () => {
+    navigate('/');
+  }
 
   const handleSubmit = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
@@ -60,6 +64,7 @@ export default function LoginPage() {
         <button onClick={navigateToSearch}>Zum Suchformular</button>
         </>
       )}
+      <button onClick={navigateToIndex}>Zurück zur Startseite</button>
     </div>
   );
 }
