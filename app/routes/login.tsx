@@ -48,7 +48,6 @@ export default function LoginPage() {
     setUsername('');
     setPassword('');
     localStorage.removeItem('isLoggedIn');
-    
   };
 
   return (
