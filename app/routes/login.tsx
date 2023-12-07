@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from '@remix-run/react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -15,15 +15,19 @@ export default function LoginPage() {
     navigate('/search');
   };
 
-  const navigateToIndex = () => {
-    navigate('/');
-  }
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn === 'true') {
+        setIsLoggedIn(true);
+    }
+  }, []);
 
   const handleSubmit = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
 
     if (username === 'admin' && password === 'password') {
       setIsLoggedIn(true);
+      localStorage.setItem('isLoggedIn', 'true');
     } else {
         if (username !== 'admin') {
             setUsernameError('Invalid username');
@@ -39,18 +43,22 @@ export default function LoginPage() {
     }
   };
 
+  
+
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUsername('');
     setPassword('');
+    localStorage.removeItem('isLoggedIn');
+    
   };
 
   return (
     <div className="container">
         <header className="d-flex flex-column align-items-center justify-content-center bg-light py-3 mb-5">
-            <h1 className="mb-3">Login</h1>
             {!isLoggedIn && (
                 <form onSubmit={handleSubmit} className="d-flex align-items-center">
+                    <h1 className="mb-3">Login</h1>
                     <div className="mb-3 me-3">
                         <label className="form-label">Username:</label>
                         <input type="text" className="form-control" value={username} onChange={(e) => setUsername(e.target.value)} />
@@ -64,12 +72,12 @@ export default function LoginPage() {
                     <button type="submit" className="btn btn-primary">Login</button>
                 </form>
             )}
+            {isLoggedIn && (
+                <button onClick={handleLogout} className="btn btn-secondary mt-5">Logout</button>
+            )}
         </header>
         {isLoggedIn && (
-            <>
-                <button onClick={handleLogout} className="btn btn-secondary mt-5">Logout</button>
-                <button onClick={navigateToSearch} className="btn btn-primary mt-5">Zum Suchformular</button>
-            </>
+            <button onClick={navigateToSearch} className="btn btn-primary mt-5">Zum Suchformular</button>
         )}
     </div>
 );
