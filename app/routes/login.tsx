@@ -52,10 +52,10 @@ export default function LoginPage() {
 
   return (
     <div className="container">
-        <header className="d-flex flex-column align-items-center justify-content-center bg-light py-3 mb-5">
+        <header className="d-flex flex-column align-items-center justify-content-center py-3 mb-5">
             {!isLoggedIn && (
                 <form onSubmit={handleSubmit} className="d-flex align-items-start">
-                    <h1 className=" me-5 mb-3 ms-3 mt-4">Login</h1>
+                    <h1 className=" me-5 mb-3 ms-3 mt-4">Login:</h1>
                     <div className="mb-3 me-3">
                         <label className="form-label">Username:</label>
                         <input type="text" className="form-control" value={username} onChange={(e) => setUsername(e.target.value)} />
@@ -69,12 +69,12 @@ export default function LoginPage() {
                     <button type="submit" className="btn btn-primary ms-3 mt-4">Login</button>
                 </form>
             )}
-            {isLoggedIn && (
-                <button onClick={handleLogout} className="btn btn-secondary mt-5">Logout</button>
-            )}
         </header>
         {isLoggedIn && (
-            <button onClick={navigateToSearch} className="btn btn-primary mt-5">Zum Suchformular</button>
+            <button onClick={handleLogout} style={{ backgroundColor: '#ff4f4f' }} className="btn btn-secondary">Logout</button>
+        )}
+        {isLoggedIn && (
+            <button onClick={navigateToSearch} className="btn btn-primary ms-5">Zum Suchformular</button>
         )}
     </div>
 );

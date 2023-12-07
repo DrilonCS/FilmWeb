@@ -25,14 +25,21 @@ export default function SearchPage() {
     };
 
     return (
-        <div style={{ background: 'linear-gradient(#90AFC5, #3B7EA1)', minHeight: '100vh' }}>
+        <div style={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            background: 'linear-gradient(#90AFC5, #3B7EA1)', 
+            minHeight: '100vh' 
+        }}>
             <h1>Suchformular</h1>
             <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <button onClick={handleSearch}>Suchen</button>
+            <button onClick={handleSearch} className="btn btn-primary" style={{ marginTop: '10px' }}>Suchen</button>
             <table>
                 <thead>
                     <tr>
@@ -50,7 +57,7 @@ export default function SearchPage() {
             {!showMore && searchResults.length > 5 && (
                 <button onClick={handleShowMore}>Show More</button>
             )}
-            <button onClick={navigateToIndex}>Zurück zur Startseite</button>
+            <button onClick={navigateToIndex} className="btn btn-primary" style={{ marginTop: '10px' }}>Zurück zur Startseite</button>
         </div>
     );
 }
