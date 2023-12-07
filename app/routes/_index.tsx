@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 import LoginPage from "./login";
 import log from '../log.png'; // Pfad zur Logo-Datei
 
-const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
   body {
     background: linear-gradient(#90AFC5, #3B7EA1);
   }

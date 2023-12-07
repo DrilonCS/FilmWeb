@@ -25,18 +25,18 @@ export default function SearchPage() {
     };
 
     return (
-        <>
-            <h1>SearchPage</h1>
+        <div style={{ background: 'linear-gradient(#90AFC5, #3B7EA1)', minHeight: '100vh' }}>
+            <h1>Suchformular</h1>
             <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <button onClick={handleSearch}>Search</button>
+            <button onClick={handleSearch}>Suchen</button>
             <table>
                 <thead>
                     <tr>
-                        <th>Search Results</th>
+                        <th>Suchergebnisse</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,6 +51,6 @@ export default function SearchPage() {
                 <button onClick={handleShowMore}>Show More</button>
             )}
             <button onClick={navigateToIndex}>Zurück zur Startseite</button>
-        </>
+        </div>
     );
 }
