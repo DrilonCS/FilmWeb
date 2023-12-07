@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from '@remix-run/react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -27,11 +28,13 @@ export default function LoginPage() {
         if (username !== 'admin') {
             setUsernameError('Invalid username');
             setTimeout(() => setUsernameError(null), 5000);
+            setUsername('');
         }
 
         if (password !== 'password') {
             setPasswordError('Invalid password');
             setTimeout(() => setPasswordError(null), 5000);
+            setPassword('');
         }
     }
   };
@@ -43,28 +46,32 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
-      {!isLoggedIn ? (
-        <form onSubmit={handleSubmit}>
-          <label>
-            Username:
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-            {usernameError && <p>{usernameError}</p>}
-          </label>
-          <label>
-            Password:
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            {passwordError && <p>{passwordError}</p>}
-          </label>
-          <input type="submit" value="Login" />
-        </form>
-      ) : (
-        <>
-        <button onClick={handleLogout}>Logout</button>
-        <button onClick={navigateToSearch}>Zum Suchformular</button>
-        </>
-      )}
-      <button onClick={navigateToIndex}>Zurück zur Startseite</button>
+    <div className="container">
+        <header className="d-flex flex-column align-items-center justify-content-center bg-light py-3 mb-5">
+            <h1 className="mb-3">Login</h1>
+            {!isLoggedIn && (
+                <form onSubmit={handleSubmit} className="d-flex align-items-center">
+                    <div className="mb-3 me-3">
+                        <label className="form-label">Username:</label>
+                        <input type="text" className="form-control" value={username} onChange={(e) => setUsername(e.target.value)} />
+                        {usernameError && <p className="text-danger">{usernameError}</p>}
+                    </div>
+                    <div className="mb-3 me-3">
+                        <label className="form-label">Password:</label>
+                        <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} />
+                        {passwordError && <p className="text-danger">{passwordError}</p>}
+                    </div>
+                    <button type="submit" className="btn btn-primary">Login</button>
+                </form>
+            )}
+        </header>
+        {isLoggedIn && (
+            <>
+                <button onClick={handleLogout} className="btn btn-secondary mt-5">Logout</button>
+                <button onClick={navigateToSearch} className="btn btn-primary mt-5">Zum Suchformular</button>
+            </>
+        )}
+        <button onClick={navigateToIndex} className="btn btn-link mt-5">Zurück zur Startseite</button>
     </div>
-  );
+);
 }
