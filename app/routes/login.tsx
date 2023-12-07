@@ -71,7 +71,6 @@ export default function LoginPage() {
                 <button onClick={navigateToSearch} className="btn btn-primary mt-5">Zum Suchformular</button>
             </>
         )}
-        <button onClick={navigateToIndex} className="btn btn-link mt-5">Zurück zur Startseite</button>
     </div>
 );
 }
