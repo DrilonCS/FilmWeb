@@ -22,7 +22,7 @@ export default function LoginPage() {
   const handleSubmit = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
 
-    if (username === 'admin' && password === 'password') {
+    if (username === 'admin' && password === 'p') {
       setIsLoggedIn(true);
     } else {
         if (username !== 'admin') {
