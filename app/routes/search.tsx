@@ -1,8 +1,7 @@
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 
-
-export default function SearchPage() {
+function SearchPage() {
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState<string[]>([]);
@@ -61,3 +60,20 @@ export default function SearchPage() {
         </div>
     );
 }
+
+function withAuth(Component: React.ComponentType) {
+    return function ProtectedRoute(props: any) {
+      const navigate = useNavigate();
+      const token = localStorage.getItem('authToken');
+  
+      if (!token) {
+        navigate('/');
+        return null;
+      }
+      return <Component {...props} />;
+    };
+  }
+
+const ProtectedSearchPage = withAuth(SearchPage);
+
+export default ProtectedSearchPage;
