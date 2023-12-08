@@ -58,7 +58,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="container">
+    <div className="container" style={{backgroundColor: 'yellow'}}>
         <header className="d-flex flex-column align-items-center justify-content-center py-3 mb-5">
             {!isLoggedIn && (
                 <form onSubmit={handleSubmit} className="d-flex align-items-start">
