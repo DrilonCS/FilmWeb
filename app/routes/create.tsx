@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom';
 
 
 const CreateMoviePage: React.FC = () => {
@@ -7,6 +8,7 @@ const CreateMoviePage: React.FC = () => {
     const [genre, setGenre] = useState('');
     const [isan, setISAN] = useState('');
     const [date, setDate] = useState('');
+    const navigate = useNavigate();
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(event.target.value);
