@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const CreateMoviePage: React.FC = () => {
     const [title, setTitle] = useState('');
@@ -27,38 +29,39 @@ const CreateMoviePage: React.FC = () => {
         // Handle form submission here
     };
 
+    const navigateToIndex = () => {
+        navigate('/');
+    };
+
     return (
-        <div>
+        <div className="container">
             <h1>Create Movie</h1>
             <form onSubmit={handleSubmit}>
-                <label>
-                    Title:
-                    <input type="text" value={title} onChange={handleTitleChange} />
-                </label>
-                <br />
-                <label>
-                    Genre:
-                    <select value={genre} onChange={handleGenreChange}>
+                <div className="form-group">
+                    <label>Title:</label>
+                    <input type="text" className="form-control" value={title} onChange={handleTitleChange} />
+                </div>
+                <div className="form-group">
+                    <label>Genre:</label>
+                    <select className="form-control" value={genre} onChange={handleGenreChange}>
                         <option value="">Select Genre</option>
                         <option value="Action">Action</option>
                         <option value="Comedy">Comedy</option>
                         <option value="Drama">Drama</option>
                         {/* Add more genre options here */}
                     </select>
-                </label>
-                <br />
-                <label>
-                    ISAN:
-                    <input type="text" value={isan} onChange={handleISANChange} />
-                </label>
-                <br />
-                <label>
-                    Date:
-                    <input type="date" value={date} onChange={handleDateChange} />
-                </label>
-                <br />
-                <button type="submit">Create</button>
+                </div>
+                <div className="form-group">
+                    <label>ISAN:</label>
+                    <input type="text" className="form-control" value={isan} onChange={handleISANChange} />
+                </div>
+                <div className="form-group">
+                    <label>Date:</label>
+                    <input type="date" className="form-control" value={date} onChange={handleDateChange} />
+                </div>
+                <button type="submit" className="btn btn-primary">Create</button>
             </form>
+            <button onClick={navigateToIndex} className="btn btn-primary" style={{ marginTop: '10px' }}>Zurück zur Startseite</button>
         </div>
     );
 };
