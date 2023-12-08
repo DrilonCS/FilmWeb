@@ -14,6 +14,9 @@ export default function LoginPage() {
   const navigateToSearch = () => {
     navigate('/search');
   };
+  const navigateToCreate = () => {
+    navigate('/create');
+  };
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
@@ -80,7 +83,8 @@ export default function LoginPage() {
         {isLoggedIn && (
         <>
         <button onClick={handleLogout} style={{ backgroundColor: '#ff4f4f' }} className="btn btn-secondary">Logout</button>
-        <button onClick={navigateToSearch} className="btn btn-primary ms-5">Zum Suchformular</button>
+        <button onClick={navigateToSearch} className="btn btn-primary ms-5">Suchen</button>
+        <button onClick={navigateToCreate} className="btn btn-primary ms-5">Erstellen</button>
         </>
         )}
     </div>
