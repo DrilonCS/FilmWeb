@@ -33,30 +33,6 @@ function SearchPage() {
             });
     };
 
-    function FilmRow({ film, index }: { film: Film; index: number }) {
-        return (
-            <tr key={index}>
-                <td>{film.isan}</td>
-                <td>{film.rating}</td>
-                <td>{film.genre}</td>
-                <td>{film.preis}</td>
-                <td>{film.rabatt}</td>
-                <td>{film.lieferbar ? 'Ja' : 'Nein'}</td>
-                <td>{film.datum}</td>
-                <td><a href={film.homepage}>{film.homepage}</a></td>
-                <td>{film.schlagwoerter && film.schlagwoerter.join(', ')}</td>
-                <td>
-                    {film.titel && (
-                    <>
-                        <p>Titel: {film.titel.titel}</p>
-                        <p>Untertitel: {film.titel.untertitel}</p>
-                    </>
-                    )}
-                </td>
-            </tr>
-        );
-    }
-
     return (
         <div>
             <input type="text" value={id} onChange={(e) => setId(e.target.value)} />
@@ -80,34 +56,40 @@ function SearchPage() {
                     </thead>
                     <tbody>
                     {Array.isArray(result) ? result.map((film, index) => (
-                      <FilmRow film={film} index={index} key={index} />
+                      <FilmRow film={film} index={index} key={film.isan} />
                       )): (
-                            <tr>
-                                <td>{result.isan}</td>
-                                <td>{result.rating}</td>
-                                <td>{result.genre}</td>
-                                <td>{result.preis}</td>
-                                <td>{result.rabatt}</td>
-                                <td>{result.lieferbar ? 'Ja' : 'Nein'}</td>
-                                <td>{result.datum}</td>
-                                <td><a href={result.homepage}>{result.homepage}</a></td>
-                                <td>{result.schlagwoerter && result.schlagwoerter.join(', ')}</td>
-                                <td>
-                                    {result.titel && (
-                                    <>
-                                    <p>Titel: {result.titel.titel}</p>
-                                    <p>Untertitel: {result.titel.untertitel}</p>
-                                    </>
-                                    )}
-                                </td>
-                            </tr>
-                        )}
+                      <FilmRow film={result} index={0} key={result.isan} />
+                      )}
                     </tbody>
                 </table>
             )}
             {error && <p>{error}</p>}
         </div>
     );
+
+    function FilmRow({ film, index }: { film: Film; index: number }) {
+        return (
+            <tr key={index}>
+                <td>{film.isan}</td>
+                <td>{film.rating}</td>
+                <td>{film.genre}</td>
+                <td>{film.preis}</td>
+                <td>{film.rabatt}</td>
+                <td>{film.lieferbar ? 'Ja' : 'Nein'}</td>
+                <td>{film.datum}</td>
+                <td><a href={film.homepage}>{film.homepage}</a></td>
+                <td>{film.schlagwoerter && film.schlagwoerter.join(', ')}</td>
+                <td>
+                    {film.titel && (
+                    <>
+                        <p>Titel: {film.titel.titel}</p>
+                        <p>Untertitel: {film.titel.untertitel}</p>
+                    </>
+                    )}
+                </td>
+            </tr>
+        );
+    }
 }
 
 function withAuth(Component: React.ComponentType) {
