@@ -17,7 +17,11 @@ const CreateMoviePage: React.FC = () => {
     const [schlagwoerter, setSchlagwoerter] = useState('');
     const [titel, setTitel] = useState('');
     const [mehrereschauspieler, setMehrereschauspieler] = useState('');
+
     const navigate = useNavigate();
+    const navigateToIndex = () => {
+        navigate('/');
+    };
 
     const handleISANChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setISAN(event.target.value);
@@ -89,10 +93,6 @@ const CreateMoviePage: React.FC = () => {
              });
     };
 
-    const navigateToIndex = () => {
-        navigate('/');
-    };
-
     return (
         <div className="container">
             <h1>Create Movie</h1>
@@ -102,40 +102,73 @@ const CreateMoviePage: React.FC = () => {
                     <input type="text" className="form-control" value={isan} onChange={handleISANChange} />
                 </div>
                 <div className="form-group">
-    <label>Rating:</label>
-    <div>
-        {[1, 2, 3, 4, 5].map((value) => (
-            <div key={value}>
-                <input
-                    type="radio"
-                    id={`rating-${value}`}
-                    name="rating"
-                    value={value}
-                    checked={rating === value}
-                    onChange={handleRatingChange}
-                />
-                <label htmlFor={`rating-${value}`}>{value}</label>
-            </div>
-        ))}
-    </div>
-</div>
+                    <label>Rating:</label>
+                    <div style={{ display: 'flex', justifyContent: 'flex-start'}}>
+                        {[1, 2, 3, 4, 5].map((value) => (
+                        <div key={value} style={{ marginRight: '15px' }}>
+                            <input
+                            type="radio"
+                            id={`rating-${value}`}            
+                            name="rating"
+                            value={value}
+                            checked={rating === value}
+                            onChange={handleRatingChange}
+                            />
+                            <label htmlFor={`rating-${value}`}>{value}</label>
+                        </div>
+                        ))}
+                    </div>
+                </div>
                 <div className="form-group">
                     <label>Genre:</label>
                     <select className="form-control" value={genre} onChange={handleGenreChange}>
                         <option value="">Select Genre</option>
-                        <option value="Action">Action</option>
-                        <option value="Comedy">Comedy</option>
-                        <option value="Drama">Drama</option>
-                        <option value="Sciencefiction">Sciencefiction</option>
-                        {/* Add more genre options here */}
+                        <option value="Action">FANTASY</option>
+                        <option value="Comedy">HORROR</option>
+                        <option value="Drama">ACTION</option>
+                        <option value="Sciencefiction">SCIENCEFICTION</option>
                     </select>
                 </div>
-                <div className="form-group">
-                    <label>Date:</label>
-                    <input type="date" className="form-control" value={datum} onChange={handleDatumChange} />
+                <div className="from-group">
+                    <label>Preis:</label>
+                    <input type="text" className="form-control" value={preis} onChange={handlePreisChange} />
+                </div>
+                <div>
+                    <label>Rabatt:</label>
+                    <input type="text" className="form-control" value={rabatt} onChange={handleRabattChange} />
                 </div>
                 <div className="form-group">
-                    <label>Title:</label>
+                    <label>Lieferbar:</label>
+                    <div style={{ display: 'flex', justifyContent: 'flex-start'}}>
+                        {['Ja', 'Nein'].map((value) => (
+                            <div key={value} style={{ marginRight: '15px' }}>
+                                <input
+                                type="radio"
+                                id={`lieferbar-${value}`}
+                                name="lieferbar"
+                                value={value}
+                                checked={lieferbar === value}
+                                onChange={handleLieferbarChange}
+                                />
+                                <label htmlFor={`lieferbar-${value}`}>{value}</label>
+                            </div>
+                    ))}
+                    </div>
+                </div>
+                <div className="form-group">
+                    <label>Datum:</label>
+                    <input type="text" className="form-control" value={datum} onChange={handleDatumChange} />
+                </div>
+                <div className="form-group">
+                    <label>Homepage:</label>
+                    <input type="text" className="form-control" value={homepage} onChange={handleHomepageChange} />
+                </div>
+                <div className="form-group">
+                    <label>Schlagwörter:</label>
+                    <input type="text" className="form-control" value={schlagwoerter} onChange={handleSchlagwoerterChange} />
+                </div>
+                <div className="form-group">
+                    <label>Titel:</label>
                     <input type="text" className="form-control" value={titel} onChange={handleTitelChange} />
                 </div>
                 <button type="submit" className="btn btn-primary">Create</button>
