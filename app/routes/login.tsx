@@ -15,7 +15,7 @@ export default function LoginPage() {
   const navigateToSearch = () => {
     navigate('/search');
   };
-  
+
   const navigateToCreate = () => {
     navigate('/create');
   };
@@ -68,15 +68,15 @@ export default function LoginPage() {
             {!isLoggedIn && (
                 <form onSubmit={handleSubmit} className="d-flex align-items-start">
                     <h1 className=" me-5 mb-3 ms-3 mt-4">Login</h1>
-                    <div className="mb-3 me-3">
+                    <div style={{ position: 'relative' }} className="mb-3 me-3">
                         <label className="form-label">Username:</label>
                         <input type="text" className="form-control" value={username} onChange={(e) => setUsername(e.target.value)} />
-                        {errorMessage && <p className="text-danger">{errorMessage}</p>}
+                        {errorMessage && <p style={{ position: 'absolute', color: 'red'}}>{errorMessage}</p>}
                     </div>
-                    <div className="mb-3 me-3">
+                    <div style={{ position: 'relative' }} className="mb-3 me-3">
                         <label className="form-label">Password:</label>
                         <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} />
-                        {errorMessage && <p className="text-danger">{errorMessage}</p>}
+                        {errorMessage && <p style={{ position: 'absolute', color: 'red'}}>{errorMessage}</p>}
                     </div>
                     <button type="submit" className="btn btn-primary ms-3 mt-4">Login</button>
                 </form>
