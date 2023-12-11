@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from '@remix-run/react';
+import { https, host, port, rest } from '../constants';
 import { type Film } from '../types/types';
+import { useNavigate } from 'react-router-dom';
 
 function SearchPage() {
     const [id, setId] = useState('');
     const [result, setResult] = useState<Film | Film[] | null>(null);
     const [error, setError] = useState<string | null>(null);
 
+    const navigate = useNavigate();
+
+    const navigateToIndex = () => {
+        navigate('/');
+      };
+
     const handleGetId = () => {
-        axios.get(`https://localhost:3000/rest/${id}`)
+        axios.get(`${https}${host}${port}${rest}${id}`)
              .then(response => {
                setResult(response.data);
                setError(null);
@@ -21,7 +28,7 @@ function SearchPage() {
     };
 
     const handleGetAllFilms = () => {
-        axios.get('https://localhost:3000/rest/')
+        axios.get(`${https}${host}${port}${rest}`)
              .then(response => {
                setResult(response.data);
                console.log(response)
@@ -63,7 +70,10 @@ function SearchPage() {
                     </tbody>
                 </table>
             )}
-             {error && <p className="text-danger mt-3">{error}</p>}
+            <>
+            <button onClick={navigateToIndex} className="btn btn-primary ms-5">Zurück zur Startseite</button>
+            </>
+            {error && <p>{error}</p>}
         </div>
     );
 
