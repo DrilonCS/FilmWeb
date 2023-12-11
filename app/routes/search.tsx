@@ -34,10 +34,10 @@ function SearchPage() {
     };
 
     return (
-        <div>
-            <input type="text" value={id} onChange={(e) => setId(e.target.value)} />
-            <button onClick={handleGetId}>Suche mit ID</button>
-            <button onClick={handleGetAllFilms}>Suche alle Filme</button>
+        <div>   
+        <input type="text" value={id} onChange={(e) => setId(e.target.value)} />
+        <button onClick={handleGetId} className="btn btn-primary mt-3">Suche mit ID</button>
+        <button onClick={handleGetAllFilms} className="btn btn-primary mt-3 ms-3">Suche alle Filme</button>
             {result && (
                 <table className="table table-bordered">
                     <thead>
@@ -63,7 +63,7 @@ function SearchPage() {
                     </tbody>
                 </table>
             )}
-            {error && <p>{error}</p>}
+             {error && <p className="text-danger mt-3">{error}</p>}
         </div>
     );
 
