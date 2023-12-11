@@ -42,20 +42,21 @@ import { useNavigate } from 'react-router-dom';
     };
 
     return (
-        <div>   
-<div className="mt-3 ms-3">
-    <button onClick={navigateToIndex} className="btn btn-primary">Zurück zur Startseite</button>
-</div>
-<div className="d-flex justify-content-center mt-3">
-    <button onClick={handleGetId} className="btn btn-primary ms-3">Suche mit ID</button>
-    <button onClick={handleGetAllFilms} className="btn btn-primary ms-3">Suche alle Filme</button>
-</div>
-<div className="d-flex justify-content-center mt-3">
-    <input type="text" className="form-control" value={id} onChange={(e) => setId(e.target.value)} />
-</div>
-
-        
-
+        <div style={{ 
+            background: 'linear-gradient(#90AFC5, #3B7EA1)', 
+            minHeight: '100vh' 
+        }}>   
+            <div className="mt-3 ms-3">
+                <button onClick={navigateToIndex} className="btn btn-primary">Zurück zur Startseite</button>
+            </div>
+            <div className="d-flex justify-content-center mt-3">
+                <button onClick={handleGetId} className="btn btn-primary ms-3">Suche mit ID</button>
+                <button onClick={handleGetAllFilms} className="btn btn-primary ms-3">Suche alle Filme</button>
+            </div>
+            <div className="d-flex justify-content-center mt-3">
+                <input type="text" className="form-control" value={id} onChange={(e) => setId(e.target.value)} />
+            </div>
+    
             {result && (
                 <table className="table table-bordered">
                     <thead>
@@ -81,7 +82,7 @@ import { useNavigate } from 'react-router-dom';
                     </tbody>
                 </table>
             )}
-
+    
             {error && <p>{error}</p>}
         </div>
     );
