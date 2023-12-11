@@ -4,7 +4,8 @@ import { https, host, port, rest } from '../constants';
 import { type Film } from '../types/types';
 import { useNavigate } from 'react-router-dom';
 
-function SearchPage() {
+
+    function SearchPage() {
     const [id, setId] = useState('');
     const [result, setResult] = useState<Film | Film[] | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -42,9 +43,19 @@ function SearchPage() {
 
     return (
         <div>   
-        <input type="text" value={id} onChange={(e) => setId(e.target.value)} />
-        <button onClick={handleGetId} className="btn btn-primary mt-3">Suche mit ID</button>
-        <button onClick={handleGetAllFilms} className="btn btn-primary mt-3 ms-3">Suche alle Filme</button>
+<div className="mt-3 ms-3">
+    <button onClick={navigateToIndex} className="btn btn-primary">Zurück zur Startseite</button>
+</div>
+<div className="d-flex justify-content-center mt-3">
+    <button onClick={handleGetId} className="btn btn-primary ms-3">Suche mit ID</button>
+    <button onClick={handleGetAllFilms} className="btn btn-primary ms-3">Suche alle Filme</button>
+</div>
+<div className="d-flex justify-content-center mt-3">
+    <input type="text" className="form-control" value={id} onChange={(e) => setId(e.target.value)} />
+</div>
+
+        
+
             {result && (
                 <table className="table table-bordered">
                     <thead>
@@ -70,9 +81,7 @@ function SearchPage() {
                     </tbody>
                 </table>
             )}
-            <>
-            <button onClick={navigateToIndex} className="btn btn-primary ms-5">Zurück zur Startseite</button>
-            </>
+
             {error && <p>{error}</p>}
         </div>
     );
