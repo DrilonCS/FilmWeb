@@ -1,64 +1,95 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useNavigate } from '@remix-run/react';
+import { https, host, port, rest } from '../constants';
 
 function SearchPage() {
-    const navigate = useNavigate();
-    const [searchTerm, setSearchTerm] = useState('');
-    const [searchResults, setSearchResults] = useState<string[]>([]);
-    const [showMore, setShowMore] = useState(false);
+    const [id, setId] = useState('');
+    const [result, setResult] = useState<Film | Film[] | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
-    const handleSearch = () => {
-        // Perform search logic here using the searchTerm
-        // and update the searchResults state with the results
-        // For now, let's assume searchResults is an array of strings
-        const results = ['Result 1', 'Result 2', 'Result 3', 'Result 4', 'Result 5'];
-        setSearchResults(results);
+    const handleGetId = () => {
+        axios.get(`${https}${host}${port}${id}`)
+             .then(response => {
+               setResult(response.data);
+               setError(null);
+            })
+             .catch(err => {
+               setError('Failed to fetch data');
+               setResult(null);
+            });
     };
 
-    const handleShowMore = () => {
-        setShowMore(true);
-    };
-
-    const navigateToIndex = () => {
-        navigate('/');
+    const handleGetAllFilms = () => {
+        axios.get(`${https}${host}${port}${rest}`)
+             .then(response => {
+               setResult(response.data);
+               console.log(response)
+               setError(null);
+            })
+             .catch(error => {
+               setError('Failed to fetch all films');
+               setResult(null);
+            });
     };
 
     return (
-        <div style={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            alignItems: 'center', 
-            justifyContent: 'center', 
-            background: 'linear-gradient(#90AFC5, #3B7EA1)', 
-            minHeight: '100vh' 
-        }}>
-            <h1>Suchformular</h1>
-            <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <button onClick={handleSearch} className="btn btn-primary" style={{ marginTop: '10px' }}>Suchen</button>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Suchergebnisse</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {searchResults.slice(0, showMore ? 10 : 5).map((result, index) => (
-                        <tr key={index} style={{ backgroundColor: index % 2 === 0 ? 'white' : 'gray' }}>
-                            <td>{result}</td>
+        <div>
+            <input type="text" value={id} onChange={(e) => setId(e.target.value)} />
+            <button onClick={handleGetId}>Suche mit ID</button>
+            <button onClick={handleGetAllFilms}>Suche alle Filme</button>
+            {result && (
+                <table className="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ISAN</th>
+                            <th>Rating</th>
+                            <th>Genre</th>
+                            <th>Preis</th>
+                            <th>Rabatt</th>
+                            <th>Lieferbar</th>
+                            <th>Datum</th>
+                            <th>Homepage</th>
+                            <th>Schlagwörter</th>
+                            <th>Titel</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-            {!showMore && searchResults.length > 5 && (
-                <button onClick={handleShowMore}>Show More</button>
+                    </thead>
+                    <tbody>
+                    {Array.isArray(result) ? result.map((film, index) => (
+                      <FilmRow film={film} index={index} key={film.isan} />
+                      )): (
+                      <FilmRow film={result} index={0} key={result.isan} />
+                      )}
+                    </tbody>
+                </table>
             )}
-            <button onClick={navigateToIndex} className="btn btn-primary" style={{ marginTop: '10px' }}>Zurück zur Startseite</button>
+            {error && <p>{error}</p>}
         </div>
     );
+
+    function FilmRow({ film, index }: { film: Film; index: number }) {
+        return (
+            <tr key={index}>
+                <td>{film.isan}</td>
+                <td>{film.rating}</td>
+                <td>{film.genre}</td>
+                <td>{film.preis}</td>
+                <td>{film.rabatt}</td>
+                <td>{film.lieferbar ? 'Ja' : 'Nein'}</td>
+                <td>{film.datum}</td>
+                <td><a href={film.homepage}>{film.homepage}</a></td>
+                <td>{film.schlagwoerter && film.schlagwoerter.join(', ')}</td>
+                <td>
+                    {film.titel && (
+                    <>
+                        <p>Titel: {film.titel.titel}</p>
+                        <p>Untertitel: {film.titel.untertitel}</p>
+                    </>
+                    )}
+                </td>
+            </tr>
+        );
+    }
 }
 
 function withAuth(Component: React.ComponentType) {
