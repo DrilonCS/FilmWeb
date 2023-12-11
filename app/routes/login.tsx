@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from '@remix-run/react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { https, host, login, port} from '../constants';
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -28,7 +29,7 @@ export default function LoginPage() {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
     const response = await axios.post(
-      'https://localhost:3000/auth/login',
+      `${https}${host}${port}${login}`,
       `username=${username}&password=${password}`,
       { headers },
     );
