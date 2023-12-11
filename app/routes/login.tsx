@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from '@remix-run/react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { https, host, login, port} from '../constants';
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -14,6 +15,9 @@ export default function LoginPage() {
   const navigateToSearch = () => {
     navigate('/search');
   };
+  const navigateToCreate = () => {
+    navigate('/create');
+  };
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
@@ -25,7 +29,7 @@ export default function LoginPage() {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
     const response = await axios.post(
-      'https://localhost:3000/auth/login',
+      `${https}${host}${port}${login}`,
       `username=${username}&password=${password}`,
       { headers },
     );
@@ -80,7 +84,8 @@ export default function LoginPage() {
         {isLoggedIn && (
         <>
         <button onClick={handleLogout} style={{ backgroundColor: '#ff4f4f' }} className="btn btn-secondary">Logout</button>
-        <button onClick={navigateToSearch} className="btn btn-primary ms-5">Zum Suchformular</button>
+        <button onClick={navigateToSearch} className="btn btn-primary ms-5">Suchen</button>
+        <button onClick={navigateToCreate} className="btn btn-primary ms-5">Erstellen</button>
         </>
         )}
     </div>
