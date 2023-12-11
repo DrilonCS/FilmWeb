@@ -67,7 +67,7 @@ export default function LoginPage() {
         <header className="d-flex flex-column align-items-center justify-content-center py-3 mb-5">
             {!isLoggedIn && (
                 <form onSubmit={handleSubmit} className="d-flex align-items-start">
-                    <h1 style={{ fontSize: '3em' }}  className=" me-5 mb-3 ms-3 mt-3">Login</h1>
+                    <h1 style={{ fontSize: '3em' }}  className=" me-5 mb-3 ms-3 mt-3">Login:</h1>
                     <div style={{ position: 'relative' }} className="mb-3 me-3">
                         <label className="form-label">Username:</label>
                         <input type="text" className="form-control" value={username} onChange={(e) => setUsername(e.target.value)} />
