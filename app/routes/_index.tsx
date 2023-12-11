@@ -17,6 +17,9 @@ export const GlobalStyle = createGlobalStyle`
     height: auto; // Höhe des Logos automatisch anpassen
     background: transparent; // Hintergrund des Logos transparent machen
   }
+  .mt-4 {
+    margin-top: 2rem !important;
+}
 `;
 
 export default function Index() {
