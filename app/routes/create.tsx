@@ -15,8 +15,6 @@ const CreateMoviePage: React.FC = () => {
     const [datum, setDatum] = useState('');
     const [homepage, setHomepage] = useState('');
     const [schlagwoerter, setSchlagwoerter] = useState('');
-    const [titel, setTitel] = useState('');
-    const [mehrereschauspieler, setMehrereschauspieler] = useState('');
 
     const navigate = useNavigate();
     const navigateToIndex = () => {
@@ -59,14 +57,6 @@ const CreateMoviePage: React.FC = () => {
         setSchlagwoerter(event.target.value);
     }
 
-    const handleTitelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setTitel(event.target.value);
-    };
-
-    const handleMehrereschauspielerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setMehrereschauspieler(event.target.value);
-    }
-
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
@@ -80,8 +70,6 @@ const CreateMoviePage: React.FC = () => {
             datum,
             homepage,
             schlagwoerter,
-            titel,
-            mehrereschauspieler
         };
 
         axios.post(`${https}${host}${port}${rest}`, film)
@@ -166,10 +154,6 @@ const CreateMoviePage: React.FC = () => {
                 <div className="form-group">
                     <label>Schlagwörter:</label>
                     <input type="text" className="form-control" value={schlagwoerter} onChange={handleSchlagwoerterChange} />
-                </div>
-                <div className="form-group">
-                    <label>Titel:</label>
-                    <input type="text" className="form-control" value={titel} onChange={handleTitelChange} />
                 </div>
                 <button type="submit" className="btn btn-primary">Create</button>
             </form>
