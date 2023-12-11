@@ -15,6 +15,7 @@ export default function LoginPage() {
   const navigateToSearch = () => {
     navigate('/search');
   };
+  
   const navigateToCreate = () => {
     navigate('/create');
   };

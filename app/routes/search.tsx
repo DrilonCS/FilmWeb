@@ -9,6 +9,12 @@ function SearchPage() {
     const [result, setResult] = useState<Film | Film[] | null>(null);
     const [error, setError] = useState<string | null>(null);
 
+    const navigate = useNavigate();
+
+    const navigateToIndex = () => {
+        navigate('/');
+      };
+
     const handleGetId = () => {
         axios.get(`${https}${host}${port}${rest}${id}`)
              .then(response => {
@@ -64,6 +70,9 @@ function SearchPage() {
                     </tbody>
                 </table>
             )}
+            <>
+            <button onClick={navigateToIndex} className="btn btn-primary ms-5">Zurück zur Startseite</button>
+            </>
             {error && <p>{error}</p>}
         </div>
     );
