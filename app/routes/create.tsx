@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -81,8 +81,27 @@ const CreateMoviePage: React.FC = () => {
              });
     };
 
+    useEffect(() => {
+        const originalStyleHtml = window.getComputedStyle(document.documentElement).background;
+        const originalStyleBody = window.getComputedStyle(document.body).background;
+        document.documentElement.style.background = 'linear-gradient(#90AFC5, #3B7EA1)';
+        document.body.style.background = 'linear-gradient(#90AFC5, #3B7EA1)';
+        document.body.style.margin = '0';
+        document.body.style.padding = '0';
+        return () => {
+            document.documentElement.style.background = originalStyleHtml;
+            document.body.style.background = originalStyleBody;
+            document.body.style.margin = '';
+            document.body.style.padding = '';
+        };
+    }, []);
+
     return (
-        <div className="container">
+        <div className="container" style={{ 
+            minHeight: '100vh', 
+            padding: '20px',
+            boxSizing: 'border-box'
+        }}>
             <h1>Create Movie</h1>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
