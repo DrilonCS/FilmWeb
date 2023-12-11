@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from '@remix-run/react';
 import { https, host, port, rest } from '../constants';
+import { type Film } from '../types/types';
 
 function SearchPage() {
     const [id, setId] = useState('');
