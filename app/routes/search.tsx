@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from '@remix-run/react';
 import { https, host, port, rest } from '../constants';
 import { type Film } from '../types/types';
+import { useNavigate } from 'react-router-dom';
 
 function SearchPage() {
     const [id, setId] = useState('');
@@ -10,7 +10,7 @@ function SearchPage() {
     const [error, setError] = useState<string | null>(null);
 
     const handleGetId = () => {
-        axios.get(`${https}${host}${port}${id}`)
+        axios.get(`${https}${host}${port}${rest}${id}`)
              .then(response => {
                setResult(response.data);
                setError(null);
