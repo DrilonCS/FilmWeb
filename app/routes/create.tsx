@@ -164,7 +164,7 @@ const CreatePage: React.FC = () => {
                 </div>
                 <div className="form-group">
                     <label>Preis:</label>
-                    <input type="number" className="form-control" value={preis} onChange={handlePreisChange} />
+                    <input type="number" step="0.01" className="form-control" value={preis} onChange={handlePreisChange} />
                 </div>
                 <div className="form-group">
                     <label>Rabatt:</label>
