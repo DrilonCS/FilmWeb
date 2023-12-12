@@ -86,14 +86,14 @@ function SearchPage() {
             <div className="d-flex justify-content-center mt-3">
                 <button onClick={handleGetId} className="btn btn-primary ms-3">Suche mit ID</button>
                 <button onClick={handleGetAllFilms} className="btn btn-primary ms-3">Suche alle Filme</button>
-                <select value={genre} onChange={(e) => setGenre(e.target.value)}>
-            <option value="">Select Genre</option>
-                <option value="ACTION">Action</option>
-                <option value="HORROR">Horror</option>
-                <option value="FANTASY">Fantasy</option>
-                <option value="SCIENCEFICTION">Sciencefiction</option>
-            </select>
-            <button onClick={handleGetByGenre} className="btn btn-primary ms-3">Suche nach Genre</button>
+                <button onClick={handleGetByGenre} className="btn btn-primary ms-3">Suche nach Genre</button>
+                <select value={genre} onChange={(e) => setGenre(e.target.value)} className="ms-3">
+                    <option value="">Select Genre</option>
+                    <option value="ACTION">Action</option>
+                    <option value="HORROR">Horror</option>
+                    <option value="FANTASY">Fantasy</option>
+                    <option value="SCIENCEFICTION">Sciencefiction</option>
+                </select>
             </div>
             <div className="d-flex justify-content-center mt-3">
                 <input type="text" className="form-control" value={id} onChange={(e) => setId(e.target.value)} />
