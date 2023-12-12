@@ -100,7 +100,8 @@ const CreateMoviePage: React.FC = () => {
         <div className="container" style={{ 
             minHeight: '100vh', 
             padding: '20px',
-            boxSizing: 'border-box'
+            boxSizing: 'border-box',
+            marginTop: '60px' // Oberer Rand des Containers
         }}>
             <h1>Create Movie</h1>
             <form onSubmit={handleSubmit}>
@@ -176,7 +177,13 @@ const CreateMoviePage: React.FC = () => {
                 </div>
                 <button type="submit" className="btn btn-primary">Create</button>
             </form>
-            <button onClick={navigateToIndex} className="btn btn-primary" style={{ marginTop: '10px' }}>Zurück zur Startseite</button>
+            <div style={{ 
+            position: 'absolute', 
+            top: '10px', 
+            left: '10px'
+        }}>
+            <button onClick={navigateToIndex} className="btn btn-primary">Zurück zur Startseite</button>
+            </div>
         </div>
     );
 };
