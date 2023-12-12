@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { https, host, port, rest } from '../constants';
-import { type Film } from '../types/types';
 import { useNavigate } from 'react-router-dom';
+import { type FilmProps, Film } from '~/Components/film';
 
 
-    function SearchPage() {
+function SearchPage() {
     const [id, setId] = useState('');
-    const [result, setResult] = useState<Film | Film[] | null>(null);
+    const [result, setResult] = useState<FilmProps | FilmProps[] | null>([]);
     const [error, setError] = useState<string | null>(null);
 
     const navigate = useNavigate();
@@ -30,15 +30,25 @@ import { useNavigate } from 'react-router-dom';
 
     const handleGetAllFilms = () => {
         axios.get(`${https}${host}${port}${rest}`)
-             .then(response => {
-               setResult(response.data);
-               console.log(response)
-               setError(null);
-            })
-             .catch(error => {
-               setError('Failed to fetch all films');
-               setResult(null);
-            });
+        .then(response => {
+            const filmsData = response.data._embedded.filme.map((film: any) => ({
+                isan: film.isan,
+                rating: film.rating,
+                genre: film.genre,
+                preis: film.preis,
+                rabatt: film.rabatt,
+                lieferbar: film.lieferbar,
+                datum: film.datum,
+                homepage: film.homepage,
+                schlagwoerter: film.schlagwoerter,
+            }))
+            setError(null);
+            setResult(filmsData);
+        })
+        .catch(err => {
+            setError('Failed to fetch data');
+            setResult(null);
+        });
     };
 
     return (
@@ -70,46 +80,44 @@ import { useNavigate } from 'react-router-dom';
                             <th>Datum</th>
                             <th>Homepage</th>
                             <th>Schlagwörter</th>
-                            <th>Titel</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {Array.isArray(result) ? result.map((film, index) => (
-                      <FilmRow film={film} index={index} key={film.isan} />
-                      )): (
-                      <FilmRow film={result} index={0} key={result.isan} />
-                      )}
+                    {Array.isArray(result) ? result.map((film) => (
+                    <Film 
+                      key={film.isan} 
+                      isan={film.isan} 
+                      rating={film.rating} 
+                      genre={film.genre} 
+                      preis={film.preis}
+                      rabatt={film.rabatt}
+                      lieferbar={film.lieferbar}
+                      datum={film.datum}
+                      homepage={film.homepage}
+                      schlagwoerter={film.schlagwoerter}
+                    />
+                    )): (
+                        result ? (
+                        <Film 
+                        key={result.isan} 
+                        isan={result.isan} 
+                        rating={result.rating} 
+                        genre={result.genre} 
+                        preis={result.preis}
+                        rabatt={result.rabatt}
+                        lieferbar={result.lieferbar}
+                        datum={result.datum}
+                        homepage={result.homepage}
+                        schlagwoerter={result.schlagwoerter}
+                    />
+                        ) : null
+                )}
                     </tbody>
                 </table>
             )}
-    
             {error && <p>{error}</p>}
         </div>
     );
-
-    function FilmRow({ film, index }: { film: Film; index: number }) {
-        return (
-            <tr key={index}>
-                <td>{film.isan}</td>
-                <td>{film.rating}</td>
-                <td>{film.genre}</td>
-                <td>{film.preis}</td>
-                <td>{film.rabatt}</td>
-                <td>{film.lieferbar ? 'Ja' : 'Nein'}</td>
-                <td>{film.datum}</td>
-                <td><a href={film.homepage}>{film.homepage}</a></td>
-                <td>{film.schlagwoerter && film.schlagwoerter.join(', ')}</td>
-                <td>
-                    {film.titel && (
-                    <>
-                        <p>Titel: {film.titel.titel}</p>
-                        <p>Untertitel: {film.titel.untertitel}</p>
-                    </>
-                    )}
-                </td>
-            </tr>
-        );
-    }
 }
 
 function withAuth(Component: React.ComponentType) {
@@ -124,7 +132,6 @@ function withAuth(Component: React.ComponentType) {
       return <Component {...props} />;
     };
   }
-
-const ProtectedSearchPage = withAuth(SearchPage);
-
-export default ProtectedSearchPage;
+  
+  const ProtectedSearchPage = withAuth(SearchPage);
+  export default ProtectedSearchPage;
