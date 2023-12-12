@@ -86,70 +86,70 @@ function SearchPage() {
             <div className="d-flex justify-content-center mt-3">
                 <button onClick={handleGetId} className="btn btn-primary ms-3">Suche mit ID</button>
                 <button onClick={handleGetAllFilms} className="btn btn-primary ms-3">Suche alle Filme</button>
+                <button onClick={handleGetByGenre} className="btn btn-primary ms-3">Suche nach Genre</button>
+                <select value={genre} onChange={(e) => setGenre(e.target.value)} className="form-select ms-3" style={{ width: '200px' }}>
+                    <option value="">Select Genre</option>
+                    <option value="ACTION">Action</option>
+                    <option value="HORROR">Horror</option>
+                    <option value="FANTASY">Fantasy</option>
+                    <option value="SCIENCEFICTION">Sciencefiction</option>
+                </select>
             </div>
-            <div className="d-flex justify-content-center mt-3">
-                <input type="text" className="form-control" value={id} onChange={(e) => setId(e.target.value)} />
+            <div className="d-flex justify-content-center" style={{ marginTop: '30px' }}>
+                <input type="text" className="form-control" value={id} onChange={(e) => setId(e.target.value)} style={{ width: '300px' }} />
             </div>
-            <div className="d-flex justify-content-center mt-3">
-            <select value={genre} onChange={(e) => setGenre(e.target.value)}>
-            <option value="">Select Genre</option>
-                <option value="ACTION">Action</option>
-                <option value="HORROR">Horror</option>
-                <option value="FANTASY">Fantasy</option>
-                <option value="SCIENCEFICTION">Sciencefiction</option>
-            </select>
-            <button onClick={handleGetByGenre} className="btn btn-primary ms-3">Suche nach Genre</button>
-        </div>
-            {result && (
-                <table className="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>ISAN</th>
-                            <th>Rating</th>
-                            <th>Genre</th>
-                            <th>Preis</th>
-                            <th>Rabatt</th>
-                            <th>Lieferbar</th>
-                            <th>Datum</th>
-                            <th>Homepage</th>
-                            <th>Schlagwörter</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {Array.isArray(result) ? result.map((film) => (
-                    <Film 
-                      key={film.isan} 
-                      isan={film.isan} 
-                      rating={film.rating} 
-                      genre={film.genre} 
-                      preis={film.preis}
-                      rabatt={film.rabatt}
-                      lieferbar={film.lieferbar}
-                      datum={film.datum}
-                      homepage={film.homepage}
-                      schlagwoerter={film.schlagwoerter}
-                    />
-                    )): (
-                        result ? (
-                        <Film 
-                        key={result.isan} 
-                        isan={result.isan} 
-                        rating={result.rating} 
-                        genre={result.genre} 
-                        preis={result.preis}
-                        rabatt={result.rabatt}
-                        lieferbar={result.lieferbar}
-                        datum={result.datum}
-                        homepage={result.homepage}
-                        schlagwoerter={result.schlagwoerter}
-                    />
-                        ) : null
-                )}
-                    </tbody>
-                </table>
-            )}
-            {error && <p>{error}</p>}
-        </div>
+            <div style={{ marginTop: '50px' }}>
+    {result && (
+        <table className="table table-striped table-hover table-bordered">
+            <thead className="table-dark">
+                <tr>
+                    <th>ISAN</th>
+                    <th>Rating</th>
+                    <th>Genre</th>
+                    <th>Preis</th>
+                    <th>Rabatt</th>
+                    <th>Lieferbar</th>
+                    <th>Datum</th>
+                    <th>Homepage</th>
+                    <th>Schlagwörter</th>
+                </tr>
+            </thead>
+            <tbody>
+            {Array.isArray(result) ? result.map((film) => (
+                <Film 
+                  key={film.isan} 
+                  isan={film.isan} 
+                  rating={film.rating} 
+                  genre={film.genre} 
+                  preis={film.preis}
+                  rabatt={film.rabatt}
+                  lieferbar={film.lieferbar}
+                  datum={film.datum}
+                  homepage={film.homepage}
+                  schlagwoerter={film.schlagwoerter}
+                />
+            )): (
+                result ? (
+                <Film 
+                key={result.isan} 
+                isan={result.isan} 
+                rating={result.rating} 
+                genre={result.genre} 
+                preis={result.preis}
+                rabatt={result.rabatt}
+                lieferbar={result.lieferbar}
+                datum={result.datum}
+                homepage={result.homepage}
+                schlagwoerter={result.schlagwoerter}
+            />
+                ) : null
+        )}
+            </tbody>
+        </table>
+    )}
+    {error && <p>{error}</p>}
+    </div>
+    </div>
     );
 }
 
