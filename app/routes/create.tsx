@@ -5,7 +5,7 @@ import axios from 'axios';
 import { https, host, port, rest } from '~/constants';
 
 
-const CreateMoviePage: React.FC = () => {
+const CreatePage: React.FC = () => {
     const [isan, setISAN] = useState('');
     const [rating, setRating] = useState<number>(0);
     const [genre, setGenre] = useState('');
@@ -188,4 +188,18 @@ const CreateMoviePage: React.FC = () => {
     );
 };
 
-export default CreateMoviePage;
+function withAuth(Component: React.ComponentType) {
+    return function ProtectedRoute(props: any) {
+      const navigate = useNavigate();
+      const token = localStorage.getItem('authToken');
+  
+      if (!token) {
+        navigate('/');
+        return null;
+      }
+      return <Component {...props} />;
+    };
+  }
+  
+  const ProtectedCreatePage = withAuth(CreatePage);
+  export default ProtectedCreatePage;
