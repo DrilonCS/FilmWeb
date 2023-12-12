@@ -7,7 +7,7 @@ import { type FilmProps, Film } from '~/Components/film';
 
 function SearchPage() {
     const [id, setId] = useState('');
-    const [result, setResult] = useState<FilmProps | FilmProps[] | null>([]);
+    const [result, setResult] = useState<FilmProps | FilmProps[] | null>(null);
     const [error, setError] = useState<string | null>(null);
 
     const navigate = useNavigate();
@@ -19,12 +19,17 @@ function SearchPage() {
     const handleGetId = () => {
         axios.get(`${https}${host}${port}${rest}${id}`)
              .then(response => {
-               setResult(response.data);
-               setError(null);
+               if (response.data._embedded) {
+                throw new Error('Type in an Id')
+               } else {
+                setResult(response.data);
+                setError(null);
+               }
             })
              .catch(err => {
-               setError('Failed to fetch data');
-               setResult(null);
+                setError(err.message);
+                setTimeout(() => setError(null), 5000);
+                setResult(null);
             });
     };
 

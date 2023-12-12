@@ -21,7 +21,7 @@ export const Film: React.FC<FilmProps> = ({ isan, rating, genre, preis, rabatt, 
     <td>{lieferbar}</td>
     <td>{datum}</td>
     <td>{homepage}</td>
-    <td>{schlagwoerter.join(', ')}</td>
+    <td>{schlagwoerter ? schlagwoerter.join(', ') : ''}</td>
     </tr>
     );
   };
