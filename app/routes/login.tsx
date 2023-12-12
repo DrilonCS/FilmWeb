@@ -22,7 +22,15 @@ export default function LoginPage() {
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
-    setIsLoggedIn(!!token);
+    const expiresAt = localStorage.getItem('expiresAt');
+    if (token && expiresAt && new Date().getTime() > Number(expiresAt)) {
+      setIsLoggedIn(false);
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('expiresAt');
+    } else {
+      setIsLoggedIn(!!token);
+    }
+
   }, []);
 
   const loginUser = async (username: string, password: string) => {
@@ -34,17 +42,19 @@ export default function LoginPage() {
       `username=${username}&password=${password}`,
       { headers },
     );
-    return response.data.token;
+    return response.data;
   };
 
   const handleSubmit = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
 
     loginUser(username, password)
-    .then(token => {
-      if (token) {
+    .then(data => {
+      if (data && data.token) {
         setIsLoggedIn(true);
-        localStorage.setItem('authToken', token);
+        localStorage.setItem('authToken', data.token);
+        const expiresAt = new Date().getTime() + data.expiresIn * 1000;
+        localStorage.setItem('expiresAt', expiresAt.toString());
       }
     })
     .catch(error => {
