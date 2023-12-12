@@ -100,8 +100,8 @@ function SearchPage() {
             </div>
             <div style={{ marginTop: '50px' }}>
     {result && (
-        <table className="table table-bordered">
-            <thead>
+        <table className="table table-striped table-hover table-bordered">
+            <thead className="table-dark">
                 <tr>
                     <th>ISAN</th>
                     <th>Rating</th>
