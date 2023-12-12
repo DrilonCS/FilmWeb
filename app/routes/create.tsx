@@ -41,10 +41,7 @@ const CreatePage: React.FC = () => {
     };
 
     const handleRabattChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = parseFloat(event.target.value) / 100;
-        if (!isNaN(value) && value >= 0 && value <= 1) {
-            setRabatt(value);
-        }
+        setRabatt(parseFloat(event.target.value));
     };
 
     const handleLieferbarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,6 +99,7 @@ const CreatePage: React.FC = () => {
              })
             .catch(error => {
                 setError(error.message);
+                console.log(error);
              });
     };
 
@@ -168,7 +166,7 @@ const CreatePage: React.FC = () => {
                 </div>
                 <div className="form-group">
                     <label>Rabatt:</label>
-                    <input type="text" className="form-control" value={Number(rabatt)} onChange={handleRabattChange} />
+                    <input type="number" step="0.01" className="form-control" value={rabatt} onChange={handleRabattChange} />
                 </div>
                 <div className="form-group">
                     <label>Lieferbar:</label>
