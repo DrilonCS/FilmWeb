@@ -7,7 +7,7 @@ import { https, host, port, rest } from '~/constants';
 const CreatePage: React.FC = () => {
     const [isan, setISAN] = useState('');
     const [rating, setRating] = useState<number>(0);
-    const [genre, setGenre] = useState('');
+    const [genre, setGenre] = useState<string | undefined>('');
     const [preis, setPreis] = useState<number | ''>('');
     const [rabatt, setRabatt] = useState<number>(0);
     const [lieferbar, setLieferbar] = useState<boolean>(false);
@@ -18,6 +18,7 @@ const CreatePage: React.FC = () => {
     const [untertitel, setUntertitel] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
     const [result, setResult] = useState<string | null>(null);
+    const [errors, setErrors] = useState<Record<string, string>>({});
 
     const navigate = useNavigate();
     const navigateToIndex = () => {
@@ -97,10 +98,22 @@ const CreatePage: React.FC = () => {
             .then(response => {
                 setResult(response.data);
              })
-            .catch(error => {
-                setError(error.message);
-                console.log(error);
-             });
+             .catch(error => {
+                if (error.response && error.response.data && Array.isArray(error.response.data.message)) {
+                    const newErrors: Record<string, string> = {};
+                    const properties = ['isan', 'genre', 'preis', 'rabatt', 'lieferbar', 'datum', 'homepage', 'schlagwoerter', 'titel']; 
+                    error.response.data.message.forEach((message: string) => {
+                        properties.forEach(property => {
+                            if (message.toLowerCase().includes(property)) {
+                                newErrors[property] = message;
+                            }
+                        });
+                    });
+                    setErrors(newErrors);
+                } else {
+                    setError(error.message);
+                }
+            });
     };
 
     useEffect(() => {
@@ -131,6 +144,7 @@ const CreatePage: React.FC = () => {
                 <div className="form-group">
                     <label>ISAN:</label>
                     <input type="text" className="form-control" value={isan} onChange={handleISANChange} />
+                    {errors['isan'] && <p className="error">{errors['isan']}</p>}
                 </div>
                 <div className="form-group">
                     <label>Rating:</label>
@@ -159,14 +173,17 @@ const CreatePage: React.FC = () => {
                         <option value="FANTASY">FANTASY</option>
                         <option value="SCIENCEFICTION">SCIENCEFICTION</option>
                     </select>
+                    {errors['genre'] && <p className="error">{errors['genre']}</p>}
                 </div>
                 <div className="form-group">
                     <label>Preis:</label>
                     <input type="number" step="0.01" className="form-control" value={preis} onChange={handlePreisChange} />
+                    {errors['preis'] && <p className="error">{errors['preis']}</p>}
                 </div>
                 <div className="form-group">
                     <label>Rabatt:</label>
                     <input type="number" step="0.01" className="form-control" value={rabatt} onChange={handleRabattChange} />
+                    {errors['rabatt'] && <p className="error">{errors['rabatt']}</p>}
                 </div>
                 <div className="form-group">
                     <label>Lieferbar:</label>
@@ -185,22 +202,27 @@ const CreatePage: React.FC = () => {
                             </div>
                     ))}
                     </div>
+                    {errors['lieferbar'] && <p className="error">{errors['lieferbar']}</p>}
                 </div>
                 <div className="form-group">
                     <label>Datum:</label>
                     <input type="text" className="form-control" value={datum} onChange={handleDatumChange} />
+                    {errors['datum'] && <p className="error">{errors['datum']}</p>}
                 </div>
                 <div className="form-group">
                     <label>Homepage:</label>
                     <input type="text" className="form-control" value={homepage} onChange={handleHomepageChange} />
+                    {errors['homepage'] && <p className="error">{errors['homepage']}</p>}
                 </div>
                 <div className="form-group">
                     <label>Schlagwörter:</label>
                     <input type="text" className="form-control" value={schlagwoerter} onChange={handleSchlagwoerterChange} />
+                    {errors['schlagwoerter'] && <p className="error">{errors['schlagwoerter']}</p>}
                 </div>
                 <div className="form-group">
                     <label>Titel:</label>
                     <input type="text" className="form-control" value={titel} onChange={handleTitelChange}></input>
+                    {errors['titel'] && <p className="error">{errors['titel']}</p>}
                 </div>
                 <div className="form-group">
                     <label>Untertitel:</label>
