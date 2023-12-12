@@ -39,7 +39,7 @@ function SearchPage() {
         axios.get(`${https}${host}${port}${rest}${id}`)
              .then(response => {
                if (response.data._embedded) {
-                throw new Error('Type in an Id')
+                throw new Error('Type in an ID')
                } else {
                 setResult(response.data);
                 setError(null);
