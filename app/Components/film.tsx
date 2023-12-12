@@ -18,7 +18,7 @@ export const Film: React.FC<FilmProps> = ({ isan, rating, genre, preis, rabatt, 
     <td>{genre}</td>
     <td>{preis}</td>
     <td>{rabatt}</td>
-    <td>{lieferbar}</td>
+    <td>{lieferbar ? 'Ja' : 'Nein'}</td>
     <td>{datum}</td>
     <td>{homepage}</td>
     <td>{schlagwoerter ? schlagwoerter.join(', ') : ''}</td>

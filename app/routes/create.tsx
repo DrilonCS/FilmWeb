@@ -4,17 +4,20 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { https, host, port, rest } from '~/constants';
 
-
 const CreatePage: React.FC = () => {
     const [isan, setISAN] = useState('');
     const [rating, setRating] = useState<number>(0);
     const [genre, setGenre] = useState('');
-    const [preis, setPreis] = useState('');
-    const [rabatt, setRabatt] = useState('');
-    const [lieferbar, setLieferbar] = useState('');
+    const [preis, setPreis] = useState<number | ''>('');
+    const [rabatt, setRabatt] = useState<number>(0);
+    const [lieferbar, setLieferbar] = useState<boolean>(false);
     const [datum, setDatum] = useState('');
     const [homepage, setHomepage] = useState('');
-    const [schlagwoerter, setSchlagwoerter] = useState('');
+    const [schlagwoerter, setSchlagwoerter] = useState<string[]>([]);
+    const [titel, setTitel] = useState<string>('');
+    const [untertitel, setUntertitel] = useState<string>('');
+    const [error, setError] = useState<string | null>(null);
+    const [result, setResult] = useState<string | null>(null);
 
     const navigate = useNavigate();
     const navigateToIndex = () => {
@@ -34,15 +37,18 @@ const CreatePage: React.FC = () => {
     };
 
     const handlePreisChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPreis(event.target.value);
-    }
+        setPreis(parseFloat(event.target.value));
+    };
 
     const handleRabattChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRabatt(event.target.value);
-    }
+        const value = parseFloat(event.target.value) / 100;
+        if (!isNaN(value) && value >= 0 && value <= 1) {
+            setRabatt(value);
+        }
+    };
 
     const handleLieferbarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setLieferbar(event.target.value);
+        setLieferbar(event.target.value === 'true');
     }
 
     const handleDatumChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +60,16 @@ const CreatePage: React.FC = () => {
     }
 
     const handleSchlagwoerterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSchlagwoerter(event.target.value);
+        const value = event.target.value.split(',').map(s => s.trim());
+        setSchlagwoerter([...new Set(value)]);
+    };
+
+    const handleTitelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setTitel(event.target.value);
+    }
+
+    const handleUntertitelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setUntertitel(event.target.value);
     }
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -70,14 +85,23 @@ const CreatePage: React.FC = () => {
             datum,
             homepage,
             schlagwoerter,
+            titel: {
+                titel,
+                untertitel,
+            }
         };
 
-        axios.post(`${https}${host}${port}${rest}`, film)
-             .then(response => {
-                console.log(response);
+        const headers: Record<string, string> = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+        }
+
+        axios.post(`${https}${host}${port}${rest}`, film, { headers })
+            .then(response => {
+                setResult(response.data);
              })
-             .catch(error => {
-                console.log(error);
+            .catch(error => {
+                setError(error.message);
              });
     };
 
@@ -101,9 +125,10 @@ const CreatePage: React.FC = () => {
             minHeight: '100vh', 
             padding: '20px',
             boxSizing: 'border-box',
-            marginTop: '60px' // Oberer Rand des Containers
+            marginTop: '60px',
         }}>
             <h1>Create Movie</h1>
+            {error && <p>Error: {error}</p>}
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>ISAN:</label>
@@ -131,34 +156,34 @@ const CreatePage: React.FC = () => {
                     <label>Genre:</label>
                     <select className="form-control" value={genre} onChange={handleGenreChange}>
                         <option value="">Select Genre</option>
-                        <option value="Action">ACTION</option>
-                        <option value="Horror">HORROR</option>
-                        <option value="Fantasy">FANTASY</option>
-                        <option value="Sciencefiction">SCIENCEFICTION</option>
+                        <option value="ACTION">ACTION</option>
+                        <option value="HORROR">HORROR</option>
+                        <option value="FANTASY">FANTASY</option>
+                        <option value="SCIENCEFICTION">SCIENCEFICTION</option>
                     </select>
                 </div>
-                <div className="from-group">
+                <div className="form-group">
                     <label>Preis:</label>
-                    <input type="text" className="form-control" value={preis} onChange={handlePreisChange} />
+                    <input type="number" className="form-control" value={preis} onChange={handlePreisChange} />
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Rabatt:</label>
-                    <input type="text" className="form-control" value={rabatt} onChange={handleRabattChange} />
+                    <input type="text" className="form-control" value={Number(rabatt)} onChange={handleRabattChange} />
                 </div>
                 <div className="form-group">
                     <label>Lieferbar:</label>
                     <div style={{ display: 'flex', justifyContent: 'flex-start'}}>
-                        {['Ja', 'Nein'].map((value) => (
+                        {['true', 'false'].map((value) => (
                             <div key={value} style={{ marginRight: '15px' }}>
                                 <input
                                 type="radio"
                                 id={`lieferbar-${value}`}
                                 name="lieferbar"
                                 value={value}
-                                checked={lieferbar === value}
+                                checked={lieferbar.toString() === value}
                                 onChange={handleLieferbarChange}
                                 />
-                                <label htmlFor={`lieferbar-${value}`}>{value}</label>
+                                <label htmlFor={`lieferbar-${value}`}>{value === 'true' ? 'Ja' : 'Nein'}</label>
                             </div>
                     ))}
                     </div>
@@ -175,8 +200,17 @@ const CreatePage: React.FC = () => {
                     <label>Schlagwörter:</label>
                     <input type="text" className="form-control" value={schlagwoerter} onChange={handleSchlagwoerterChange} />
                 </div>
+                <div className="form-group">
+                    <label>Titel:</label>
+                    <input type="text" className="form-control" value={titel} onChange={handleTitelChange}></input>
+                </div>
+                <div className="form-group">
+                    <label>Untertitel:</label>
+                    <input type="text" className="form-control" value={untertitel} onChange={handleUntertitelChange}></input>
+                </div>
                 <button type="submit" className="btn btn-primary" style={{ marginTop: '20px' }}>Create</button>
             </form>
+            {result && <p>Result: {JSON.stringify(result)}</p>}
             <div style={{ 
             position: 'absolute', 
             top: '10px', 
