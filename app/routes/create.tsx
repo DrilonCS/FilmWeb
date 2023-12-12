@@ -131,9 +131,9 @@ const CreateMoviePage: React.FC = () => {
                     <label>Genre:</label>
                     <select className="form-control" value={genre} onChange={handleGenreChange}>
                         <option value="">Select Genre</option>
-                        <option value="Action">FANTASY</option>
-                        <option value="Comedy">HORROR</option>
-                        <option value="Drama">ACTION</option>
+                        <option value="Action">ACTION</option>
+                        <option value="Horror">HORROR</option>
+                        <option value="Fantasy">FANTASY</option>
                         <option value="Sciencefiction">SCIENCEFICTION</option>
                     </select>
                 </div>
@@ -175,13 +175,13 @@ const CreateMoviePage: React.FC = () => {
                     <label>Schlagwörter:</label>
                     <input type="text" className="form-control" value={schlagwoerter} onChange={handleSchlagwoerterChange} />
                 </div>
-                <button type="submit" className="btn btn-primary">Create</button>
+                <button type="submit" className="btn btn-primary" style={{ marginTop: '20px' }}>Create</button>
             </form>
             <div style={{ 
             position: 'absolute', 
             top: '10px', 
             left: '10px'
-        }}>
+            }}>
             <button onClick={navigateToIndex} className="btn btn-primary">Zurück zur Startseite</button>
             </div>
         </div>
