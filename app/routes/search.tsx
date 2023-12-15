@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { https, host, port, rest } from '../constants';
 import { useNavigate } from 'react-router-dom';
-import { type FilmProps, Film } from '~/Components/film';
+import { type BuchProps, Buch } from '~/Components/buch';
 
 
 function SearchPage() {
     const [id, setId] = useState('');
-    const [genre, setGenre] = useState('');
-    const [result, setResult] = useState<FilmProps | FilmProps[] | null>(null);
+    const [art, setArt] = useState('');
+    const [result, setResult] = useState<BuchProps | BuchProps[] | null>(null);
     const [error, setError] = useState<string | null>(null);
 
     const navigate = useNavigate();
@@ -18,14 +18,14 @@ function SearchPage() {
       };
 
 
-      const handleGetByGenre = () => {
-        axios.get(`${https}${host}${port}${rest}?genre=${genre}`)
+      const handleGetByArt = () => {
+        axios.get(`${https}${host}${port}${rest}?art=${art}`)
              .then(response => {
                if (response.data._embedded) {
-                setResult(response.data._embedded.filme);
+                setResult(response.data._embedded.buecher);
                 setError(null);
                } else {
-                throw new Error('No films found for this genre')
+                throw new Error('Keine Buecher dieser Art vorhanden')
                }
             })
              .catch(err => {
@@ -52,22 +52,22 @@ function SearchPage() {
             });
     };
 
-    const handleGetAllFilms = () => {
+    const handleGetAllBuecher = () => {
         axios.get(`${https}${host}${port}${rest}`)
         .then(response => {
-            const filmsData = response.data._embedded.filme.map((film: any) => ({
-                isan: film.isan,
-                rating: film.rating,
-                genre: film.genre,
-                preis: film.preis,
-                rabatt: film.rabatt,
-                lieferbar: film.lieferbar,
-                datum: film.datum,
-                homepage: film.homepage,
-                schlagwoerter: film.schlagwoerter,
+            const buecherData = response.data._embedded.buecher.map((buch: any) => ({
+                isbn: buch.isbn,
+                rating: buch.rating,
+                art: buch.art,
+                preis: buch.preis,
+                rabatt: buch.rabatt,
+                lieferbar: buch.lieferbar,
+                datum: buch.datum,
+                homepage: buch.homepage,
+                schlagwoerter: buch.schlagwoerter,
             }))
             setError(null);
-            setResult(filmsData);
+            setResult(buecherData);
         })
         .catch(err => {
             setError('Failed to fetch data');
@@ -85,10 +85,10 @@ function SearchPage() {
             </div>
             <div className="d-flex justify-content-center mt-3">
                 <button onClick={handleGetId} className="btn btn-primary ms-3">Suche mit ID</button>
-                <button onClick={handleGetAllFilms} className="btn btn-primary ms-3">Suche alle Filme</button>
-                <button onClick={handleGetByGenre} className="btn btn-primary ms-3">Suche nach Genre</button>
-                <select value={genre} onChange={(e) => setGenre(e.target.value)} className="form-select ms-3" style={{ width: '200px' }}>
-                    <option value="">Select Genre</option>
+                <button onClick={handleGetAllBuecher} className="btn btn-primary ms-3">Suche alle Buecher</button>
+                <button onClick={handleGetByArt} className="btn btn-primary ms-3">Suche nach Art</button>
+                <select value={art} onChange={(e) => setArt(e.target.value)} className="form-select ms-3" style={{ width: '200px' }}>
+                    <option value="">Select Art</option>
                     <option value="ACTION">Action</option>
                     <option value="HORROR">Horror</option>
                     <option value="FANTASY">Fantasy</option>
@@ -103,9 +103,9 @@ function SearchPage() {
         <table className="table table-striped table-hover table-bordered">
             <thead className="table-dark">
                 <tr>
-                    <th>ISAN</th>
+                    <th>ISBN</th>
                     <th>Rating</th>
-                    <th>Genre</th>
+                    <th>Art</th>
                     <th>Preis</th>
                     <th>Rabatt</th>
                     <th>Lieferbar</th>
@@ -115,26 +115,26 @@ function SearchPage() {
                 </tr>
             </thead>
             <tbody>
-            {Array.isArray(result) ? result.map((film) => (
-                <Film 
-                  key={film.isan} 
-                  isan={film.isan} 
-                  rating={film.rating} 
-                  genre={film.genre} 
-                  preis={film.preis}
-                  rabatt={film.rabatt}
-                  lieferbar={film.lieferbar}
-                  datum={film.datum}
-                  homepage={film.homepage}
-                  schlagwoerter={film.schlagwoerter}
+            {Array.isArray(result) ? result.map((buch) => (
+                <Buch 
+                  key={buch.isbn} 
+                  isbn={buch.isbn} 
+                  rating={buch.rating} 
+                  art={buch.art} 
+                  preis={buch.preis}
+                  rabatt={buch.rabatt}
+                  lieferbar={buch.lieferbar}
+                  datum={buch.datum}
+                  homepage={buch.homepage}
+                  schlagwoerter={buch.schlagwoerter}
                 />
             )): (
                 result ? (
-                <Film 
-                key={result.isan} 
-                isan={result.isan} 
+                <Buch 
+                key={result.isbn} 
+                isbn={result.isbn} 
                 rating={result.rating} 
-                genre={result.genre} 
+                art={result.art} 
                 preis={result.preis}
                 rabatt={result.rabatt}
                 lieferbar={result.lieferbar}

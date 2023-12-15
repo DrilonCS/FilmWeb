@@ -1,7 +1,7 @@
-export interface FilmProps {
-    isan: string;
+export interface BuchProps {
+    isbn: string;
     rating: number;
-    genre: string;
+    art: string;
     preis: number;
     rabatt: number;
     lieferbar: boolean;
@@ -10,12 +10,12 @@ export interface FilmProps {
     schlagwoerter: string[];
   }
 
-export const Film: React.FC<FilmProps> = ({ isan, rating, genre, preis, rabatt, lieferbar, datum, homepage, schlagwoerter }) => {
+export const Buch: React.FC<BuchProps> = ({ isbn, rating, art, preis, rabatt, lieferbar, datum, homepage, schlagwoerter }) => {
   return (
   <tr>
-    <td>{isan}</td>
+    <td>{isbn}</td>
     <td>{rating}</td>
-    <td>{genre}</td>
+    <td>{art}</td>
     <td>{preis}</td>
     <td>{rabatt}</td>
     <td>{lieferbar ? 'Ja' : 'Nein'}</td>

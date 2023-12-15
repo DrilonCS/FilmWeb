@@ -5,9 +5,9 @@ import axios from 'axios';
 import { https, host, port, rest } from '~/constants';
 
 const CreatePage: React.FC = () => {
-    const [isan, setISAN] = useState('');
+    const [isbn, setISBN] = useState('');
     const [rating, setRating] = useState<number>(0);
-    const [genre, setGenre] = useState<string | undefined>('');
+    const [art, setArt] = useState<string | undefined>('');
     const [preis, setPreis] = useState<number | ''>('');
     const [rabatt, setRabatt] = useState<number>(0);
     const [lieferbar, setLieferbar] = useState<boolean>(false);
@@ -25,16 +25,16 @@ const CreatePage: React.FC = () => {
         navigate('/');
     };
 
-    const handleISANChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setISAN(event.target.value);
+    const handleISBNChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setISBN(event.target.value);
     };
 
     const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRating(Number(event.target.value));
     }
 
-    const handleGenreChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setGenre(event.target.value);
+    const handleArtChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setArt(event.target.value);
     };
 
     const handlePreisChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,10 +73,10 @@ const CreatePage: React.FC = () => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const film = {
-            isan,
+        const buch = {
+            isbn,
             rating,
-            genre,
+            art,
             preis,
             rabatt,
             lieferbar,
@@ -94,14 +94,14 @@ const CreatePage: React.FC = () => {
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
         }
 
-        axios.post(`${https}${host}${port}${rest}`, film, { headers })
+        axios.post(`${https}${host}${port}${rest}`, buch, { headers })
             .then(response => {
                 setResult(response.data);
              })
              .catch(error => {
                 if (error.response && error.response.data && Array.isArray(error.response.data.message)) {
                     const newErrors: Record<string, string> = {};
-                    const properties = ['isan', 'genre', 'preis', 'rabatt', 'lieferbar', 'datum', 'homepage', 'schlagwoerter', 'titel']; 
+                    const properties = ['isbn', 'art', 'preis', 'rabatt', 'lieferbar', 'datum', 'homepage', 'schlagwoerter', 'titel']; 
                     error.response.data.message.forEach((message: string) => {
                         properties.forEach(property => {
                             if (message.toLowerCase().includes(property)) {
@@ -138,13 +138,13 @@ const CreatePage: React.FC = () => {
             boxSizing: 'border-box',
             marginTop: '60px',
         }}>
-            <h1>Create Movie</h1>
+            <h1>Buch anlegen </h1>
             {error && <p>Error: {error}</p>}
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label>ISAN:</label>
-                    <input type="text" className="form-control" value={isan} onChange={handleISANChange} />
-                    {errors['isan'] && <p className="error">{errors['isan']}</p>}
+                    <label>ISBN:</label>
+                    <input type="text" className="form-control" value={isbn} onChange={handleISBNChange} />
+                    {errors['isbn'] && <p className="error">{errors['isbn']}</p>}
                 </div>
                 <div className="form-group">
                     <label>Rating:</label>
@@ -165,15 +165,15 @@ const CreatePage: React.FC = () => {
                     </div>
                 </div>
                 <div className="form-group">
-                    <label>Genre:</label>
-                    <select className="form-control" value={genre} onChange={handleGenreChange}>
-                        <option value="">Select Genre</option>
+                    <label>Art:</label>
+                    <select className="form-control" value={art} onChange={handleArtChange}>
+                        <option value="">Select Art</option>
                         <option value="ACTION">ACTION</option>
                         <option value="HORROR">HORROR</option>
                         <option value="FANTASY">FANTASY</option>
                         <option value="SCIENCEFICTION">SCIENCEFICTION</option>
                     </select>
-                    {errors['genre'] && <p className="error">{errors['genre']}</p>}
+                    {errors['art'] && <p className="error">{errors['art']}</p>}
                 </div>
                 <div className="form-group">
                     <label>Preis:</label>
