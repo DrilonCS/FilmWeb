@@ -89,10 +89,8 @@ function SearchPage() {
                 <button onClick={handleGetByArt} className="btn btn-primary ms-3">Suche nach Art</button>
                 <select value={art} onChange={(e) => setArt(e.target.value)} className="form-select ms-3" style={{ width: '200px' }}>
                     <option value="">Select Art</option>
-                    <option value="ACTION">Action</option>
-                    <option value="HORROR">Horror</option>
-                    <option value="FANTASY">Fantasy</option>
-                    <option value="SCIENCEFICTION">Sciencefiction</option>
+                    <option value="KINDLE">KINDLE</option>
+                    <option value="DRUCKAUSGABE">DRUCKAUSGABE</option>
                 </select>
             </div>
             <div className="d-flex justify-content-center" style={{ marginTop: '30px' }}>

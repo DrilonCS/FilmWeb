@@ -168,10 +168,8 @@ const CreatePage: React.FC = () => {
                     <label>Art:</label>
                     <select className="form-control" value={art} onChange={handleArtChange}>
                         <option value="">Select Art</option>
-                        <option value="ACTION">ACTION</option>
-                        <option value="HORROR">HORROR</option>
-                        <option value="FANTASY">FANTASY</option>
-                        <option value="SCIENCEFICTION">SCIENCEFICTION</option>
+                        <option value="KINDLE">KINDLE</option>
+                        <option value="DRUCKAUSGABE">DRUCKAUSGABE</option>
                     </select>
                     {errors['art'] && <p className="error">{errors['art']}</p>}
                 </div>
