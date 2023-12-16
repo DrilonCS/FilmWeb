@@ -5,7 +5,7 @@ import axios from 'axios';
 import { https, host, port, rest } from '~/constants';
 
 const CreatePage: React.FC = () => {
-    const [isbn, setISBN] = useState('');
+    const [ISBN, setISBN] = useState('');
     const [rating, setRating] = useState<number>(0);
     const [art, setArt] = useState<string | undefined>('');
     const [preis, setPreis] = useState<number | ''>('');
@@ -74,7 +74,7 @@ const CreatePage: React.FC = () => {
         event.preventDefault();
 
         const buch = {
-            isbn,
+            ISBN,
             rating,
             art,
             preis,
@@ -101,7 +101,7 @@ const CreatePage: React.FC = () => {
              .catch(error => {
                 if (error.response && error.response.data && Array.isArray(error.response.data.message)) {
                     const newErrors: Record<string, string> = {};
-                    const properties = ['isbn', 'art', 'preis', 'rabatt', 'lieferbar', 'datum', 'homepage', 'schlagwoerter', 'titel']; 
+                    const properties = ['ISBN', 'art', 'preis', 'rabatt', 'lieferbar', 'datum', 'homepage', 'schlagwoerter', 'titel']; 
                     error.response.data.message.forEach((message: string) => {
                         properties.forEach(property => {
                             if (message.toLowerCase().includes(property)) {
@@ -143,8 +143,8 @@ const CreatePage: React.FC = () => {
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>ISBN:</label>
-                    <input type="text" className="form-control" value={isbn} onChange={handleISBNChange} />
-                    {errors['isbn'] && <p className="error">{errors['isbn']}</p>}
+                    <input type="text" className="form-control" value={ISBN} onChange={handleISBNChange} />
+                    {errors['ISBN'] && <p className="error">{errors['ISBN']}</p>}
                 </div>
                 <div className="form-group">
                     <label>Rating:</label>
