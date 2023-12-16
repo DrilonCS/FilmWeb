@@ -5,7 +5,7 @@ import axios from 'axios';
 import { https, host, port, rest } from '~/constants';
 
 const CreatePage: React.FC = () => {
-    const [ISBN, setISBN] = useState('');
+    const [isbn, setISBN] = useState('');
     const [rating, setRating] = useState<number>(0);
     const [art, setArt] = useState<string | undefined>('');
     const [preis, setPreis] = useState<number | ''>('');
@@ -14,7 +14,7 @@ const CreatePage: React.FC = () => {
     const [datum, setDatum] = useState('');
     const [homepage, setHomepage] = useState('');
     const [schlagwoerter, setSchlagwoerter] = useState<string[]>([]);
-    const [titel, setTitel] = useState<string>('');
+    const [titel, setTitel] = useState('');
     const [untertitel, setUntertitel] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
     const [result, setResult] = useState<string | null>(null);
@@ -61,20 +61,17 @@ const CreatePage: React.FC = () => {
         const value = event.target.value.split(',').map(s => s.trim());
         setSchlagwoerter([...new Set(value)]);
     };
-
     const handleTitelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTitel(event.target.value);
-    }
-
+    };
     const handleUntertitelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUntertitel(event.target.value);
     }
-
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const buch = {
-            ISBN,
+            isbn,
             rating,
             art,
             preis,
@@ -101,7 +98,7 @@ const CreatePage: React.FC = () => {
              .catch(error => {
                 if (error.response && error.response.data && Array.isArray(error.response.data.message)) {
                     const newErrors: Record<string, string> = {};
-                    const properties = ['ISBN', 'art', 'preis', 'rabatt', 'lieferbar', 'datum', 'homepage', 'schlagwoerter', 'titel']; 
+                    const properties = ['isbn', 'art', 'preis', 'rabatt', 'lieferbar', 'datum', 'homepage', 'schlagwoerter','titel']; 
                     error.response.data.message.forEach((message: string) => {
                         properties.forEach(property => {
                             if (message.toLowerCase().includes(property)) {
@@ -143,8 +140,8 @@ const CreatePage: React.FC = () => {
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>ISBN:</label>
-                    <input type="text" className="form-control" value={ISBN} onChange={handleISBNChange} />
-                    {errors['ISBN'] && <p className="error">{errors['ISBN']}</p>}
+                    <input type="text" className="form-control" value={isbn} onChange={handleISBNChange} />
+                    {errors['isbn'] && <p className="error">{errors['isbn']}</p>}
                 </div>
                 <div className="form-group">
                     <label>Rating:</label>
