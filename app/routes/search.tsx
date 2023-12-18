@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { https, host, port, rest } from '../constants';
 import { useNavigate } from 'react-router-dom';
-import { type BuchProps, Buch } from '~/Components/buch';
+import { type BuchProps} from '~/Components/buch';
 
 function SearchPage() {
     const [id, setId] = useState('');
