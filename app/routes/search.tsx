@@ -18,17 +18,24 @@ function SearchPage() {
       };
 
 
-      const handleGetByArt = () => {
+    const handleGetByArt = () => {
+        if (!art) {
+            setError('Keine Art ausgewählt');
+            setTimeout(() => setError(null), 5000);
+            setResult(null);
+            return;
+        }
+
         axios.get(`${https}${host}${port}${rest}?art=${art}`)
-             .then(response => {
-               if (response.data._embedded) {
-                setResult(response.data._embedded.buecher);
-                setError(null);
-               } else {
-                throw new Error('Keine Buecher dieser Art vorhanden')
-               }
+            .then(response => {
+                if (response.data._embedded) {
+                    setResult(response.data._embedded.buecher);
+                    setError(null);
+                } else {
+                    throw new Error('Keine Bücher dieser Art vorhanden');
+                }
             })
-             .catch(err => {
+            .catch(err => {
                 setError(err.message);
                 setTimeout(() => setError(null), 5000);
                 setResult(null);
