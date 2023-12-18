@@ -128,7 +128,7 @@ function SearchPage() {
                                     <td>{buch.art}</td>
                                     <td>{buch.preis}</td>
                                     <td>{buch.rabatt}</td>
-                                    <td>{buch.lieferbar}</td>
+                                    <td>{buch.lieferbar? 'Ja' : 'Nein'}</td>
                                     <td>{buch.datum}</td>
                                     <td>{buch.homepage}</td>
                                     <td>{buch.schlagwoerter}</td>
@@ -144,7 +144,7 @@ function SearchPage() {
                                         <td>{result.art}</td>
                                         <td>{result.preis}</td>
                                         <td>{result.rabatt}</td>
-                                        <td>{result.lieferbar}</td>
+                                        <td>{result.lieferbar? 'Ja' : 'Nein'}</td>
                                         <td>{result.datum}</td>
                                         <td>{result.homepage}</td>
                                         <td>{result.schlagwoerter}</td>
@@ -169,7 +169,7 @@ function SearchPage() {
                         <p>Art: {selectedBuch.art}</p>
                         <p>Preis: {selectedBuch.preis}</p>
                         <p>Rabatt: {selectedBuch.rabatt}</p>
-                        <p>Lieferbar: {selectedBuch.lieferbar}</p>
+                        <p>Lieferbar: {selectedBuch.lieferbar? 'Ja' : 'Nein'}</p>
                         <p>Datum: {selectedBuch.datum}</p>
                         <p>Homepage: {selectedBuch.homepage}</p>
                         <p>Schlagwörter: {selectedBuch.schlagwoerter}</p>
