@@ -71,8 +71,6 @@ function SearchPage() {
                                 <th>Art</th>
                                 <th>Preis</th>
                                 <th>Rabatt</th>
-                                <th>Homepage</th>
-                                <th>Schlagwörter</th>
                                 <th>Details</th> 
                             </tr>
                         </thead>
@@ -82,10 +80,8 @@ function SearchPage() {
                                     <td>{buch.titel.titel}</td>
                                     <td>{buch.rating}</td>
                                     <td>{buch.art}</td>
-                                    <td>{buch.preis}</td>
+                                    <td>{buch.preis} €</td>
                                     <td>{buch.rabatt}</td>
-                                    <td>{buch.homepage}</td>
-                                    <td>{buch.schlagwoerter ? buch.schlagwoerter.join(', ') : ''}</td>
                                     <td>
                                         <button onClick={() => handleShowDetails(buch)} className="btn btn-primary">Details</button> 
                                     </td>
@@ -96,10 +92,8 @@ function SearchPage() {
                                         <td>{result.titel.titel}</td>
                                         <td>{result.rating}</td>
                                         <td>{result.art}</td>
-                                        <td>{result.preis}</td>
+                                        <td>{result.preis} €</td>
                                         <td>{result.rabatt}</td>
-                                        <td>{result.homepage}</td>
-                                        <td>{result.schlagwoerter}</td>
                                         <td>
                                             <button onClick={() => handleShowDetails(result)} className="btn btn-primary">Details</button> 
                                         </td>
