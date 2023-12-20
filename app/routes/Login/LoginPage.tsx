@@ -2,7 +2,11 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from '@remix-run/react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { https, host, login, port} from '../constants';
+import { https, host, login, port} from '../../constants';
+import logo from './log.png';
+import { LoginForm } from './LoginForm';
+import { UserActions } from './UserActions';
+import { Footer } from './Footer';
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -71,50 +75,32 @@ export default function LoginPage() {
     setIsLoggedIn(false);
     localStorage.removeItem('authToken');
   };
-
+  
   return (
     <div className="container">
-      <header className="d-flex flex-column align-items-center justify-content-center py-3 mb-5">
+      <header className="d-flex flex-column align-items-center justify-content-center py-3 mb-5 border-bottom">
         {!isLoggedIn && (
-          <form onSubmit={handleSubmit} className="d-flex align-items-start">
-            <h1 style={{ fontSize: '3em' }} className="me-5 mb-3 ms-3 mt-3">Login:</h1>
-            <div style={{ position: 'relative' }} className="mb-3 me-3">
-              <label className="form-label">Username:</label>
-              <input type="text" className="form-control" value={username} onChange={(e) => setUsername(e.target.value)} />
-              {errorMessage && <p style={{ position: 'absolute', color: 'red' }}>{errorMessage}</p>}
-            </div>
-            <div style={{ position: 'relative' }} className="mb-3 me-3">
-              <label className="form-label">Password:</label>
-              <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} />
-              {errorMessage && <p style={{ position: 'absolute', color: 'red' }}>{errorMessage}</p>}
-            </div>
-            <button type="submit" className="btn btn-primary ms-3 mt-4">Anmelden</button>
-          </form>
+          <LoginForm 
+            username={username} 
+            password={password} 
+            errorMessage={errorMessage} 
+            setUsername={setUsername} 
+            setPassword={setPassword} 
+            handleSubmit={handleSubmit} 
+          />
         )}
         {isLoggedIn && (
-          <>
-            <div className="d-flex justify-content-between">
-              <div>
-                <button onClick={handleLogout} style={{ backgroundColor: '#ff4f4f' }} className="btn btn-secondary">Logout</button>
-                <button onClick={navigateToSearch} className="btn btn-primary ms-5">Suchen</button>
-                <button onClick={navigateToCreate} className="btn btn-primary ms-5">Erstellen</button>
-              </div>
-              
-            </div>
-          </>
+          <UserActions 
+            handleLogout={handleLogout} 
+            navigateToSearch={navigateToSearch} 
+            navigateToCreate={navigateToCreate} 
+          />
         )}
       </header>
-      <div className="d-flex justify-content-center mt-5">
-        <div>
-          <p>Authors:
-            <a href="mailto:j.drilon99@gmail.com">Drilon</a>,
-            <a href="mailto:t.demir128@gmail.com">Tekin</a>,
-            <a href="mailto:mazlum.solmaz01@outlook.de">Mazlum</a>,
-            <a href="mailto:achim@seelhorst.net">Achim</a>
-          </p>
-          <p>SWE Projekt bei Prof. Jürgen Zimmermann</p>
-        </div>
-      </div>
+      <main className="d-flex justify-content-center mt-5">
+        <img src={logo} alt="Logo" className="login-logo" />
+      </main>
+      <Footer />
     </div>
   );
 }
