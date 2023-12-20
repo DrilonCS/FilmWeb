@@ -1,0 +1,15 @@
+@startuml
+state "SearchPage Komponente" as SearchPage {
+  state "Initial" as Initial
+  state "Suchergebnisse anzeigen" as ShowResults
+  state "Fehler anzeigen" as ShowError
+
+  [*] --> Initial
+  Initial --> ShowResults : Suche erfolgreich
+  Initial --> ShowError : Suche fehlgeschlagen
+  ShowResults --> ShowError : Neue Suche fehlgeschlagen
+  ShowError --> ShowResults : Neue Suche erfolgreich
+  ShowError --> Initial : Fehlermeldung ausgeblendet
+}
+
+@enduml

@@ -1,0 +1,30 @@
+@startuml
+skinparam actor {
+    BackgroundColor LightSkyBlue
+    BorderColor Black
+}
+skinparam entity {
+    BackgroundColor LightYellow
+    BorderColor Black
+}
+
+actor Benutzer
+entity "CreatePage Komponente" as CreatePage
+
+note right of Benutzer: Benutzer lädt die Seite
+Benutzer -> CreatePage : Seite laden
+CreatePage -> CreatePage : Initialisiere Zustände
+note right of CreatePage: Formular wird angezeigt
+CreatePage -> Benutzer : Zeige Formular
+
+note right of Benutzer: Benutzer gibt Daten ein
+Benutzer -> CreatePage : Daten eingeben
+CreatePage -> CreatePage : Aktualisiere Zustände
+
+note right of Benutzer: Benutzer sendet Formular ab
+Benutzer -> CreatePage : Formular absenden
+CreatePage -> CreatePage : Verarbeite Formulardaten
+note right of CreatePage: Ergebnis oder Fehler wird angezeigt
+CreatePage -> Benutzer : Zeige Ergebnis oder Fehler
+
+@enduml

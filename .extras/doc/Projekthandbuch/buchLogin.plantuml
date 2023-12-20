@@ -1,0 +1,14 @@
+@startuml
+state "Login Komponente" as Login {
+  state "Initial" as Initial
+  state "Eingeloggt" as LoggedIn
+  state "Fehler" as Error
+
+  [*] --> Initial
+  Initial --> LoggedIn : Login erfolgreich
+  Initial --> Error : Login fehlgeschlagen
+  LoggedIn --> Initial : Logout
+  Error --> Initial : Korrigierte Daten eingegeben
+}
+
+@enduml
