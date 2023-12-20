@@ -59,7 +59,7 @@ function SearchPage() {
             </div>
             <div style={{ marginTop: '50px' }}>
                 {result && (
-                    <table className="table table-striped table-hover table-bordered">
+                    <table className="table table-striped table-hover table-bordered" style={{ border: '5px solid blue' }}>
                         <thead className="table-dark">
                             <tr>
                                 <th>ISBN</th>
