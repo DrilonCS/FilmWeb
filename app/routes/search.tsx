@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-
+import { useApi }from '~/hooks/useApi';
 import { https, host, port, rest } from '../constants';
 import { useNavigate } from 'react-router-dom';
 import { type BuchProps} from '~/components/buch';
@@ -8,8 +7,7 @@ import { type BuchProps} from '~/components/buch';
 function SearchPage() {
     const [id, setId] = useState('');
     const [art, setArt] = useState('');
-    const [result, setResult] = useState<BuchProps | BuchProps[] | null>(null);
-    const [error, setError] = useState<string | null>(null);
+    const { data: result, error, request: search } = useApi(`${https}${host}${port}${rest}`);
     const [selectedBuch, setSelectedBuch] = useState<BuchProps | null>(null); // Added state for selected book
 
     const navigate = useNavigate();
@@ -19,51 +17,16 @@ function SearchPage() {
     };
 
     const handleGetByArt = () => {
-        axios.get(`${https}${host}${port}${rest}?art=${art}`)
-            .then(response => {
-                if (response.data._embedded) {
-                    setResult(response.data._embedded.buecher);
-                    setError(null);
-                } else {
-                    throw new Error('Keine Buecher dieser Art vorhanden')
-                }
-            })
-            .catch(err => {
-                setError(err.message);
-                setTimeout(() => setError(null), 5000);
-                setResult(null);
-            });
-    };
-
-    const handleGetId = () => {
-        axios.get(`${https}${host}${port}${rest}${id}`)
-            .then(response => {
-                if (response.data._embedded) {
-                    throw new Error('Type in an ID')
-                } else {
-                    setResult(response.data);
-                    setError(null);
-                }
-            })
-            .catch(err => {
-                setError(err.message);
-                setTimeout(() => setError(null), 5000);
-                setResult(null);
-            });
-    };
-
-    const handleGetAllBuecher = () => {
-        axios.get(`${https}${host}${port}${rest}`)
-            .then(response => {
-                const buecherData = response.data._embedded.buecher;
-                setError(null);
-                setResult(buecherData);
-            })
-            .catch(err => {
-                setError('Failed to fetch data');
-                setResult(null);
-            });
-    };
+        search(`${https}${host}${port}${rest}?art=${art}`);
+      };
+    
+      const handleGetId = () => {
+        search(`${https}${host}${port}${rest}${id}`);
+      };
+    
+      const handleGetAllBuecher = () => {
+        search(`${https}${host}${port}${rest}`);
+      };
 
     const handleShowDetails = (buch: BuchProps) => {
         setSelectedBuch(buch);
