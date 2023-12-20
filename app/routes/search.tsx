@@ -59,9 +59,10 @@ function SearchPage() {
             </div>
             <div style={{ marginTop: '50px' }}>
                 {result && (
-                    <table className="table table-striped table-hover table-bordered" style={{ border: '5px solid blue' }}>
+                    <table className="table table-striped table-hover table-bordered" style={{ border: '2px solid blue' }}>
                         <thead className="table-dark">
                             <tr>
+                                <th>Titel</th>
                                 <th>ISBN</th>
                                 <th>Rating</th>
                                 <th>Art</th>
@@ -77,8 +78,8 @@ function SearchPage() {
                         <tbody>
                             {Array.isArray(result) ? result.map((buch) => (
                                 <tr key={buch.isbn}>
+                                    <td>{buch.titel.titel}</td>
                                     <td>{buch.isbn}</td>
-                                    <td>{buch.titel}</td> 
                                     <td>{buch.rating}</td>
                                     <td>{buch.art}</td>
                                     <td>{buch.preis}</td>
@@ -94,6 +95,7 @@ function SearchPage() {
                             )) : (
                                 result ? (
                                     <tr key={result.isbn}>
+                                        <td>{result.titel.titel}</td>
                                         <td>{result.isbn}</td>
                                         <td>{result.rating}</td>
                                         <td>{result.art}</td>
