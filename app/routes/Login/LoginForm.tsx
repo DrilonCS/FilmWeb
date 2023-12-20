@@ -19,7 +19,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ username, password, errorM
         {errorMessage && <p style={{ position: 'absolute', color: 'red' }}>{errorMessage}</p>}
       </div>
       <div style={{ position: 'relative' }} className="mb-3 me-3">
-        <label className="form-label">Password:</label>
+        <label className="form-label">Passwort:</label>
         <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} />
         {errorMessage && <p style={{ position: 'absolute', color: 'red' }}>{errorMessage}</p>}
       </div>
