@@ -4,7 +4,7 @@ import { useNavigate } from '@remix-run/react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { https, host, login, port} from '../../constants';
 import logo from './log.png';
-import { LoginForm } from './LoginForm';
+import { LoginForm } from './LoginFormComponent';
 import { UserActions } from './UserActions';
 import { Footer } from './Footer';
 
