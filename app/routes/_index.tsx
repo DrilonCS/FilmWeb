@@ -1,7 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import React, { useEffect } from 'react';
-import LoginPage from "./login";
-import log from '../log.png'; // Pfad zur Logo-Datei
+import LoginPage from "./Login/LoginPage";
 
 export const GlobalStyle = createGlobalStyle`
   body {
@@ -11,7 +10,7 @@ export const GlobalStyle = createGlobalStyle`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 20vh;
   }
   .login-logo {
     width: 400px; // Breite des Logos
@@ -44,7 +43,6 @@ export default function Index() {
       <GlobalStyle />
       <LoginPage />
       <div className="center-logo">
-        <img src={log} alt="Login Logo" className="login-logo" />
       </div>
     </>
   );
