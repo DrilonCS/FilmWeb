@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from '@remix-run/react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { https, host, login, port} from '../constants';
+import logo from '../log.png'; // Pfad zum Logo
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -71,10 +72,10 @@ export default function LoginPage() {
     setIsLoggedIn(false);
     localStorage.removeItem('authToken');
   };
-
+  
   return (
     <div className="container">
-      <header className="d-flex flex-column align-items-center justify-content-center py-3 mb-5">
+      <header className="d-flex flex-column align-items-center justify-content-center py-3 mb-5 border-bottom">
         {!isLoggedIn && (
           <form onSubmit={handleSubmit} className="d-flex align-items-start">
             <h1 style={{ fontSize: '3em' }} className="me-5 mb-3 ms-3 mt-3">Login:</h1>
@@ -99,12 +100,14 @@ export default function LoginPage() {
                 <button onClick={navigateToSearch} className="btn btn-primary ms-5">Suchen</button>
                 <button onClick={navigateToCreate} className="btn btn-primary ms-5">Erstellen</button>
               </div>
-              
             </div>
           </>
         )}
       </header>
-      <div className="d-flex justify-content-center mt-5">
+      <main className="d-flex justify-content-center mt-5">
+        <img src={logo} alt="Logo" className="login-logo" />
+      </main>
+      <footer className="d-flex justify-content-center mt-5">
         <div>
           <p>Authors:
             <a href="mailto:j.drilon99@gmail.com">Drilon</a>,
@@ -114,7 +117,7 @@ export default function LoginPage() {
           </p>
           <p>SWE Projekt bei Prof. Jürgen Zimmermann</p>
         </div>
-      </div>
+      </footer>
     </div>
   );
 }
