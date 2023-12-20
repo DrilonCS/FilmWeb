@@ -1,5 +1,6 @@
 export interface BuchProps {
     isbn: string;
+    titel: string;
     rating: number;
     art: string;
     preis: number;

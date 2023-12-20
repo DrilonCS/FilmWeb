@@ -8,7 +8,7 @@ function SearchPage() {
     const [id, setId] = useState('');
     const [art, setArt] = useState('');
     const { data: result, error, request: search } = useApi(`${https}${host}${port}${rest}`);
-    const [selectedBuch, setSelectedBuch] = useState<BuchProps | null>(null); // Added state for selected book
+    const [selectedBuch, setSelectedBuch] = useState<BuchProps | null>(null); //state for selected book
 
     const navigate = useNavigate();
 
@@ -71,23 +71,24 @@ function SearchPage() {
                                 <th>Datum</th>
                                 <th>Homepage</th>
                                 <th>Schlagwörter</th>
-                                <th>Details</th> {/* Added table header for details */}
+                                <th>Details</th> 
                             </tr>
                         </thead>
                         <tbody>
                             {Array.isArray(result) ? result.map((buch) => (
                                 <tr key={buch.isbn}>
                                     <td>{buch.isbn}</td>
+                                    <td>{buch.titel}</td> 
                                     <td>{buch.rating}</td>
                                     <td>{buch.art}</td>
                                     <td>{buch.preis}</td>
                                     <td>{buch.rabatt}</td>
-                                    <td>{buch.lieferbar? 'Ja' : 'Nein'}</td>
+                                    <td>{buch.lieferbar ? 'Ja' : 'Nein'}</td>
                                     <td>{buch.datum}</td>
                                     <td>{buch.homepage}</td>
-                                    <td>{buch.schlagwoerter? buch.schlagwoerter.join(', ') : ''}</td>
+                                    <td>{buch.schlagwoerter ? buch.schlagwoerter.join(', ') : ''}</td>
                                     <td>
-                                        <button onClick={() => handleShowDetails(buch)} className="btn btn-primary">Details</button> {/* Added button for details */}
+                                        <button onClick={() => handleShowDetails(buch)} className="btn btn-primary">Details</button> 
                                     </td>
                                 </tr>
                             )) : (
@@ -103,7 +104,7 @@ function SearchPage() {
                                         <td>{result.homepage}</td>
                                         <td>{result.schlagwoerter}</td>
                                         <td>
-                                            <button onClick={() => handleShowDetails(result)} className="btn btn-primary">Details</button> {/* Added button for details */}
+                                            <button onClick={() => handleShowDetails(result)} className="btn btn-primary">Details</button> 
                                         </td>
                                     </tr>
                                 ) : null
@@ -113,7 +114,7 @@ function SearchPage() {
                 )}
                 {error && <p>{error}</p>}
             </div>
-            {selectedBuch && ( // Added condition to show details popup
+            {selectedBuch && ( 
                 <div className="popup">
                     <div className="popup-content">
                         <button onClick={handleCloseDetails} className="close-btn">X</button>
