@@ -2,8 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from '@remix-run/react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { https, host, login, port} from '../constants';
-import logo from '../log.png'; // Pfad zum Logo
+import { https, host, login, port} from '../../constants';
+import logo from './log.png';
 import { LoginForm } from './LoginForm';
 import { UserActions } from './UserActions';
 import { Footer } from './Footer';
