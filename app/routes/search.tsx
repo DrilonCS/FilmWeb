@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useApi } from '~/hooks/useGetApi';
 import { https, host, port, rest } from '../constants';
 import { useNavigate } from 'react-router-dom';
-import { type BuchProps} from '~/components/buch';
+import { type BuchProps } from '~/types';
 
 function SearchPage() {
     const [id, setId] = useState('');
@@ -85,7 +85,7 @@ function SearchPage() {
                                     <td>{buch.lieferbar? 'Ja' : 'Nein'}</td>
                                     <td>{buch.datum}</td>
                                     <td>{buch.homepage}</td>
-                                    <td>{buch.schlagwoerter}</td>
+                                    <td>{buch.schlagwoerter? buch.schlagwoerter.join(', ') : ''}</td>
                                     <td>
                                         <button onClick={() => handleShowDetails(buch)} className="btn btn-primary">Details</button> {/* Added button for details */}
                                     </td>

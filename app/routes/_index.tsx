@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import React, { useEffect } from 'react';
-import LoginPage from "./Login/LoginPage";
+import LoginPage from "./login";
 
 export const GlobalStyle = createGlobalStyle`
   body {
