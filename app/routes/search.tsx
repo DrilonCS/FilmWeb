@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+
 import { https, host, port, rest } from '../constants';
 import { useNavigate } from 'react-router-dom';
-import { type BuchProps} from '~/Components/buch';
+import { type BuchProps} from '~/components/buch';
 
 function SearchPage() {
     const [id, setId] = useState('');
@@ -54,17 +55,7 @@ function SearchPage() {
     const handleGetAllBuecher = () => {
         axios.get(`${https}${host}${port}${rest}`)
             .then(response => {
-                const buecherData = response.data._embedded.buecher.map((buch: any) => ({
-                    isbn: buch.isbn,
-                    rating: buch.rating,
-                    art: buch.art,
-                    preis: buch.preis,
-                    rabatt: buch.rabatt,
-                    lieferbar: buch.lieferbar,
-                    datum: buch.datum,
-                    homepage: buch.homepage,
-                    schlagwoerter: buch.schlagwoerter,
-                }))
+                const buecherData = response.data._embedded.buecher;
                 setError(null);
                 setResult(buecherData);
             })
