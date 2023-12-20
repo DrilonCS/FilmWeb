@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useApi }from '~/hooks/useApi';
+import { useApi } from '~/hooks/useGetApi';
 import { https, host, port, rest } from '../constants';
 import { useNavigate } from 'react-router-dom';
 import { type BuchProps} from '~/components/buch';
