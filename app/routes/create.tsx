@@ -201,7 +201,14 @@ const CreatePage: React.FC = () => {
                 </div>
                 <div className="form-group">
                     <label>Datum:</label>
-                    <input type="text" className="form-control" value={datum} onChange={handleDatumChange} />
+                    <input
+                        type="text"
+                        className="form-control"
+                        value={datum}
+                        onChange={handleDatumChange}
+                        placeholder="YYYY-MM-DD"
+                        style={{ color: datum ? 'black' : 'gray' }}
+                    />
                     {errors['datum'] && <p className="error">{errors['datum']}</p>}
                 </div>
                 <div className="form-group">
