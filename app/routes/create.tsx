@@ -140,7 +140,7 @@ const CreatePage: React.FC = () => {
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>ISBN:</label>
-                    <input type="text" className="form-control" value={isbn} onChange={handleISBNChange} />
+                    <input type="text" className="form-control" value={isbn} onChange={handleISBNChange} placeholder="z.B. 978-3-7375-0553-6" />
                     {errors['isbn'] && <p className="error">{errors['isbn']}</p>}
                 </div>
                 <div className="form-group">
@@ -172,7 +172,7 @@ const CreatePage: React.FC = () => {
                 </div>
                 <div className="form-group">
                     <label>Preis:</label>
-                    <input type="number" step="0.01" className="form-control" value={preis} onChange={handlePreisChange} />
+                    <input type="number" step="0.01" className="form-control" value={preis} onChange={handlePreisChange} placeholder="in €" />
                     {errors['preis'] && <p className="error">{errors['preis']}</p>}
                 </div>
                 <div className="form-group">
