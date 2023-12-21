@@ -1,14 +1,17 @@
-@startuml
-state "Login Komponente" as Login {
-  state "Initial" as Initial
-  state "Eingeloggt" as LoggedIn
-  state "Fehler" as Error
+@startuml LoginZustandsdiagramm
 
-  [*] --> Initial
-  Initial --> LoggedIn : Login erfolgreich
-  Initial --> Error : Login fehlgeschlagen
-  LoggedIn --> Initial : Logout
-  Error --> Initial : Korrigierte Daten eingegeben
+state "Login.tsx" as Login {
+  state "LoginForm" as LoginForm
+  state "Waiting" as Waiting
+  state "LoginSuccess" as LoginSuccess
+  state "LoginError" as LoginError
+
+  [*] --> LoginForm: Seite geladen
+  LoginForm --> Waiting: Button "Login"
+  Waiting --> LoginSuccess: Erfolgreiche Authentifizierung
+  Waiting --> LoginError: Fehlgeschlagene Authentifizierung
+  LoginError --> LoginForm: Löschen der falschen daten und neues eingeben
+  LoginSuccess --> [*]: Weiterleitung zur Hauptseite
 }
 
 @enduml
