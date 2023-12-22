@@ -24,6 +24,10 @@ export default function LoginPage() {
     navigate('/create');
   };
 
+  const navigateToChart = () => {
+    navigate('/barchart'); // Hier 'chart' durch den tatsächlichen Pfad deines Charts ersetzen
+  };
+
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     const expiresAt = localStorage.getItem('expiresAt');
@@ -34,7 +38,6 @@ export default function LoginPage() {
     } else {
       setIsLoggedIn(!!token);
     }
-
   }, []);
 
   const loginUser = async (username: string, password: string) => {
@@ -90,11 +93,15 @@ export default function LoginPage() {
           />
         )}
         {isLoggedIn && (
-          <UserActions 
-            handleLogout={handleLogout} 
-            navigateToSearch={navigateToSearch} 
-            navigateToCreate={navigateToCreate} 
-          />
+          <>
+            <UserActions 
+              handleLogout={handleLogout} 
+              navigateToSearch={navigateToSearch} 
+              navigateToCreate={navigateToCreate} 
+              navigateToChart={navigateToChart}
+            />
+            <button onClick={navigateToChart}>Darstellung</button>
+          </>
         )}
       </header>
       <main className="d-flex justify-content-center mt-5">
