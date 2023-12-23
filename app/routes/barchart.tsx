@@ -28,8 +28,8 @@ const SimpleBarChart = () => {
     <div>
       <h1>Bücher Rating</h1>
       <BarChart
-    width={800} // Erhöhen Sie die Breite
-    height={500} // Erhöhen Sie die Höhe
+    width={900} // Erhöhen Sie die Breite
+    height={600} // Erhöhen Sie die Höhe
     data={chartData}
     margin={{
       top: 5, right: 30, left: 20, bottom: 5,

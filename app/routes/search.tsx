@@ -65,7 +65,7 @@ const handleCloseChartModal = () => {
                 <button onClick={handleGetAllBuecher} className="btn btn-primary ms-3">Suche alle Buecher</button>
                 <button onClick={handleGetByArt} className="btn btn-primary ms-3">Suche nach Art</button>           
                 <select value={art} onChange={(e) => setArt(e.target.value)} className="form-select ms-3" style={{ width: '200px' }}>
-                    <option value="">Select Art</option>
+                    <option value="">Auswahl</option>
                     <option value="KINDLE">KINDLE</option>
                     <option value="DRUCKAUSGABE">DRUCKAUSGABE</option>
                 </select>
@@ -74,7 +74,7 @@ const handleCloseChartModal = () => {
             <div className="d-flex justify-content-center" style={{ marginTop: '31px' }}>
                 <input type="text" className="form-control" value={id} onChange={(e) => setId(e.target.value)} style={{ width: '300px' }} />
             </div>
-            <div style={{ marginTop: '50px' }}>
+            <div style={{ marginTop: '51px' }}>
                 {result && (
                     <table className="table table-striped table-hover table-bordered" style={{ border: '3px solid blue' }}>
                         <thead className="table-dark">
@@ -172,18 +172,7 @@ const handleCloseChartModal = () => {
     );
 }
 
-function withAuth(Component: React.ComponentType) {
-    return function ProtectedRoute(props: any) {
-        const navigate = useNavigate();
-        const token = localStorage.getItem('authToken');
 
-        if (!token) {
-            navigate('/');
-            return null;
-        }
-        return <Component {...props} />;
-    };
-}
 
 const ProtectedSearchPage = withAuth(SearchPage);
 export default ProtectedSearchPage;
