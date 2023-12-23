@@ -7,7 +7,12 @@ state "Create.tsx" as Create {
     state "Valid" as Valid
     state "Invalid" as Invalid
 
-
+    [*] --> Input: Seite geladen
+    Input --> Validation: Daten eingegeben
+    Validation --> Valid: Daten sind gültig
+    Validation --> Invalid: Daten sind ungültig
+    Invalid --> Input: Korrekturen vornehmen
+    Valid --> Waiting: Button "Erstellen"
   }
 
   state "Waiting" as Waiting
