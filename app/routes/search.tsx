@@ -71,12 +71,12 @@ const handleCloseChartModal = () => {
                 </select>
                 <button onClick={handleOpenChartModal} className="btn btn-primary ms-3">Statistik</button>
             </div>
-            <div className="d-flex justify-content-center" style={{ marginTop: '30px' }}>
+            <div className="d-flex justify-content-center" style={{ marginTop: '31px' }}>
                 <input type="text" className="form-control" value={id} onChange={(e) => setId(e.target.value)} style={{ width: '300px' }} />
             </div>
             <div style={{ marginTop: '50px' }}>
                 {result && (
-                    <table className="table table-striped table-hover table-bordered" style={{ border: '2px solid blue' }}>
+                    <table className="table table-striped table-hover table-bordered" style={{ border: '3px solid blue' }}>
                         <thead className="table-dark">
                             <tr>
                                 <th>Titel</th>
