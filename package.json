@@ -20,6 +20,8 @@
     "prettier": "3.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-modal": "3.16.1",
+    "react-star-ratings": "2.3.0",
     "reactjs-popup": "2.0.6",
     "recharts": "2.10.3",
     "styled-components": "6.1.1"
@@ -29,6 +31,7 @@
     "@remix-run/eslint-config": "^2.3.1",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
+    "@types/react-modal": "3.16.3",
     "eslint": "8.55.0",
     "typescript": "^5.1.6"
   },

@@ -138,9 +138,14 @@ const CreatePage: React.FC = () => {
             <h1>Buch anlegen </h1>
             {error && <p>Error: {error}</p>}
             <form onSubmit={handleSubmit}>
+            <div className="form-group">
+                    <label>Titel:</label>
+                    <input type="text" className="form-control" value={titel} onChange={handleTitelChange}></input>
+                    {errors['titel'] && <p className="error">{errors['titel']}</p>}
+                </div>
                 <div className="form-group">
                     <label>ISBN:</label>
-                    <input type="text" className="form-control" value={isbn} onChange={handleISBNChange} />
+                    <input type="text" className="form-control" value={isbn} onChange={handleISBNChange} placeholder="z.B. 978-3-7375-0553-6" />
                     {errors['isbn'] && <p className="error">{errors['isbn']}</p>}
                 </div>
                 <div className="form-group">
@@ -156,7 +161,11 @@ const CreatePage: React.FC = () => {
                             checked={rating === value}
                             onChange={handleRatingChange}
                             />
-                            <label htmlFor={`rating-${value}`}>{value}</label>
+                            <label htmlFor={`rating-${value}`}>
+                                {Array.from({ length: value }, (_, index) => (
+                                    <span key={index}>★</span>
+                                ))}
+                            </label>
                         </div>
                         ))}
                     </div>
@@ -172,7 +181,7 @@ const CreatePage: React.FC = () => {
                 </div>
                 <div className="form-group">
                     <label>Preis:</label>
-                    <input type="number" step="0.01" className="form-control" value={preis} onChange={handlePreisChange} />
+                    <input type="number" step="0.01" className="form-control" value={preis} onChange={handlePreisChange} placeholder="in €" />
                     {errors['preis'] && <p className="error">{errors['preis']}</p>}
                 </div>
                 <div className="form-group">
@@ -201,7 +210,14 @@ const CreatePage: React.FC = () => {
                 </div>
                 <div className="form-group">
                     <label>Datum:</label>
-                    <input type="text" className="form-control" value={datum} onChange={handleDatumChange} />
+                    <input
+                        type="text"
+                        className="form-control"
+                        value={datum}
+                        onChange={handleDatumChange}
+                        placeholder="YYYY-MM-DD"
+                        style={{ color: datum ? 'black' : 'gray' }}
+                    />
                     {errors['datum'] && <p className="error">{errors['datum']}</p>}
                 </div>
                 <div className="form-group">
@@ -213,11 +229,6 @@ const CreatePage: React.FC = () => {
                     <label>Schlagwörter:</label>
                     <input type="text" className="form-control" value={schlagwoerter} onChange={handleSchlagwoerterChange} />
                     {errors['schlagwoerter'] && <p className="error">{errors['schlagwoerter']}</p>}
-                </div>
-                <div className="form-group">
-                    <label>Titel:</label>
-                    <input type="text" className="form-control" value={titel} onChange={handleTitelChange}></input>
-                    {errors['titel'] && <p className="error">{errors['titel']}</p>}
                 </div>
                 <div className="form-group">
                     <label>Untertitel:</label>
