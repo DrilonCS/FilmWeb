@@ -4,6 +4,7 @@ import { https, host, port, rest } from '../constants';
 import { useNavigate } from 'react-router-dom';
 import { type BuchProps } from '~/types';
 import Modal from 'react-modal';
+import SimpleBarChart from './barchart';
 
 function SearchPage() {
     const [id, setId] = useState('');
@@ -40,6 +41,17 @@ function SearchPage() {
         setModalIsOpen(false);
     };
 
+    const [isChartModalOpen, setChartModalOpen] = useState(false);
+
+// Funktionen zum Öffnen und Schließen des Diagramm-Modals hinzufügen
+const handleOpenChartModal = () => {
+  setChartModalOpen(true);
+};
+
+const handleCloseChartModal = () => {
+  setChartModalOpen(false);
+};
+
     return (
         <div style={{
             background: 'linear-gradient(#90AFC5, #3B7EA1)',
@@ -51,12 +63,13 @@ function SearchPage() {
             <div className="d-flex justify-content-center mt-3">
                 <button onClick={handleGetId} className="btn btn-primary ms-3">Suche mit ID</button>
                 <button onClick={handleGetAllBuecher} className="btn btn-primary ms-3">Suche alle Buecher</button>
-                <button onClick={handleGetByArt} className="btn btn-primary ms-3">Suche nach Art</button>
+                <button onClick={handleGetByArt} className="btn btn-primary ms-3">Suche nach Art</button>           
                 <select value={art} onChange={(e) => setArt(e.target.value)} className="form-select ms-3" style={{ width: '200px' }}>
                     <option value="">Select Art</option>
                     <option value="KINDLE">KINDLE</option>
                     <option value="DRUCKAUSGABE">DRUCKAUSGABE</option>
                 </select>
+                <button onClick={handleOpenChartModal} className="btn btn-primary ms-3">Statistik</button>
             </div>
             <div className="d-flex justify-content-center" style={{ marginTop: '30px' }}>
                 <input type="text" className="form-control" value={id} onChange={(e) => setId(e.target.value)} style={{ width: '300px' }} />
@@ -148,6 +161,12 @@ function SearchPage() {
                     </table>
                 )}
                 <button onClick={handleCloseDetails}>Schließen</button>
+            </Modal>
+            <Modal isOpen={isChartModalOpen} onRequestClose={handleCloseChartModal}>
+                <div style={{ display: 'left', flexDirection: 'column', alignItems: 'flex-end' }}>
+                    <button onClick={handleCloseChartModal}>Schließen</button>
+                <SimpleBarChart />
+                </div>
             </Modal>
         </div>
     );

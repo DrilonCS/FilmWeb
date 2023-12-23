@@ -24,10 +24,6 @@ export default function LoginPage() {
     navigate('/create');
   };
 
-  const navigateToChart = () => {
-    navigate('/barchart'); // Hier 'chart' durch den tatsächlichen Pfad deines Charts ersetzen
-  };
-
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     const expiresAt = localStorage.getItem('expiresAt');
@@ -98,9 +94,7 @@ export default function LoginPage() {
               handleLogout={handleLogout} 
               navigateToSearch={navigateToSearch} 
               navigateToCreate={navigateToCreate} 
-              navigateToChart={navigateToChart}
             />
-            <button onClick={navigateToChart}>Darstellung</button>
           </>
         )}
       </header>
