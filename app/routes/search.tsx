@@ -172,7 +172,18 @@ const handleCloseChartModal = () => {
     );
 }
 
+function withAuth(Component: React.ComponentType) {
+    return function ProtectedRoute(props: any) {
+        const navigate = useNavigate();
+        const token = localStorage.getItem('authToken');
 
+        if (!token) {
+            navigate('/');
+            return null;
+        }
+        return <Component {...props} />;
+    };
+}
 
 const ProtectedSearchPage = withAuth(SearchPage);
 export default ProtectedSearchPage;
