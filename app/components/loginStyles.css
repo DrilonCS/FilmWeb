@@ -1,0 +1,10 @@
+.hover-effect:hover {
+  background-color: rgb(21, 39, 238); /* Ändern Sie die Hintergrundfarbe beim Überfahren mit der Maus */
+  color: rgb(15, 238, 93); /* Ändern Sie die Textfarbe beim Überfahren mit der Maus */
+
+}
+.hover-effect:hover {
+    border: 2px solid black;
+  }
+  
+  
