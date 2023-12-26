@@ -5,7 +5,6 @@ export const Footer: React.FC = () => {
   return (
     <footer className="d-flex justify-content-center mt-5  box">
       <div>
-        <h2>Authors :</h2>
         <table>
           <tbody>
             <tr>
@@ -41,7 +40,7 @@ export const Footer: React.FC = () => {
                 <h3 style={{ color: 'darkred' }}> Mazlum</h3>
               </td>
               <td>
-                <a href="mailto:j.drilon99@gmail.com" >
+                <a href="mailto:mazlum1034@h-k.de" >
                   <img
                     src={gmailLogo}
                     alt="Email Logo"
@@ -55,7 +54,7 @@ export const Footer: React.FC = () => {
                 <h3 style={{ color: 'darkred' }}> Achim</h3>
               </td>
               <td>
-                <a href="mailto:j.drilon99@gmail.com">
+                <a href="mailto:achim@seelhorst.net">
                   <img
                     src={gmailLogo}
                     alt="Email Logo"
