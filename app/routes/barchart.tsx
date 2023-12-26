@@ -16,7 +16,7 @@ const SimpleBarChart = () => {
   const { data, request: requestFunction } = useApi(
     `${https}${host}${port}${rest}`,
   );
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   const request = useCallback(requestFunction, []);
   useEffect(() => {
     request();
@@ -27,7 +27,7 @@ const SimpleBarChart = () => {
   }
 
   // Umwandeln der Daten in das richtige Format für das Diagramm
-  const chartData = (data as BuchProps[]).map((buch: any) => ({
+  const chartData = (data as BuchProps[]).map((buch: BuchProps) => ({
     name: buch.titel.titel,
     rating: buch.rating,
   }));

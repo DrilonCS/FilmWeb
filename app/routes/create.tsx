@@ -335,6 +335,7 @@ const CreatePage: React.FC = () => {
 };
 
 function withAuth(Component: React.ComponentType) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return function ProtectedRoute(props: any) {
     const navigate = useNavigate();
     const token = localStorage.getItem('authToken');
