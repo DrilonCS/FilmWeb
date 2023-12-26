@@ -26,7 +26,7 @@ export const Footer: React.FC = () => {
                 <h3 style={{ color: 'darkred' }}> Tekin</h3>
               </td>
               <td>
-                <a href="mailto:t.demir128@gmail.com" >
+                <a href="mailto:t.demir128@gmail.com">
                   <img
                     src={gmailLogo}
                     alt="Email Logo"
@@ -40,7 +40,7 @@ export const Footer: React.FC = () => {
                 <h3 style={{ color: 'darkred' }}> Mazlum</h3>
               </td>
               <td>
-                <a href="mailto:mazlum1034@h-k.de" >
+                <a href="mailto:mazlum1034@h-k.de">
                   <img
                     src={gmailLogo}
                     alt="Email Logo"
