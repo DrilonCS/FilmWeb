@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import React, { useEffect } from 'react';
-import LoginPage from "./login";
+import LoginPage from './login';
 
 export const GlobalStyle = createGlobalStyle`
   body {
@@ -24,9 +24,12 @@ export const GlobalStyle = createGlobalStyle`
 
 export default function Index() {
   useEffect(() => {
-    const originalStyleHtml = window.getComputedStyle(document.documentElement).background;
+    const originalStyleHtml = window.getComputedStyle(
+      document.documentElement,
+    ).background;
     const originalStyleBody = window.getComputedStyle(document.body).background;
-    document.documentElement.style.background = 'linear-gradient(#90AFC5, #3B7EA1)';
+    document.documentElement.style.background =
+      'linear-gradient(#90AFC5, #3B7EA1)';
     document.body.style.background = 'linear-gradient(#90AFC5, #3B7EA1)';
     document.body.style.margin = '0';
     document.body.style.padding = '0';
@@ -42,8 +45,7 @@ export default function Index() {
     <>
       <GlobalStyle />
       <LoginPage />
-      <div className="center-logo">
-      </div>
+      <div className="center-logo"></div>
     </>
   );
 }

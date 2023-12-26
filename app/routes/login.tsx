@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from '@remix-run/react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { https, host, login, port} from '../constants';
+import { https, host, login, port } from '../constants';
 import logo from '~/log.png';
 import { LoginForm } from '../components/LoginFormComponent';
 import { UserActions } from '../components/LoginActionsComponent';
@@ -48,24 +48,24 @@ export default function LoginPage() {
     return response.data;
   };
 
-  const handleSubmit = (event: { preventDefault: () => void; }) => {
+  const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
 
     loginUser(username, password)
-    .then(data => {
-      if (data && data.token) {
-        setIsLoggedIn(true);
-        localStorage.setItem('authToken', data.token);
-        const expiresAt = new Date().getTime() + data.expiresIn * 1000;
-        localStorage.setItem('expiresAt', expiresAt.toString());
-      }
-    })
-    .catch(error => {
-      setErrorMessage(error.response.data.message);
-      setTimeout(() => setErrorMessage(null), 5000);
-      setUsername('');
-      setPassword('');
-    });
+      .then((data) => {
+        if (data && data.token) {
+          setIsLoggedIn(true);
+          localStorage.setItem('authToken', data.token);
+          const expiresAt = new Date().getTime() + data.expiresIn * 1000;
+          localStorage.setItem('expiresAt', expiresAt.toString());
+        }
+      })
+      .catch((error) => {
+        setErrorMessage(error.response.data.message);
+        setTimeout(() => setErrorMessage(null), 5000);
+        setUsername('');
+        setPassword('');
+      });
   };
 
   const handleLogout = () => {
@@ -74,26 +74,26 @@ export default function LoginPage() {
     setIsLoggedIn(false);
     localStorage.removeItem('authToken');
   };
-  
+
   return (
     <div className="container">
       <header className="d-flex flex-column align-items-center justify-content-center py-3 mb-5 border-bottom">
         {!isLoggedIn && (
-          <LoginForm 
-            username={username} 
-            password={password} 
-            errorMessage={errorMessage} 
-            setUsername={setUsername} 
-            setPassword={setPassword} 
-            handleSubmit={handleSubmit} 
+          <LoginForm
+            username={username}
+            password={password}
+            errorMessage={errorMessage}
+            setUsername={setUsername}
+            setPassword={setPassword}
+            handleSubmit={handleSubmit}
           />
         )}
         {isLoggedIn && (
           <>
-            <UserActions 
-              handleLogout={handleLogout} 
-              navigateToSearch={navigateToSearch} 
-              navigateToCreate={navigateToCreate} 
+            <UserActions
+              handleLogout={handleLogout}
+              navigateToSearch={navigateToSearch}
+              navigateToCreate={navigateToCreate}
             />
           </>
         )}
