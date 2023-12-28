@@ -14,8 +14,10 @@ function SearchPage() {
     error,
     request: search,
   } = useApi(`${https}${host}${port}${rest}`);
-  const [selectedBuch, setSelectedBuch] = useState<BuchProps | null>(null); //state for selected book
+  const [selectedBuch, setSelectedBuch] = useState<BuchProps | null>(null); //state für das ausgewählte Buch
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isChartModalOpen, setChartModalOpen] = useState(false);
+  const [showAllResults, setShowAllResults] = useState(false); // state alle ergebnisse feststellen
 
   const navigate = useNavigate();
 
@@ -45,8 +47,6 @@ function SearchPage() {
     setModalIsOpen(false);
   };
 
-  const [isChartModalOpen, setChartModalOpen] = useState(false);
-
   // Funktionen zum Öffnen und Schließen des Diagramm-Modals hinzufügen
   const handleOpenChartModal = () => {
     setChartModalOpen(true);
@@ -54,6 +54,10 @@ function SearchPage() {
 
   const handleCloseChartModal = () => {
     setChartModalOpen(false);
+  };
+
+  const handleToggleShowAllResults = () => {
+    setShowAllResults(!showAllResults);
   };
 
   return (
@@ -137,7 +141,7 @@ function SearchPage() {
             </thead>
             <tbody>
               {Array.isArray(result) ? (
-                result.map((buch) => (
+                result.slice(0, showAllResults ? result.length : 5).map((buch) => (
                   <tr key={buch.isbn}>
                     <td>{buch.titel.titel}</td>
                     <td>{buch.rating}</td>
@@ -175,6 +179,17 @@ function SearchPage() {
           </table>
         )}
         {error && <p>{error}</p>}
+        {result && Array.isArray(result) && result.length > 5 && (
+          <div className="d-flex justify-content-center">
+            <button
+              onClick={handleToggleShowAllResults}
+              className="btn btn-primary mt-4 hover-effect"
+            >
+              {showAllResults ? 'Weniger Ergebnisse' : 'Mehr Ergebnisse'}
+            </button>
+            <p className="ms-3 mt-4">{result.length} Ergebnisse insgesamt</p>
+          </div>
+        )}
       </div>
       <Modal isOpen={modalIsOpen} onRequestClose={handleCloseDetails}>
         <h2>Details</h2>
