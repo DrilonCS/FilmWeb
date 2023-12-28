@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { useApi } from '~/hooks/useGetApi';
 import { https, host, port, rest } from '../constants';
 import { useNavigate } from 'react-router-dom';
-import { type BuchProps} from '~/components/buch';
+import { type BuchProps } from '~/types';
+import Modal from 'react-modal';
 
 function SearchPage() {
     const [id, setId] = useState('');
     const [art, setArt] = useState('');
     const { data: result, error, request: search } = useApi(`${https}${host}${port}${rest}`);
-    const [selectedBuch, setSelectedBuch] = useState<BuchProps | null>(null); // Added state for selected book
+    const [selectedBuch, setSelectedBuch] = useState<BuchProps | null>(null); //state for selected book
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const navigate = useNavigate();
 
@@ -30,10 +32,12 @@ function SearchPage() {
 
     const handleShowDetails = (buch: BuchProps) => {
         setSelectedBuch(buch);
+        setModalIsOpen(true);
     };
 
     const handleCloseDetails = () => {
         setSelectedBuch(null);
+        setModalIsOpen(false);
     };
 
     return (
@@ -59,51 +63,39 @@ function SearchPage() {
             </div>
             <div style={{ marginTop: '50px' }}>
                 {result && (
-                    <table className="table table-striped table-hover table-bordered" style={{ border: '5px solid blue' }}>
+                    <table className="table table-striped table-hover table-bordered" style={{ border: '2px solid blue' }}>
                         <thead className="table-dark">
                             <tr>
-                                <th>ISBN</th>
+                                <th>Titel</th>
                                 <th>Rating</th>
                                 <th>Art</th>
                                 <th>Preis</th>
                                 <th>Rabatt</th>
-                                <th>Lieferbar</th>
-                                <th>Datum</th>
-                                <th>Homepage</th>
-                                <th>Schlagwörter</th>
-                                <th>Details</th> {/* Added table header for details */}
+                                <th>Details</th> 
                             </tr>
                         </thead>
                         <tbody>
                             {Array.isArray(result) ? result.map((buch) => (
                                 <tr key={buch.isbn}>
-                                    <td>{buch.isbn}</td>
+                                    <td>{buch.titel.titel}</td>
                                     <td>{buch.rating}</td>
                                     <td>{buch.art}</td>
-                                    <td>{buch.preis}</td>
+                                    <td>{buch.preis} €</td>
                                     <td>{buch.rabatt}</td>
-                                    <td>{buch.lieferbar? 'Ja' : 'Nein'}</td>
-                                    <td>{buch.datum}</td>
-                                    <td>{buch.homepage}</td>
-                                    <td>{buch.schlagwoerter}</td>
                                     <td>
-                                        <button onClick={() => handleShowDetails(buch)} className="btn btn-primary">Details</button> {/* Added button for details */}
+                                        <button onClick={() => handleShowDetails(buch)} className="btn btn-primary">Details</button> 
                                     </td>
                                 </tr>
                             )) : (
                                 result ? (
                                     <tr key={result.isbn}>
-                                        <td>{result.isbn}</td>
+                                        <td>{result.titel.titel}</td>
                                         <td>{result.rating}</td>
                                         <td>{result.art}</td>
-                                        <td>{result.preis}</td>
+                                        <td>{result.preis} €</td>
                                         <td>{result.rabatt}</td>
-                                        <td>{result.lieferbar? 'Ja' : 'Nein'}</td>
-                                        <td>{result.datum}</td>
-                                        <td>{result.homepage}</td>
-                                        <td>{result.schlagwoerter}</td>
                                         <td>
-                                            <button onClick={() => handleShowDetails(result)} className="btn btn-primary">Details</button> {/* Added button for details */}
+                                            <button onClick={() => handleShowDetails(result)} className="btn btn-primary">Details</button> 
                                         </td>
                                     </tr>
                                 ) : null
@@ -113,23 +105,50 @@ function SearchPage() {
                 )}
                 {error && <p>{error}</p>}
             </div>
-            {selectedBuch && ( // Added condition to show details popup
-                <div className="popup">
-                    <div className="popup-content">
-                        <button onClick={handleCloseDetails} className="close-btn">X</button>
-                        <h2>Details</h2>
-                        <p>ISBN: {selectedBuch.isbn}</p>
-                        <p>Rating: {selectedBuch.rating}</p>
-                        <p>Art: {selectedBuch.art}</p>
-                        <p>Preis: {selectedBuch.preis}</p>
-                        <p>Rabatt: {selectedBuch.rabatt}</p>
-                        <p>Lieferbar: {selectedBuch.lieferbar? 'Ja' : 'Nein'}</p>
-                        <p>Datum: {selectedBuch.datum}</p>
-                        <p>Homepage: {selectedBuch.homepage}</p>
-                        <p>Schlagwörter: {selectedBuch.schlagwoerter}</p>
-                    </div>
-                </div>
-            )}
+            <Modal isOpen={modalIsOpen} onRequestClose={handleCloseDetails}>
+                <h2>Details</h2>
+                {selectedBuch && (
+                    <table>
+                        <tr>
+                            <td>ISBN:</td>
+                            <td>{selectedBuch.isbn}</td>
+                        </tr>
+                        <tr>
+                            <td>Art:</td>
+                            <td>{selectedBuch.art}</td>
+                        </tr>
+                        <tr>
+                            <td>Rating:</td>
+                            <td>{selectedBuch.rating}</td>
+                        </tr>
+                        <tr>
+                            <td>Preis:</td>
+                            <td>{selectedBuch.preis}</td>
+                        </tr>
+                        <tr>
+                            <td>Rabatt:</td>
+                            <td>{selectedBuch.rabatt}</td>
+                        </tr>
+                        <tr>
+                            <td>Lieferbar:</td>
+                            <td>{selectedBuch.lieferbar ? 'Ja' : 'Nein'}</td>
+                        </tr>
+                        <tr>
+                            <td>Datum:</td>
+                            <td>{selectedBuch.datum}</td>
+                        </tr>
+                        <tr>
+                            <td>Homepage:</td>
+                            <td>{selectedBuch.homepage}</td>
+                        </tr>
+                        <tr>
+                            <td>Schlagwörter:</td>
+                            <td>{selectedBuch.schlagwoerter ? selectedBuch.schlagwoerter.join(', ') : ''}</td>
+                        </tr>
+                    </table>
+                )}
+                <button onClick={handleCloseDetails}>Schließen</button>
+            </Modal>
         </div>
     );
 }

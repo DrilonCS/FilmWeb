@@ -1,15 +1,26 @@
-@startuml
-state "SearchPage Komponente" as SearchPage {
-  state "Initial" as Initial
-  state "Suchergebnisse anzeigen" as ShowResults
-  state "Fehler anzeigen" as ShowError
+@startuml Zustandsdiagramm
 
-  [*] --> Initial
-  Initial --> ShowResults : Suche erfolgreich
-  Initial --> ShowError : Suche fehlgeschlagen
-  ShowResults --> ShowError : Neue Suche fehlgeschlagen
-  ShowError --> ShowResults : Neue Suche erfolgreich
-  ShowError --> Initial : Fehlermeldung ausgeblendet
+state "index.tsx" as index {
+  state "SucheBuecher" as SucheBuecher {
+    state "Suchformular" as Suchformular
+    state "Waiting" as Waiting
+    state "SuchergebnisChoice" as SuchergebnisChoice
+    state "Suchergebnis" as Suchergebnis {
+      state "GefundeneBuecher" as GefundeneBuecher
+      state "ErrorMessage" as ErrorMessage
+    }
+    state "DetailsBuch" as DetailsBuch
+  }
+
+  [*] --> index: login
+  index --> SucheBuecher: Menüpunkt "Suche"
+  SucheBuecher --> Suchformular: Suchkritierien
+  Suchformular --> Waiting: Button "Suchen"
+  Waiting --> SuchergebnisChoice: Suchergebisse eingeben
+  SuchergebnisChoice --> GefundeneBuecher: mind ein Buch
+  SuchergebnisChoice --> ErrorMessage: keine Bücher
+  GefundeneBuecher --> DetailsBuch: Button anklicken
+  DetailsBuch --> [*]
 }
 
 @enduml

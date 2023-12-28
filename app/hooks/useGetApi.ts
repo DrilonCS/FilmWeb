@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { type BuchProps } from '../components/buch';
+import { type BuchProps } from '../types';
 import axios from 'axios';
 
 export const useApi = (initialUrl: string) => {
