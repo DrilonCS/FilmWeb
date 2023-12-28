@@ -187,7 +187,7 @@ function SearchPage() {
             >
               {showAllResults ? 'Weniger Ergebnisse' : 'Mehr Ergebnisse'}
             </button>
-            <p className="ms-3 mt-4">{result.length} Ergebnisse insgesamt</p>
+            <p className="ms-3 mt-4">{showAllResults ? result.length : 5} von {result.length}  Ergebnissen</p>
           </div>
         )}
       </div>
