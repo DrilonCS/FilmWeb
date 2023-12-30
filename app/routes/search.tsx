@@ -6,6 +6,7 @@ import { type BuchProps } from '~/types';
 import Modal from 'react-modal';
 import SimpleBarChart from './barchart';
 import { withAuth } from '../components/AuthentificationComponent';
+import { BuchTableRow } from '../components/BuchTableRowComponent';
 
 function SearchPage() {
   const [id, setId] = useState('');
@@ -143,38 +144,10 @@ function SearchPage() {
             <tbody>
               {Array.isArray(result) ? (
                 result.slice(0, showAllResults ? result.length : 5).map((buch) => (
-                  <tr key={buch.isbn}>
-                    <td>{buch.titel.titel}</td>
-                    <td>{buch.rating}</td>
-                    <td>{buch.art}</td>
-                    <td>{buch.preis} €</td>
-                    <td>{buch.rabatt}</td>
-                    <td>
-                      <button
-                        onClick={() => handleShowDetails(buch)}
-                        className="btn btn-primary"
-                      >
-                        Details
-                      </button>
-                    </td>
-                  </tr>
+                  <BuchTableRow handleShowDetails={handleShowDetails} {...buch} />
                 ))
               ) : result ? (
-                <tr key={result.isbn}>
-                  <td>{result.titel.titel}</td>
-                  <td>{result.rating}</td>
-                  <td>{result.art}</td>
-                  <td>{result.preis} €</td>
-                  <td>{result.rabatt}</td>
-                  <td>
-                    <button
-                      onClick={() => handleShowDetails(result)}
-                      className="btn btn-primary"
-                    >
-                      Details
-                    </button>
-                  </td>
-                </tr>
+                  <BuchTableRow handleShowDetails={handleShowDetails} {...result} />
               ) : null}
             </tbody>
           </table>
