@@ -286,6 +286,7 @@ const CreatePage: React.FC = () => {
             className="form-control"
             value={homepage}
             onChange={handleHomepageChange}
+            placeholder="https://www.website.com"
           />
           {errors['homepage'] && <p className="error">{errors['homepage']}</p>}
         </div>
