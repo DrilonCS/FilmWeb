@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { https, host, port, rest } from '~/constants';
+import { withAuth } from '../components/AuthentificationComponent';
 
 const CreatePage: React.FC = () => {
   const [isbn, setISBN] = useState('');
@@ -334,20 +335,6 @@ const CreatePage: React.FC = () => {
     </div>
   );
 };
-
-function withAuth(Component: React.ComponentType) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return function ProtectedRoute(props: any) {
-    const navigate = useNavigate();
-    const token = localStorage.getItem('authToken');
-
-    if (!token) {
-      navigate('/');
-      return null;
-    }
-    return <Component {...props} />;
-  };
-}
 
 const ProtectedCreatePage = withAuth(CreatePage);
 export default ProtectedCreatePage;

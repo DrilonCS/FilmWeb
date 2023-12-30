@@ -8,7 +8,7 @@ import { LoginForm } from '../components/LoginFormComponent';
 import { UserActions } from '../components/LoginActionsComponent';
 import { Footer } from '../components/FooterComponent';
 
-export default function LoginPage() {
+export function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);

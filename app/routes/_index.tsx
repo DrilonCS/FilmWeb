@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import React, { useEffect } from 'react';
-import LoginPage from './login';
+import { LoginPage } from './login';
 
 export const GlobalStyle = createGlobalStyle`
   body {
@@ -22,7 +22,7 @@ export const GlobalStyle = createGlobalStyle`
 }
 `;
 
-export default function Index() {
+export default function IndexPage() {
   useEffect(() => {
     const originalStyleHtml = window.getComputedStyle(
       document.documentElement,

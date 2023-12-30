@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { type BuchProps } from '~/types';
 import Modal from 'react-modal';
 import SimpleBarChart from './barchart';
+import { withAuth } from '../components/AuthentificationComponent';
 
 function SearchPage() {
   const [id, setId] = useState('');
@@ -253,20 +254,6 @@ function SearchPage() {
       </Modal>
     </div>
   );
-}
-
-function withAuth(Component: React.ComponentType) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return function ProtectedRoute(props: any) {
-    const navigate = useNavigate();
-    const token = localStorage.getItem('authToken');
-
-    if (!token) {
-      navigate('/');
-      return null;
-    }
-    return <Component {...props} />;
-  };
 }
 
 const ProtectedSearchPage = withAuth(SearchPage);
