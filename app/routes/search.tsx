@@ -27,16 +27,11 @@ function SearchPage() {
     navigate('/');
   };
 
-  const handleGetByArt = () => {
-    search(`${https}${host}${port}${rest}?art=${art}`);
-  };
-
-  const handleGetId = () => {
-    search(`${https}${host}${port}${rest}${id}`);
-  };
-
-  const handleGetAllBuecher = () => {
-    search(`${https}${host}${port}${rest}`);
+  const handleGetBuecher = (id?: string, art?: string) => {
+    const url = `${https}${host}${port}${rest}
+      ${id || ''}
+      ${art ? `?art=${art}` : ''}`;
+    search(url);
   };
 
   const handleShowDetails = (buch: BuchProps) => {
@@ -79,19 +74,19 @@ function SearchPage() {
       </div>
       <div className="d-flex justify-content-center mt-3">
         <button
-          onClick={handleGetId}
+          onClick={() => handleGetBuecher(id)}
           className="btn btn-primary ms-3 mt-4 hover-effect"
         >
           Suche mit ID
         </button>
         <button
-          onClick={handleGetAllBuecher}
+          onClick={() => handleGetBuecher()}
           className="btn btn-primary ms-3 mt-4 hover-effect"
         >
           Suche alle Buecher
         </button>
         <button
-          onClick={handleGetByArt}
+          onClick={() => handleGetBuecher(undefined, art)}
           className="btn btn-primary ms-3 mt-4 hover-effect"
         >
           Suche nach Art
