@@ -128,12 +128,9 @@ function SearchPage() {
           >
             <thead className="table-dark">
               <tr>
-                <th className="hover-effect">Titel</th>
-                <th className="hover-effect">Rating</th>
-                <th className="hover-effect">Art</th>
-                <th className="hover-effect">Preis</th>
-                <th className="hover-effect">Rabatt</th>
-                <th className="hover-effect">Details</th>
+                {['Titel', 'Rating', 'Art', 'Preis', 'Rabatt', 'Details'].map((header) => (
+                <th key={header} className="hover-effect">{header}</th>
+                ))}
               </tr>
             </thead>
             <tbody>
