@@ -7,6 +7,7 @@ import Modal from 'react-modal';
 import SimpleBarChart from './barchart';
 import { withAuth } from '../components/AuthentificationComponent';
 import { BuchTableRow } from '../components/BuchTableRowComponent';
+import { Button } from '../components/ButtonComponent';
 
 function SearchPage() {
   const [id, setId] = useState('');
@@ -64,33 +65,13 @@ function SearchPage() {
         minHeight: '100vh',
       }}
     >
-      <div className="mt-3 ms-3">
-        <button
-          onClick={navigateToIndex}
-          className="btn btn-primary hover-effect"
-        >
-          Zurück zur Startseite
-        </button>
+      <div>
+        <Button onClick={navigateToIndex} text="Zurück zur Startseite" classes="hover-effect ms-3 mt-4" />
       </div>
       <div className="d-flex justify-content-center mt-3">
-        <button
-          onClick={() => handleGetBuecher(id)}
-          className="btn btn-primary ms-3 mt-4 hover-effect"
-        >
-          Suche mit ID
-        </button>
-        <button
-          onClick={() => handleGetBuecher()}
-          className="btn btn-primary ms-3 mt-4 hover-effect"
-        >
-          Suche alle Buecher
-        </button>
-        <button
-          onClick={() => handleGetBuecher(undefined, art)}
-          className="btn btn-primary ms-3 mt-4 hover-effect"
-        >
-          Suche nach Art
-        </button>
+        <Button onClick={() => handleGetBuecher(id)} text="Suche mit ID" classes="ms-3 mt-4 hover-effect" />
+        <Button onClick={() => handleGetBuecher()} text="Suche alle Buecher" classes="ms-3 mt-4 hover-effect" />
+        <Button onClick={() => handleGetBuecher(undefined, art)} text="Suche nach Art" classes="ms-3 mt-4 hover-effect" />
         <select
           value={art}
           onChange={(e) => setArt(e.target.value)}
@@ -101,12 +82,7 @@ function SearchPage() {
           <option value="KINDLE">KINDLE</option>
           <option value="DRUCKAUSGABE">DRUCKAUSGABE</option>
         </select>
-        <button
-          onClick={handleOpenChartModal}
-          className="btn btn-primary ms-3 mt-4 hover-effect"
-        >
-          Statistik
-        </button>
+        <Button onClick={() => handleOpenChartModal()} text="Statistik" classes="ms-3 mt-4 hover-effect" />
       </div>
       <div
         className="d-flex justify-content-center"
@@ -147,13 +123,8 @@ function SearchPage() {
         {error && <p>{error}</p>}
         {result && Array.isArray(result) && result.length > 5 && (
           <div className="d-flex justify-content-center">
-            <button
-              onClick={handleToggleShowAllResults}
-              className="btn btn-primary mt-4 hover-effect"
-            >
-              {showAllResults ? 'Weniger Ergebnisse' : 'Mehr Ergebnisse'}
-            </button>
-            <p className="ms-3 mt-4">{showAllResults ? result.length : 5} von {result.length}  Ergebnissen</p>
+            <Button onClick={() => handleToggleShowAllResults()} text={showAllResults ? 'Weniger Ergebnisse' : 'Mehr Ergebnisse'} classes="mt-4 hover-effect" />
+            <p className="ms-3 mt-4">{showAllResults ? result.length : 5} von {result.length} Ergebnissen</p>
           </div>
         )}
       </div>
@@ -203,7 +174,7 @@ function SearchPage() {
             </tr>
           </table>
         )}
-        <button onClick={handleCloseDetails}>Schließen</button>
+        <Button onClick={() => handleCloseDetails()} text="Schließen"/>
       </Modal>
       <Modal isOpen={isChartModalOpen} onRequestClose={handleCloseChartModal}>
         <div
@@ -213,7 +184,7 @@ function SearchPage() {
             alignItems: 'flex-end',
           }}
         >
-          <button onClick={handleCloseChartModal}>Schließen</button>
+          <Button onClick={() => handleCloseChartModal()} text="Schließen"/>
           <SimpleBarChart />
         </div>
       </Modal>
