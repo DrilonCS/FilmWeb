@@ -44,7 +44,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
           onChange={(e) => setPassword(e.target.value)}
         />
         {errorMessage && (
-          <p style={{ position: 'absolute', color: 'red' }}>{errorMessage}</p>
+          <p style={{ position: 'absolute', color: 'blue' }}>{errorMessage}</p>
         )}
       </div>
       <button type="submit" className="btn btn-primary ms-3 mt-4 hover-effect">
