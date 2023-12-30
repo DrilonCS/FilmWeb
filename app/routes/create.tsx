@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { https, host, port, rest } from '~/constants';
 import { withAuth } from '../components/AuthentificationComponent';
+import { useFormHandlers } from '../hooks/useFormHandlers';
 
 const CreatePage: React.FC = () => {
   const [isbn, setISBN] = useState('');
@@ -20,60 +21,19 @@ const CreatePage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const {
+    handleInputChange,
+    handleNumberChange,
+    handleSelectChange,
+    handleCheckboxChange,
+    handleArrayChange,
+  } = useFormHandlers();
 
   const navigate = useNavigate();
   const navigateToIndex = () => {
     navigate('/');
   };
 
-  const handleISBNChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setISBN(event.target.value);
-  };
-
-  const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRating(Number(event.target.value));
-  };
-
-  const handleArtChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setArt(event.target.value);
-  };
-
-  const handlePreisChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPreis(parseFloat(event.target.value));
-  };
-
-  const handleRabattChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRabatt(parseFloat(event.target.value));
-  };
-
-  const handleLieferbarChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setLieferbar(event.target.value === 'true');
-  };
-
-  const handleDatumChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDatum(event.target.value);
-  };
-
-  const handleHomepageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setHomepage(event.target.value);
-  };
-
-  const handleSchlagwoerterChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const value = event.target.value.split(',').map((s) => s.trim());
-    setSchlagwoerter([...new Set(value)]);
-  };
-  const handleTitelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitel(event.target.value);
-  };
-  const handleUntertitelChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setUntertitel(event.target.value);
-  };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -167,22 +127,12 @@ const CreatePage: React.FC = () => {
       {error && <p>Error: {error}</p>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Titel:</label>
-          <input
-            type="text"
-            className="form-control"
-            value={titel}
-            onChange={handleTitelChange}
-          ></input>
-          {errors['titel'] && <p className="error">{errors['titel']}</p>}
-        </div>
-        <div className="form-group">
           <label>ISBN:</label>
           <input
             type="text"
             className="form-control"
             value={isbn}
-            onChange={handleISBNChange}
+            onChange={(event) => handleInputChange(event, setISBN)}
             placeholder="z.B. 978-3-7375-0553-6"
           />
           {errors['isbn'] && <p className="error">{errors['isbn']}</p>}
@@ -198,7 +148,7 @@ const CreatePage: React.FC = () => {
                   name="rating"
                   value={value}
                   checked={rating === value}
-                  onChange={handleRatingChange}
+                  onChange={(event) => handleNumberChange(event, setRating)}
                 />
                 <label htmlFor={`rating-${value}`}>
                   {Array.from({ length: value }, (_, index) => (
@@ -214,7 +164,7 @@ const CreatePage: React.FC = () => {
           <select
             className="form-control"
             value={art}
-            onChange={handleArtChange}
+            onChange={(event) => handleSelectChange(event, setArt)}
           >
             <option value="">Select Art</option>
             <option value="KINDLE">KINDLE</option>
@@ -229,7 +179,7 @@ const CreatePage: React.FC = () => {
             step="0.01"
             className="form-control"
             value={preis}
-            onChange={handlePreisChange}
+            onChange={(event) => handleNumberChange(event, setPreis)}
             placeholder="in €"
           />
           {errors['preis'] && <p className="error">{errors['preis']}</p>}
@@ -241,7 +191,7 @@ const CreatePage: React.FC = () => {
             step="0.01"
             className="form-control"
             value={rabatt}
-            onChange={handleRabattChange}
+            onChange={(event) => handleNumberChange(event, setRabatt)}
           />
           {errors['rabatt'] && <p className="error">{errors['rabatt']}</p>}
         </div>
@@ -256,7 +206,7 @@ const CreatePage: React.FC = () => {
                   name="lieferbar"
                   value={value}
                   checked={lieferbar.toString() === value}
-                  onChange={handleLieferbarChange}
+                  onChange={(event) => handleCheckboxChange(event, setLieferbar)}
                 />
                 <label htmlFor={`lieferbar-${value}`}>
                   {value === 'true' ? 'Ja' : 'Nein'}
@@ -274,7 +224,7 @@ const CreatePage: React.FC = () => {
             type="text"
             className="form-control"
             value={datum}
-            onChange={handleDatumChange}
+            onChange={(event) => handleInputChange(event, setDatum)}
             placeholder="YYYY-MM-DD"
             style={{ color: datum ? 'black' : 'gray' }}
           />
@@ -286,7 +236,7 @@ const CreatePage: React.FC = () => {
             type="text"
             className="form-control"
             value={homepage}
-            onChange={handleHomepageChange}
+            onChange={(event) => handleInputChange(event, setHomepage)}
             placeholder="https://www.website.com"
           />
           {errors['homepage'] && <p className="error">{errors['homepage']}</p>}
@@ -297,11 +247,21 @@ const CreatePage: React.FC = () => {
             type="text"
             className="form-control"
             value={schlagwoerter}
-            onChange={handleSchlagwoerterChange}
+            onChange={(event) => handleArrayChange(event, setSchlagwoerter)}
           />
           {errors['schlagwoerter'] && (
             <p className="error">{errors['schlagwoerter']}</p>
           )}
+        </div>
+        <div className="form-group">
+          <label>Titel:</label>
+          <input
+            type="text"
+            className="form-control"
+            value={titel}
+            onChange={(event) => handleInputChange(event, setTitel)}
+          />
+          {errors['titel'] && <p className="error">{errors['titel']}</p>}
         </div>
         <div className="form-group">
           <label>Untertitel:</label>
@@ -309,8 +269,8 @@ const CreatePage: React.FC = () => {
             type="text"
             className="form-control"
             value={untertitel}
-            onChange={handleUntertitelChange}
-          ></input>
+            onChange={(event) => handleInputChange(event, setUntertitel)}
+          />
         </div>
         <button
           type="submit"
