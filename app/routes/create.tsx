@@ -5,6 +5,7 @@ import axios from 'axios';
 import { https, host, port, rest } from '~/constants';
 import { withAuth } from '../components/AuthentificationComponent';
 import { useFormHandlers } from '../hooks/useFormHandlers';
+import { Button } from '../components/ButtonComponent';
 
 const CreatePage: React.FC = () => {
   const [isbn, setISBN] = useState('');
@@ -34,29 +35,65 @@ const CreatePage: React.FC = () => {
     navigate('/');
   };
 
+  const createHeaders = () => ({
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+  });
+
+  const properties = [
+    'isbn',
+    'art',
+    'preis',
+    'rabatt',
+    'lieferbar',
+    'datum',
+    'homepage',
+    'schlagwoerter',
+    'titel',
+  ];
+  
+  const createBuch = () => ({
+    isbn,
+    rating,
+    art,
+    preis,
+    rabatt,
+    lieferbar,
+    datum,
+    homepage,
+    schlagwoerter,
+    titel: {
+      titel,
+      untertitel,
+    },
+  });
+
+  const handleErrors = (error: any) => {
+    if (
+      error.response &&
+      error.response.data &&
+      Array.isArray(error.response.data.message)
+    ) {
+      const newErrors: Record<string, string> = {};
+      error.response.data.message.forEach((message: string) => {
+        properties.forEach((property) => {
+          if (message.toLowerCase().includes(property)) {
+            newErrors[property] = message;
+          }
+        });
+      });
+      setErrors(newErrors);
+    } else {
+      setError(error.message);
+    }
+  };
+  
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const buch = {
-      isbn,
-      rating,
-      art,
-      preis,
-      rabatt,
-      lieferbar,
-      datum,
-      homepage,
-      schlagwoerter,
-      titel: {
-        titel,
-        untertitel,
-      },
-    };
-
-    const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('authToken')}`,
-    };
+    const headers = createHeaders();
+    const buch = createBuch();
 
     axios
       .post(`${https}${host}${port}${rest}`, buch, { headers })
@@ -64,34 +101,7 @@ const CreatePage: React.FC = () => {
         setResult(response.data);
       })
       .catch((error) => {
-        if (
-          error.response &&
-          error.response.data &&
-          Array.isArray(error.response.data.message)
-        ) {
-          const newErrors: Record<string, string> = {};
-          const properties = [
-            'isbn',
-            'art',
-            'preis',
-            'rabatt',
-            'lieferbar',
-            'datum',
-            'homepage',
-            'schlagwoerter',
-            'titel',
-          ];
-          error.response.data.message.forEach((message: string) => {
-            properties.forEach((property) => {
-              if (message.toLowerCase().includes(property)) {
-                newErrors[property] = message;
-              }
-            });
-          });
-          setErrors(newErrors);
-        } else {
-          setError(error.message);
-        }
+        handleErrors(error);
       });
   };
 
@@ -288,9 +298,7 @@ const CreatePage: React.FC = () => {
           left: '10px',
         }}
       >
-        <button onClick={navigateToIndex} className="btn btn-primary">
-          Zurück zur Startseite
-        </button>
+        <Button onClick={navigateToIndex} text="Zurück zur Startseite" classes="hover-effect ms-3 mt-4" />
       </div>
     </div>
   );
