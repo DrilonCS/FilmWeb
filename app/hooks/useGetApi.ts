@@ -7,8 +7,9 @@ export const useApi = (initialUrl: string) => {
   const [error, setError] = useState(null);
 
   const request = (url = initialUrl) => {
-    axios.get(url)
-      .then(response => {
+    axios
+      .get(url)
+      .then((response) => {
         if (response.data._embedded) {
           setData(response.data._embedded.buecher);
         } else {
@@ -16,7 +17,7 @@ export const useApi = (initialUrl: string) => {
         }
         setError(null);
       })
-      .catch(err => {
+      .catch((err) => {
         setError(err.message);
         setTimeout(() => setError(null), 5000);
         setData(null);
