@@ -6,6 +6,7 @@ import { https, host, port, rest } from '~/constants';
 import { withAuth } from '../components/AuthentificationComponent';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { Button } from '../components/ButtonComponent';
+import { Footer } from '../components/FooterComponent';
 
 const CreatePage: React.FC = () => {
   const [isbn, setISBN] = useState('');
@@ -300,6 +301,7 @@ const CreatePage: React.FC = () => {
       >
         <Button onClick={navigateToIndex} text="Zurück zur Startseite" classes="hover-effect ms-3 mt-4" />
       </div>
+      <Footer />
     </div>
   );
 };

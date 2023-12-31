@@ -5,9 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { type BuchProps } from '~/types';
 import Modal from 'react-modal';
 import SimpleBarChart from './barchart';
-import { withAuth } from '../components/AuthentificationComponent';
-import { BuchTableRow } from '../components/BuchTableRowComponent';
-import { Button } from '../components/ButtonComponent';
 
 function SearchPage() {
   const [id, setId] = useState('');
@@ -188,6 +185,7 @@ function SearchPage() {
           <SimpleBarChart />
         </div>
       </Modal>
+      <Footer />
     </div>
   );
 }
