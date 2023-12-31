@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { https, host, port, rest } from '~/constants';
+import { Footer } from '../components/FooterComponent';
 
 const CreatePage: React.FC = () => {
   const [isbn, setISBN] = useState('');
@@ -331,6 +332,7 @@ const CreatePage: React.FC = () => {
           Zurück zur Startseite
         </button>
       </div>
+      <Footer />
     </div>
   );
 };
