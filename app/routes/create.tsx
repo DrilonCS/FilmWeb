@@ -6,7 +6,7 @@ import { https, host, port, rest } from '~/constants';
 import { withAuth } from '../components/AuthentificationComponent';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { Button } from '../components/ButtonComponent';
-import { Footer } from '../components/FooterComponent';
+import { Footer } from '../components/Shared/FooterComponent';
 
 const CreatePage: React.FC = () => {
   const [isbn, setISBN] = useState('');

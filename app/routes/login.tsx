@@ -6,7 +6,7 @@ import { https, host, login, port } from '../constants';
 import logo from '~/log.png';
 import { LoginForm } from '../components/Login/LoginFormComponent';
 import { UserActions } from '../components/Login/LoginActionsComponent';
-import { Footer } from '../components/FooterComponent';
+import { Footer } from '../components/Shared/FooterComponent';
 
 export function LoginPage() {
   const [username, setUsername] = useState('');

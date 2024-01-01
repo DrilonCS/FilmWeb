@@ -8,7 +8,7 @@ import SimpleBarChart from './barchart';
 import { withAuth } from '../components/AuthentificationComponent';
 import { BuchTableRow } from '../components/BuchTableRowComponent';
 import { Button } from '../components/ButtonComponent';
-import { Footer } from '../components/FooterComponent';
+import { Footer } from '../components/Shared/FooterComponent';
 
 
 function SearchPage() {
