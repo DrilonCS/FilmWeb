@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { https, host, login, port } from '../constants';
 import logo from '~/log.png';
 import { LoginForm } from '../components/Login/LoginFormComponent';
-import { UserActions } from '../components/LoginActionsComponent';
+import { UserActions } from '../components/Login/LoginActionsComponent';
 import { Footer } from '../components/FooterComponent';
 
 export function LoginPage() {
