@@ -76,6 +76,11 @@ export function LoginPage() {
   };
 
   return (
+    <div
+    style={{
+      background: 'linear-gradient(#90AFC5, #3B7EA1)',
+      minHeight: '100vh',
+    }}>
     <div className="container">
       <header className="d-flex flex-column align-items-center justify-content-center py-3 mb-5 border-bottom">
         {!isLoggedIn && (
@@ -103,5 +108,6 @@ export function LoginPage() {
       </main>
       <Footer />
     </div>
+  </div>
   );
 }
