@@ -3,10 +3,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { https, host, port, rest } from '~/constants';
-import { withAuth } from '../components/Shared/AuthentificationComponent';
+import { withAuth } from '../components/AuthentificationComponent';
 import { useFormHandlers } from '../hooks/useFormHandlers';
-import { Button } from '../components/Shared/ButtonComponent';
-import { Footer } from '../components/Shared/FooterComponent';
+import { Button } from '../components/ButtonComponent';
+import { Footer } from '../components/FooterComponent';
 
 const CreatePage: React.FC = () => {
   const [isbn, setISBN] = useState('');
