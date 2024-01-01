@@ -33,7 +33,6 @@ export const handleSearchError = (
             setError(err.message);
         }
         setTimeout(() => setError(null), 5000);
-        console.log(err);
     };
 
 export const handleCreateError = (
