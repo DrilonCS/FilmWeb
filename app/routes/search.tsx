@@ -30,11 +30,20 @@ function SearchPage() {
     navigate('/');
   };
 
-  const handleGetBuecher = (id?: string, art?: string) => {
-    const url = `${https}${host}${port}${rest}
-      ${id || ''}
-      ${art ? `?art=${art}` : ''}`;
-    search(url);
+  const handleGetByArt = () => {
+    search(`${https}${host}${port}${rest}?art=${art}`);
+  };
+
+  const handleGetId = () => {
+    if (!id || id.trim() === '') {
+      alert('ID darf nicht leer sein');
+      return;
+    }
+    search(`${https}${host}${port}${rest}${id}`);
+  };
+
+  const handleGetAllBuecher = () => {
+    search(`${https}${host}${port}${rest}`);
   };
 
   const handleShowDetails = (buch: BuchProps) => {
@@ -71,9 +80,9 @@ function SearchPage() {
         <Button onClick={navigateToIndex} text="Zurück zur Startseite" classes="hover-effect ms-3 mt-4" />
       </div>
       <div className="d-flex justify-content-center mt-3">
-        <Button onClick={() => handleGetBuecher(id)} text="Suche mit ID" classes="ms-3 mt-4 hover-effect" />
-        <Button onClick={() => handleGetBuecher()} text="Suche alle Buecher" classes="ms-3 mt-4 hover-effect" />
-        <Button onClick={() => handleGetBuecher(undefined, art)} text="Suche nach Art" classes="ms-3 mt-4 hover-effect" />
+        <Button onClick={() => handleGetId()} text="Suche mit ID" classes="ms-3 mt-4 hover-effect" />
+        <Button onClick={() => handleGetAllBuecher()} text="Suche alle Buecher" classes="ms-3 mt-4 hover-effect" />
+        <Button onClick={() => handleGetByArt()} text="Suche nach Art" classes="ms-3 mt-4 hover-effect" />
         <select
           value={art}
           onChange={(e) => setArt(e.target.value)}
