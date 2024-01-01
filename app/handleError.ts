@@ -44,7 +44,7 @@ export const handleCreateError = (
     setPasswordError: Dispatch<SetStateAction<string | null>>,
     username: string,
     password: string,
-    error: any
+    error: any,
     ) => {
         if (!username && password) {
             setUsernameError('Bitte geben Sie einen Benutzernamen ein!');
