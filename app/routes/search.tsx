@@ -35,11 +35,11 @@ function SearchPage() {
   };
 
   const handleGetId = () => {
-    if (!id || id.trim() === '') {
-      alert('ID darf nicht leer sein');
-      return;
+    if(!id) {
+      search(`${https}${host}${port}${rest}/UngültigeId`);
+    } else {
+      search(`${https}${host}${port}${rest}${id}`);
     }
-    search(`${https}${host}${port}${rest}${id}`);
   };
 
   const handleGetAllBuecher = () => {

@@ -18,7 +18,7 @@ export const useApi = (initialUrl: string) => {
         }
         setError(null);
       })
-      .catch((err) => handleSearchError(setError, err));
+      .catch((err) => handleSearchError(setError, url, err));
   };
 
   return { data, error, request };

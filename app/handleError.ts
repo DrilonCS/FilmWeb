@@ -1,16 +1,39 @@
 import { Dispatch, SetStateAction } from 'react';
+import { https, host, port, rest } from '~/constants';
 
 export const handleSearchError = (
     setError: Dispatch<SetStateAction<string | null>>,
-    searchType: string, 
+    url: string,
     err: any,
     ) => {
-        if (err.response && err.response.status === 404) {
-            setError('Es gibt kein Buch mit dieser ID!');
+        let search = '';
+
+        if (url.includes('art')) {
+          search = 'art';
+        } else if (url === `${https}${host}${port}${rest}`) {
+          search = 'all';
+        } else {
+          search = 'id';
+        }
+
+        if (search === 'art') {
+            if(err.response && err.response.status === 500) {
+                setError('Wähle eine Buchart (Kindle/Druckausgabe) aus!');
+            } 
+        } 
+        else if (search === 'id') {
+            if (err.response) {
+                if (url.includes('UngültigeId')) {
+                    setError('Geben Sie bitte eine Id ein!');
+                } else {
+                    setError('Es gibt kein Buch mit dieser ID!');
+                }
+            } 
         } else {
             setError(err.message);
         }
         setTimeout(() => setError(null), 5000);
+        console.log(err);
     };
 
 export const handleCreateError = (
