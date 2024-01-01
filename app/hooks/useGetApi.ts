@@ -6,6 +6,16 @@ export const useApi = (initialUrl: string) => {
   const [data, setData] = useState<BuchProps | BuchProps[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  const handleError = (err: any) => {
+    if (err.response && err.response.status === 404) {
+      setError('Es gibt kein Buch mit dieser ID!');
+    } else {
+      setError(err.message);
+    }
+    setTimeout(() => setError(null), 5000);
+    setData(null);
+  };
+
   const request = (url = initialUrl) => {
     axios
       .get(url)
@@ -17,15 +27,7 @@ export const useApi = (initialUrl: string) => {
         }
         setError(null);
       })
-      .catch((err) => {
-        if (err.response && err.response.status === 404) {
-          setError('Es gibt kein Buch mit dieser ID!');
-        } else {
-          setError(err.message);
-        }
-        setTimeout(() => setError(null), 5000);
-        setData(null);
-      });
+      .catch(handleError);
   };
 
   return { data, error, request };

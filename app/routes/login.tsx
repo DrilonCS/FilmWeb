@@ -48,6 +48,13 @@ export function LoginPage() {
     return response.data;
   };
 
+  const handleLoginError = (error: any) => {
+    setErrorMessage(error.response.data.message);
+    setTimeout(() => setErrorMessage(null), 5000);
+    setUsername('');
+    setPassword('');
+  };
+
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
 
@@ -60,12 +67,7 @@ export function LoginPage() {
           localStorage.setItem('expiresAt', expiresAt.toString());
         }
       })
-      .catch((error) => {
-        setErrorMessage(error.response.data.message);
-        setTimeout(() => setErrorMessage(null), 5000);
-        setUsername('');
-        setPassword('');
-      });
+      .catch(handleLoginError);
   };
 
   const handleLogout = () => {
