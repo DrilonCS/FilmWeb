@@ -69,6 +69,11 @@ const CreatePage: React.FC = () => {
     },
   });
 
+  const errorMessages = {
+    'isbn': 'Benutzerdefinierte ISBN-Fehlermeldung',
+    'art': 'Benutzerdefinierte Art-Fehlermeldung',
+  };
+  
   const handleErrors = (error: any) => {
     if (
       error.response &&
@@ -79,7 +84,8 @@ const CreatePage: React.FC = () => {
       error.response.data.message.forEach((message: string) => {
         properties.forEach((property) => {
           if (message.toLowerCase().includes(property)) {
-            newErrors[property] = message;
+            // Verwenden Sie die benutzerdefinierte Fehlermeldung, wenn sie existiert, sonst die ursprüngliche Fehlermeldung
+            newErrors[property] = errorMessages[property] || message;
           }
         });
       });
