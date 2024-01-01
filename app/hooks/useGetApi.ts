@@ -21,5 +21,5 @@ export const useApi = (initialUrl: string) => {
       .catch((err) => handleSearchError(setError, url, err));
   };
 
-  return { data, error, request };
+  return { data, error, request, setData };
 };

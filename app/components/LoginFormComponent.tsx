@@ -1,5 +1,5 @@
 import React from 'react';
-import './loginStyles.css';
+import './LoginStyleComponent';
 
 interface LoginFormProps {
   username: string;

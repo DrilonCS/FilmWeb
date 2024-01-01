@@ -18,6 +18,7 @@ function SearchPage() {
     data: result,
     error,
     request: search,
+    setData: setResult,
   } = useApi(`${https}${host}${port}${rest}`);
   const [selectedBuch, setSelectedBuch] = useState<BuchProps | null>(null); //state für das ausgewählte Buch
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -30,20 +31,25 @@ function SearchPage() {
     navigate('/');
   };
 
+  const handleRequest = (url: string) => {
+    setResult(null); // Setzt den result-State auf null
+    search(url); // Führt den Request aus
+  };
+
   const handleGetByArt = () => {
-    search(`${https}${host}${port}${rest}?art=${art}`);
+    handleRequest(`${https}${host}${port}${rest}?art=${art}`);
   };
 
   const handleGetId = () => {
     if(!id) {
-      search(`${https}${host}${port}${rest}/UngültigeId`);
+      handleRequest(`${https}${host}${port}${rest}/UngültigeId`);
     } else {
-      search(`${https}${host}${port}${rest}${id}`);
+      handleRequest(`${https}${host}${port}${rest}${id}`);
     }
   };
 
   const handleGetAllBuecher = () => {
-    search(`${https}${host}${port}${rest}`);
+    handleRequest(`${https}${host}${port}${rest}`);
   };
 
   const handleShowDetails = (buch: BuchProps) => {
