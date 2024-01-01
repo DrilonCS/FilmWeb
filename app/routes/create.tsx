@@ -8,6 +8,7 @@ import { useFormHandlers } from '../hooks/useFormHandlers';
 import { Button } from '../components/ButtonComponent';
 import { Footer } from '../components/FooterComponent';
 import { handleCreateError } from '~/utils/handleError';
+import { useAuthHeaders } from '../hooks/useAuthHeaders';
 
 const CreatePage: React.FC = () => {
   const [isbn, setISBN] = useState('');
@@ -37,10 +38,7 @@ const CreatePage: React.FC = () => {
     navigate('/');
   };
 
-  const createHeaders = () => ({
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${localStorage.getItem('authToken')}`,
-  });
+  const createHeaders = useAuthHeaders();
 
   const properties = [
     'isbn',
