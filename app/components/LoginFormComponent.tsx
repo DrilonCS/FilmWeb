@@ -4,7 +4,8 @@ import './loginStyles.css';
 interface LoginFormProps {
   username: string;
   password: string;
-  errorMessage: string | null;
+  usernameError: string | null;
+  passwordError: string | null;
   setUsername: (username: string) => void;
   setPassword: (password: string) => void;
   handleSubmit: (event: { preventDefault: () => void }) => void;
@@ -13,7 +14,8 @@ interface LoginFormProps {
 export const LoginForm: React.FC<LoginFormProps> = ({
   username,
   password,
-  errorMessage,
+  usernameError,
+  passwordError,
   setUsername,
   setPassword,
   handleSubmit,
@@ -31,8 +33,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        {errorMessage && (
-          <p style={{ position: 'absolute', color: 'red' }}>{errorMessage}</p>
+        {usernameError && (
+          <p style={{ position: 'absolute', color: 'red' }}>{usernameError}</p>
         )}
       </div>
       <div style={{ position: 'relative' }} className="mb-3 me-3">
@@ -43,8 +45,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        {errorMessage && (
-          <p style={{ position: 'absolute', color: 'blue' }}>{errorMessage}</p>
+        {passwordError && (
+          <p style={{ position: 'absolute', color: 'blue' }}>{passwordError}</p>
         )}
       </div>
       <button type="submit" className="btn btn-primary ms-3 mt-4 hover-effect">

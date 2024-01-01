@@ -7,11 +7,13 @@ import logo from '~/log.png';
 import { LoginForm } from '../components/LoginFormComponent';
 import { UserActions } from '../components/LoginActionsComponent';
 import { Footer } from '../components/FooterComponent';
+import { handleLoginError } from '~/handleError';
 
 export function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [usernameError, setUsernameError] = useState<string | null>(null);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const navigate = useNavigate();
@@ -48,13 +50,6 @@ export function LoginPage() {
     return response.data;
   };
 
-  const handleLoginError = (error: any) => {
-    setErrorMessage(error.response.data.message);
-    setTimeout(() => setErrorMessage(null), 5000);
-    setUsername('');
-    setPassword('');
-  };
-
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
 
@@ -67,7 +62,13 @@ export function LoginPage() {
           localStorage.setItem('expiresAt', expiresAt.toString());
         }
       })
-      .catch(handleLoginError);
+      .catch((err) => handleLoginError(
+        setUsernameError, 
+        setPasswordError, 
+        username, 
+        password, 
+        err,
+        ));
   };
 
   const handleLogout = () => {
@@ -84,7 +85,8 @@ export function LoginPage() {
           <LoginForm
             username={username}
             password={password}
-            errorMessage={errorMessage}
+            usernameError={usernameError}
+            passwordError={passwordError}
             setUsername={setUsername}
             setPassword={setPassword}
             handleSubmit={handleSubmit}
