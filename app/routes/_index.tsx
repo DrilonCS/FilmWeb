@@ -10,7 +10,7 @@ export const GlobalStyle = createGlobalStyle`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 20vh;
+    height: 0vh;
   }
   .login-logo {
     width: 400px; // Breite des Logos
