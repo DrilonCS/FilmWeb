@@ -7,6 +7,7 @@ import { withAuth } from '../components/AuthentificationComponent';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { Button } from '../components/ButtonComponent';
 import { Footer } from '../components/FooterComponent';
+import { handleCreateError } from '~/handleError';
 
 const CreatePage: React.FC = () => {
   const [isbn, setISBN] = useState('');
@@ -73,28 +74,6 @@ const CreatePage: React.FC = () => {
     'isbn': 'Benutzerdefinierte ISBN-Fehlermeldung',
     'art': 'Benutzerdefinierte Art-Fehlermeldung',
   };
-  
-  const handleErrors = (error: any) => {
-    if (
-      error.response &&
-      error.response.data &&
-      Array.isArray(error.response.data.message)
-    ) {
-      const newErrors: Record<string, string> = {};
-      error.response.data.message.forEach((message: string) => {
-        properties.forEach((property) => {
-          if (message.toLowerCase().includes(property)) {
-            // Verwenden Sie die benutzerdefinierte Fehlermeldung, wenn sie existiert, sonst die ursprüngliche Fehlermeldung
-            newErrors[property] = errorMessages[property] || message;
-          }
-        });
-      });
-      setErrors(newErrors);
-    } else {
-      setError(error.message);
-    }
-  };
-  
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -107,9 +86,7 @@ const CreatePage: React.FC = () => {
       .then((response) => {
         setResult(response.data);
       })
-      .catch((error) => {
-        handleErrors(error);
-      });
+      .catch((err) => handleCreateError(setErrors, setError, errorMessages, properties, err))
   };
 
   useEffect(() => {

@@ -1,20 +1,11 @@
 import { useState } from 'react';
 import { type BuchProps } from '../types';
 import axios from 'axios';
+import { handleSearchError } from '~/handleError';
 
 export const useApi = (initialUrl: string) => {
   const [data, setData] = useState<BuchProps | BuchProps[] | null>(null);
   const [error, setError] = useState<string | null>(null);
-
-  const handleError = (err: any) => {
-    if (err.response && err.response.status === 404) {
-      setError('Es gibt kein Buch mit dieser ID!');
-    } else {
-      setError(err.message);
-    }
-    setTimeout(() => setError(null), 5000);
-    setData(null);
-  };
 
   const request = (url = initialUrl) => {
     axios
@@ -27,7 +18,7 @@ export const useApi = (initialUrl: string) => {
         }
         setError(null);
       })
-      .catch(handleError);
+      .catch((err) => handleSearchError(setError, err));
   };
 
   return { data, error, request };
