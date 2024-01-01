@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { https, host, port, rest } from '~/constants';
+import { REST_API_URL } from '~/constants';
 import { withAuth } from '../components/AuthentificationComponent';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { Button } from '../components/ButtonComponent';
@@ -82,7 +82,7 @@ const CreatePage: React.FC = () => {
     const buch = createBuch();
 
     axios
-      .post(`${https}${host}${port}${rest}`, buch, { headers })
+      .post(REST_API_URL, buch, { headers })
       .then((response) => {
         setResult(response.data);
       })

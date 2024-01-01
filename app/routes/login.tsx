@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from '@remix-run/react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { https, host, login, port } from '../constants';
+import { LOGIN_API_URL } from '../constants';
 import logo from '~/log.png';
 import { LoginForm } from '../components/LoginFormComponent';
 import { UserActions } from '../components/LoginActionsComponent';
@@ -43,7 +43,7 @@ export function LoginPage() {
       'Content-Type': 'application/x-www-form-urlencoded',
     };
     const response = await axios.post(
-      `${https}${host}${port}${login}`,
+      LOGIN_API_URL,
       `username=${username}&password=${password}`,
       { headers },
     );

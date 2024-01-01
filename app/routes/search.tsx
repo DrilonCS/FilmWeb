@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useApi } from '~/hooks/useGetApi';
-import { https, host, port, rest } from '../constants';
+import { REST_API_URL } from '../constants';
 import { useNavigate } from 'react-router-dom';
 import { type BuchProps } from '~/types';
 import Modal from 'react-modal';
@@ -20,7 +20,7 @@ function SearchPage() {
     error,
     request: search,
     setData: setResult,
-  } = useApi(`${https}${host}${port}${rest}`);
+  } = useApi(REST_API_URL);
   const [selectedBuch, setSelectedBuch] = useState<BuchProps | null>(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [isChartModalOpen, setChartModalOpen] = useState(false);
@@ -38,19 +38,19 @@ function SearchPage() {
   };
 
   const handleGetByArt = () => {
-    handleRequest(`${https}${host}${port}${rest}?art=${art}`);
+    handleRequest(`${REST_API_URL}?art=${art}`);
   };
 
   const handleGetId = () => {
     if(!id) {
-      handleRequest(`${https}${host}${port}${rest}/UngültigeId`);
+      handleRequest(`${REST_API_URL}/UngültigeId`);
     } else {
-      handleRequest(`${https}${host}${port}${rest}${id}`);
+      handleRequest(`${REST_API_URL}${id}`);
     }
   };
 
   const handleGetAllBuecher = () => {
-    handleRequest(`${https}${host}${port}${rest}`);
+    handleRequest(REST_API_URL);
   };
 
   const handleShowDetails = (buch: BuchProps) => {
