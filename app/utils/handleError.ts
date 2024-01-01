@@ -81,8 +81,7 @@ export const handleCreateError = (
             setUsernameError('Unültiger Benutzername oder Passwort!');
             setPasswordError('Unültiger Benutzername oder Passwort!');
           } else {
-            setUsernameError('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.');
-            setPasswordError('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.');
+            alert('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.');
           }
         }
         setTimeout(() => setUsernameError(null), 5000);

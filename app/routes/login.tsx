@@ -7,7 +7,7 @@ import logo from '~/log.png';
 import { LoginForm } from '../components/LoginFormComponent';
 import { UserActions } from '../components/LoginActionsComponent';
 import { Footer } from '../components/FooterComponent';
-import { handleLoginError } from '~/handleError';
+import { handleLoginError } from '~/utils/handleError';
 
 export function LoginPage() {
   const [username, setUsername] = useState('');

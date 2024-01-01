@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { type BuchProps } from '../types';
 import axios from 'axios';
-import { handleSearchError } from '~/handleError';
+import { handleSearchError } from '~/utils/handleError';
 
 export const useApi = (initialUrl: string) => {
   const [data, setData] = useState<BuchProps | BuchProps[] | null>(null);

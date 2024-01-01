@@ -7,7 +7,7 @@ import { withAuth } from '../components/AuthentificationComponent';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { Button } from '../components/ButtonComponent';
 import { Footer } from '../components/FooterComponent';
-import { handleCreateError } from '~/handleError';
+import { handleCreateError } from '~/utils/handleError';
 
 const CreatePage: React.FC = () => {
   const [isbn, setISBN] = useState('');
