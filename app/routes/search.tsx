@@ -9,6 +9,7 @@ import { withAuth } from '../components/AuthentificationComponent';
 import { BuchTableRow } from '../components/BuchTableRowComponent';
 import { Button } from '../components/ButtonComponent';
 import { Footer } from '../components/FooterComponent';
+import { BuchDetailsComponent } from '../components/BuchDetailsComponent';
 
 
 function SearchPage() {
@@ -20,10 +21,10 @@ function SearchPage() {
     request: search,
     setData: setResult,
   } = useApi(`${https}${host}${port}${rest}`);
-  const [selectedBuch, setSelectedBuch] = useState<BuchProps | null>(null); //state für das ausgewählte Buch
+  const [selectedBuch, setSelectedBuch] = useState<BuchProps | null>(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [isChartModalOpen, setChartModalOpen] = useState(false);
-  const [showAllResults, setShowAllResults] = useState(false); // state alle ergebnisse feststellen
+  const [showAllResults, setShowAllResults] = useState(false); 
 
   const navigate = useNavigate();
 
@@ -32,8 +33,8 @@ function SearchPage() {
   };
 
   const handleRequest = (url: string) => {
-    setResult(null); // Setzt den result-State auf null
-    search(url); // Führt den Request aus
+    setResult(null);
+    search(url); 
   };
 
   const handleGetByArt = () => {
@@ -62,7 +63,6 @@ function SearchPage() {
     setModalIsOpen(false);
   };
 
-  // Funktionen zum Öffnen und Schließen des Diagramm-Modals hinzufügen
   const handleOpenChartModal = () => {
     setChartModalOpen(true);
   };
@@ -146,52 +146,7 @@ function SearchPage() {
         )}
       </div>
       <Modal isOpen={modalIsOpen} onRequestClose={handleCloseDetails}>
-        <h2>Details</h2>
-        {selectedBuch && (
-          <table>
-            <tr>
-              <td>ISBN:</td>
-              <td>{selectedBuch.isbn}</td>
-            </tr>
-            <tr>
-              <td>Art:</td>
-              <td>{selectedBuch.art}</td>
-            </tr>
-            <tr>
-              <td>Rating:</td>
-              <td>{selectedBuch.rating}</td>
-            </tr>
-            <tr>
-              <td>Preis:</td>
-              <td>{selectedBuch.preis}</td>
-            </tr>
-            <tr>
-              <td>Rabatt:</td>
-              <td>{selectedBuch.rabatt}</td>
-            </tr>
-            <tr>
-              <td>Lieferbar:</td>
-              <td>{selectedBuch.lieferbar ? 'Ja' : 'Nein'}</td>
-            </tr>
-            <tr>
-              <td>Datum:</td>
-              <td>{selectedBuch.datum}</td>
-            </tr>
-            <tr>
-              <td>Homepage:</td>
-              <td>{selectedBuch.homepage}</td>
-            </tr>
-            <tr>
-              <td>Schlagwörter:</td>
-              <td>
-                {selectedBuch.schlagwoerter
-                  ? selectedBuch.schlagwoerter.join(', ')
-                  : ''}
-              </td>
-            </tr>
-          </table>
-        )}
-        <Button onClick={() => handleCloseDetails()} text="Schließen"/>
+        {selectedBuch && <BuchDetailsComponent buch={selectedBuch} onClose={handleCloseDetails} />}
       </Modal>
       <Modal isOpen={isChartModalOpen} onRequestClose={handleCloseChartModal}>
         <div
