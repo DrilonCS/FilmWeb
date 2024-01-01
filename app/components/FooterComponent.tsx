@@ -1,9 +1,10 @@
 import React from 'react';
 import gmailLogo from './gmail.png';
 
+
 export const Footer: React.FC = () => {
   return (
-<footer className="d-flex justify-content-center mt-5 " style={{ position: 'fixed', bottom: 0, left: '50%', transform: 'translateX(-50%)', width: '60%' }}>
+<footer className="d-flex justify-content-center mt-5 " style={{ position: 'fixed', bottom: 0, left: '50%', transform: 'translateX(-50%)', width: '60%', }}>
   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '40%' }}>
     <div style={{ display: 'flex', justifyContent: 'space-around', width: '100%' }}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
