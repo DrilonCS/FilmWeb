@@ -4,7 +4,7 @@ import { REST_API_URL } from '../constants';
 import { useNavigate } from 'react-router-dom';
 import { type BuchProps } from '~/types';
 import Modal from 'react-modal';
-import SimpleBarChart from './barchart';
+import SimpleBarChart from '../components/BarChartComponent';
 import { withAuth } from '../components/AuthentificationComponent';
 import { BuchTableRow } from '../components/BuchTableRowComponent';
 import { Button } from '../components/ButtonComponent';
@@ -158,7 +158,7 @@ function SearchPage() {
           }}
         >
           <Button onClick={() => handleCloseChartModal()} text="Schließen"/>
-          <SimpleBarChart />
+          <SimpleBarChart data={result}/>
         </div>
       </Modal>
       <Footer />

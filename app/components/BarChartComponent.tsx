@@ -1,36 +1,23 @@
-import React, { useEffect, useCallback } from 'react';
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  CartesianGrid,
-  Cell,
-} from 'recharts';
-import { useApi } from '~/hooks/useGetApi';
-import { https, host, port, rest } from '../constants';
-import type { BuchProps } from '~/types';
+import React from 'react';
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import { BuchProps } from '~/types';
 
-const SimpleBarChart = () => {
-  const { data, request: requestFunction } = useApi(
-    `${https}${host}${port}${rest}`,
-  );
+type BarChartProps = {
+  data: BuchProps | BuchProps[] | null;
+};
 
-  const request = useCallback(requestFunction, []);
-  useEffect(() => {
-    request();
-  }, [request]);
+const SimpleBarChart: React.FC<BarChartProps> = ({ data }) => {
 
   if (!data) {
     return <div>Loading...</div>;
   }
 
-  // Umwandeln der Daten in das richtige Format für das Diagramm
-  const chartData = (data as BuchProps[]).map((buch: BuchProps) => ({
+  const dataArray = Array.isArray(data) ? data : [data];
+  const chartData = dataArray.map((buch: BuchProps) => ({
     name: buch.titel.titel,
     rating: buch.rating,
   }));
+
   const colors = [
     '#8884d8',
     '#82ca9d',
@@ -39,7 +26,7 @@ const SimpleBarChart = () => {
     '#00C49F',
     '#FFBB28',
     '#FF8042',
-  ]; // Fügen Sie so viele Farben hinzu, wie Sie benötigen
+  ];
 
   return (
     <div
@@ -53,8 +40,8 @@ const SimpleBarChart = () => {
       <div>
         <h1>Bücher Rating</h1>
         <BarChart
-          width={900} // Erhöhen Sie die Breite
-          height={600} // Erhöhen Sie die Höhe
+          width={900}
+          height={600}
           data={chartData}
           margin={{
             top: 5,
