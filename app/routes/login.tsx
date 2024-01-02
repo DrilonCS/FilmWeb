@@ -62,13 +62,15 @@ export function LoginPage() {
           localStorage.setItem('expiresAt', expiresAt.toString());
         }
       })
-      .catch((err) => handleLoginError(
-        setUsernameError, 
-        setPasswordError, 
-        username, 
-        password, 
-        err,
-        ));
+      .catch((err) =>
+        handleLoginError(
+          setUsernameError,
+          setPasswordError,
+          username,
+          password,
+          err,
+        ),
+      );
   };
 
   const handleLogout = () => {
@@ -80,38 +82,39 @@ export function LoginPage() {
 
   return (
     <div
-    style={{
-      background: 'linear-gradient(#90AFC5, #3B7EA1)',
-      minHeight: '100vh',
-    }}>
-    <div className="container">
-      <header className="d-flex flex-column align-items-center justify-content-center py-3 mb-5 border-bottom">
-        {!isLoggedIn && (
-          <LoginForm
-            username={username}
-            password={password}
-            usernameError={usernameError}
-            passwordError={passwordError}
-            setUsername={setUsername}
-            setPassword={setPassword}
-            handleSubmit={handleSubmit}
-          />
-        )}
-        {isLoggedIn && (
-          <>
-            <UserActions
-              handleLogout={handleLogout}
-              navigateToSearch={navigateToSearch}
-              navigateToCreate={navigateToCreate}
+      style={{
+        background: 'linear-gradient(#90AFC5, #3B7EA1)',
+        minHeight: '100vh',
+      }}
+    >
+      <div className="container">
+        <header className="d-flex flex-column align-items-center justify-content-center py-3 mb-5 border-bottom">
+          {!isLoggedIn && (
+            <LoginForm
+              username={username}
+              password={password}
+              usernameError={usernameError}
+              passwordError={passwordError}
+              setUsername={setUsername}
+              setPassword={setPassword}
+              handleSubmit={handleSubmit}
             />
-          </>
-        )}
-      </header>
-      <main className="d-flex justify-content-center mt-5">
-        <img src={logo} alt="Logo" className="login-logo" />
-      </main>
-      <Footer />
+          )}
+          {isLoggedIn && (
+            <>
+              <UserActions
+                handleLogout={handleLogout}
+                navigateToSearch={navigateToSearch}
+                navigateToCreate={navigateToCreate}
+              />
+            </>
+          )}
+        </header>
+        <main className="d-flex justify-content-center mt-5">
+          <img src={logo} alt="Logo" className="login-logo" />
+        </main>
+        <Footer />
+      </div>
     </div>
-  </div>
   );
 }

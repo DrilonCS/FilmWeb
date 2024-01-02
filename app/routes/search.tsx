@@ -11,7 +11,6 @@ import { Button } from '../components/ButtonComponent';
 import { Footer } from '../components/FooterComponent';
 import { BuchDetailsComponent } from '../components/BuchDetailsComponent';
 
-
 function SearchPage() {
   const [id, setId] = useState('');
   const [art, setArt] = useState('');
@@ -24,7 +23,7 @@ function SearchPage() {
   const [selectedBuch, setSelectedBuch] = useState<BuchProps | null>(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [isChartModalOpen, setChartModalOpen] = useState(false);
-  const [showAllResults, setShowAllResults] = useState(false); 
+  const [showAllResults, setShowAllResults] = useState(false);
 
   const navigate = useNavigate();
 
@@ -34,7 +33,7 @@ function SearchPage() {
 
   const handleRequest = (url: string) => {
     setResult(null);
-    search(url); 
+    search(url);
   };
 
   const handleGetByArt = () => {
@@ -42,7 +41,7 @@ function SearchPage() {
   };
 
   const handleGetId = () => {
-    if(!id) {
+    if (!id) {
       handleRequest(`${REST_API_URL}/UngültigeId`);
     } else {
       handleRequest(`${REST_API_URL}${id}`);
@@ -84,12 +83,28 @@ function SearchPage() {
       }}
     >
       <div>
-        <Button onClick={navigateToIndex} text="Zurück zur Startseite" classes="hover-effect ms-3 mt-4" />
+        <Button
+          onClick={navigateToIndex}
+          text="Zurück zur Startseite"
+          classes="hover-effect ms-3 mt-4"
+        />
       </div>
       <div className="d-flex justify-content-center mt-3">
-        <Button onClick={() => handleGetId()} text="Suche mit ID" classes="ms-3 mt-4 hover-effect" />
-        <Button onClick={() => handleGetAllBuecher()} text="Suche alle Buecher" classes="ms-3 mt-4 hover-effect" />
-        <Button onClick={() => handleGetByArt()} text="Suche nach Art" classes="ms-3 mt-4 hover-effect" />
+        <Button
+          onClick={() => handleGetId()}
+          text="Suche mit ID"
+          classes="ms-3 mt-4 hover-effect"
+        />
+        <Button
+          onClick={() => handleGetAllBuecher()}
+          text="Suche alle Buecher"
+          classes="ms-3 mt-4 hover-effect"
+        />
+        <Button
+          onClick={() => handleGetByArt()}
+          text="Suche nach Art"
+          classes="ms-3 mt-4 hover-effect"
+        />
         <select
           value={art}
           onChange={(e) => setArt(e.target.value)}
@@ -100,7 +115,11 @@ function SearchPage() {
           <option value="KINDLE">KINDLE</option>
           <option value="DRUCKAUSGABE">DRUCKAUSGABE</option>
         </select>
-        <Button onClick={() => handleOpenChartModal()} text="Statistik" classes="ms-3 mt-4 hover-effect" />
+        <Button
+          onClick={() => handleOpenChartModal()}
+          text="Statistik"
+          classes="ms-3 mt-4 hover-effect"
+        />
       </div>
       <div
         className="d-flex justify-content-center"
@@ -122,18 +141,30 @@ function SearchPage() {
           >
             <thead className="table-dark">
               <tr>
-                {['Titel', 'Rating', 'Art', 'Preis', 'Rabatt', 'Details'].map((header) => (
-                <th key={header} className="hover-effect">{header}</th>
-                ))}
+                {['Titel', 'Rating', 'Art', 'Preis', 'Rabatt', 'Details'].map(
+                  (header) => (
+                    <th key={header} className="hover-effect">
+                      {header}
+                    </th>
+                  ),
+                )}
               </tr>
             </thead>
             <tbody>
               {Array.isArray(result) ? (
-                result.slice(0, showAllResults ? result.length : 5).map((buch) => (
-                  <BuchTableRow handleShowDetails={handleShowDetails} {...buch} />
-                ))
+                result
+                  .slice(0, showAllResults ? result.length : 5)
+                  .map((buch) => (
+                    <BuchTableRow
+                      handleShowDetails={handleShowDetails}
+                      {...buch}
+                    />
+                  ))
               ) : result ? (
-                  <BuchTableRow handleShowDetails={handleShowDetails} {...result} />
+                <BuchTableRow
+                  handleShowDetails={handleShowDetails}
+                  {...result}
+                />
               ) : null}
             </tbody>
           </table>
@@ -141,13 +172,25 @@ function SearchPage() {
         {error && <p>{error}</p>}
         {result && Array.isArray(result) && result.length > 5 && (
           <div className="d-flex justify-content-center">
-            <Button onClick={() => handleToggleShowAllResults()} text={showAllResults ? 'Weniger Ergebnisse' : 'Mehr Ergebnisse'} classes="mt-4 hover-effect" />
-            <p className="ms-3 mt-4">{showAllResults ? result.length : 5} von {result.length} Ergebnissen</p>
+            <Button
+              onClick={() => handleToggleShowAllResults()}
+              text={showAllResults ? 'Weniger Ergebnisse' : 'Mehr Ergebnisse'}
+              classes="mt-4 hover-effect"
+            />
+            <p className="ms-3 mt-4">
+              {showAllResults ? result.length : 5} von {result.length}{' '}
+              Ergebnissen
+            </p>
           </div>
         )}
       </div>
       <Modal isOpen={modalIsOpen} onRequestClose={handleCloseDetails}>
-        {selectedBuch && <BuchDetailsComponent buch={selectedBuch} onClose={handleCloseDetails} />}
+        {selectedBuch && (
+          <BuchDetailsComponent
+            buch={selectedBuch}
+            onClose={handleCloseDetails}
+          />
+        )}
       </Modal>
       <Modal isOpen={isChartModalOpen} onRequestClose={handleCloseChartModal}>
         <div
@@ -157,8 +200,8 @@ function SearchPage() {
             alignItems: 'flex-end',
           }}
         >
-          <Button onClick={() => handleCloseChartModal()} text="Schließen"/>
-          <SimpleBarChart data={result}/>
+          <Button onClick={() => handleCloseChartModal()} text="Schließen" />
+          <SimpleBarChart data={result} />
         </div>
       </Modal>
       <Footer />

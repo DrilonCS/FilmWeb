@@ -6,7 +6,10 @@ type BuchDetailsProps = {
   onClose: () => void;
 };
 
-export const BuchDetailsComponent: React.FC<BuchDetailsProps> = ({ buch, onClose }) => {
+export const BuchDetailsComponent: React.FC<BuchDetailsProps> = ({
+  buch,
+  onClose,
+}) => {
   const buchDetails = [
     { label: 'ISBN', value: buch.isbn },
     { label: 'Art', value: buch.art },
@@ -16,7 +19,10 @@ export const BuchDetailsComponent: React.FC<BuchDetailsProps> = ({ buch, onClose
     { label: 'Lieferbar', value: buch.lieferbar ? 'Ja' : 'Nein' },
     { label: 'Datum', value: buch.datum },
     { label: 'Homepage', value: buch.homepage },
-    { label: 'Schlagwörter', value: buch.schlagwoerter ? buch.schlagwoerter.join(', ') : '' },
+    {
+      label: 'Schlagwörter',
+      value: buch.schlagwoerter ? buch.schlagwoerter.join(', ') : '',
+    },
     { label: 'Titel', value: buch.titel.titel },
     { label: 'Untertitel', value: buch.titel.untertitel },
   ];
@@ -24,7 +30,10 @@ export const BuchDetailsComponent: React.FC<BuchDetailsProps> = ({ buch, onClose
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <button onClick={onClose} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>
+        <button
+          onClick={onClose}
+          style={{ border: 'none', background: 'none', cursor: 'pointer' }}
+        >
           <span style={{ fontSize: '20px', fontWeight: 'bold' }}>x</span>
         </button>
       </div>

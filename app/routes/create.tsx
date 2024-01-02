@@ -26,8 +26,14 @@ const CreatePage: React.FC = () => {
   const [result, setResult] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const values: Record<string, string | number | undefined> = {
-    isbn, art, rabatt, preis, datum, homepage, titel,
-  }
+    isbn,
+    art,
+    rabatt,
+    preis,
+    datum,
+    homepage,
+    titel,
+  };
 
   const {
     handleInputChange,
@@ -55,7 +61,7 @@ const CreatePage: React.FC = () => {
     'homepage',
     'schlagwoerter',
   ];
-  
+
   const createBuch = () => ({
     isbn,
     rating,
@@ -74,18 +80,19 @@ const CreatePage: React.FC = () => {
 
   const errorMessagesInvalid: Record<string, string> = {
     isbn: 'Ungültiges ISBN-Format!',
-    rabatt : 'Geben Sie bitte ein gültigen Rabatt an',
-    preis : 'Bitte geben Sie einen gültigen Preis an',
+    rabatt: 'Geben Sie bitte ein gültigen Rabatt an',
+    preis: 'Bitte geben Sie einen gültigen Preis an',
     datum: 'Geben Sie bitte ein gültiges Datum an',
     homepage: 'Geben Sie bitte eine gültige Homepage an',
-    titel: 'Geben Sie bitte einen gültigen Titel ein. Es sind nur Buchstaben und Zahlen erlaubt!',
+    titel:
+      'Geben Sie bitte einen gültigen Titel ein. Es sind nur Buchstaben und Zahlen erlaubt!',
   };
 
   const errorMessagesNull: Record<string, string> = {
     isbn: 'Sie müssen eine ISBN eintragen!',
     art: 'Sie müssen eine Buchart eintragen!',
-    rabatt : 'Sie müssen einen Rabatt eintragen!',
-    preis : 'Sie müssen einen Preis eintragen!',
+    rabatt: 'Sie müssen einen Rabatt eintragen!',
+    preis: 'Sie müssen einen Preis eintragen!',
     datum: 'Sie müssen ein Datum eintragen!',
     homepage: 'Sie müssen eine Homepage eintragen!',
     titel: 'Sie müssen einen Titel eintragen!',
@@ -102,14 +109,17 @@ const CreatePage: React.FC = () => {
       .then((response) => {
         setResult(response.data);
       })
-      .catch((err) => handleCreateError(
-        setErrors, 
-        setError, 
-        errorMessagesInvalid, 
-        errorMessagesNull, 
-        properties, 
-        values, 
-        err))
+      .catch((err) =>
+        handleCreateError(
+          setErrors,
+          setError,
+          errorMessagesInvalid,
+          errorMessagesNull,
+          properties,
+          values,
+          err,
+        ),
+      );
   };
 
   return (
@@ -206,7 +216,9 @@ const CreatePage: React.FC = () => {
                   name="lieferbar"
                   value={value}
                   checked={lieferbar.toString() === value}
-                  onChange={(event) => handleCheckboxChange(event, setLieferbar)}
+                  onChange={(event) =>
+                    handleCheckboxChange(event, setLieferbar)
+                  }
                 />
                 <label htmlFor={`lieferbar-${value}`}>
                   {value === 'true' ? 'Ja' : 'Nein'}
@@ -272,8 +284,7 @@ const CreatePage: React.FC = () => {
             onChange={(event) => handleInputChange(event, setUntertitel)}
           />
         </div>
-        <div>
-        </div>
+        <div></div>
         <button
           type="submit"
           className="btn btn-primary"
@@ -290,7 +301,11 @@ const CreatePage: React.FC = () => {
           left: '10px',
         }}
       >
-        <Button onClick={navigateToIndex} text="Zurück zur Startseite" classes="hover-effect ms-3 mt-4" />
+        <Button
+          onClick={navigateToIndex}
+          text="Zurück zur Startseite"
+          classes="hover-effect ms-3 mt-4"
+        />
       </div>
       <Footer />
     </div>

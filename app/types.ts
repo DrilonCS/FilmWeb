@@ -15,4 +15,3 @@ export interface TitelProps {
   titel: string;
   untertitel?: string;
 }
-

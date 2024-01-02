@@ -1,5 +1,13 @@
 import React from 'react';
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+} from 'recharts';
 import { BuchProps } from '~/types';
 
 type BarChartProps = {
@@ -7,7 +15,6 @@ type BarChartProps = {
 };
 
 const SimpleBarChart: React.FC<BarChartProps> = ({ data }) => {
-
   if (!data) {
     return <div>Loading...</div>;
   }

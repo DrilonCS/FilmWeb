@@ -8,12 +8,12 @@ export function useFormHandlers() {
     setState(event.target.value);
   };
 
-  const handleNumberChange = <T,>(
+  const handleNumberChange = <T>(
     event: React.ChangeEvent<HTMLInputElement>,
     setState: Dispatch<SetStateAction<T>>,
   ) => {
     const value = event.target.value;
-    setState((value === "" ? "" : Number(value)) as T);
+    setState((value === '' ? '' : Number(value)) as T);
   };
 
   const handleSelectChange = (
