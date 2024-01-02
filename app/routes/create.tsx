@@ -11,16 +11,16 @@ import { handleCreateError } from '~/utils/handleError';
 import { useAuthHeaders } from '../hooks/useAuthHeaders';
 
 const CreatePage: React.FC = () => {
-  const [isbn, setISBN] = useState('');
+  const [isbn, setISBN] = useState<string>('');
   const [rating, setRating] = useState<number>(0);
   const [art, setArt] = useState<string | undefined>('');
   const [preis, setPreis] = useState<number | ''>('');
   const [rabatt, setRabatt] = useState<number>(0);
   const [lieferbar, setLieferbar] = useState<boolean>(false);
-  const [datum, setDatum] = useState('');
-  const [homepage, setHomepage] = useState('');
+  const [datum, setDatum] = useState<string>('');
+  const [homepage, setHomepage] = useState<string>('');
   const [schlagwoerter, setSchlagwoerter] = useState<string[]>([]);
-  const [titel, setTitel] = useState('');
+  const [titel, setTitel] = useState<string>('');
   const [untertitel, setUntertitel] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<string | null>(null);
@@ -41,6 +41,7 @@ const CreatePage: React.FC = () => {
   const createHeaders = useAuthHeaders();
 
   const properties = [
+    'titel',
     'isbn',
     'art',
     'preis',
@@ -49,7 +50,6 @@ const CreatePage: React.FC = () => {
     'datum',
     'homepage',
     'schlagwoerter',
-    'titel',
   ];
   
   const createBuch = () => ({
@@ -69,9 +69,19 @@ const CreatePage: React.FC = () => {
   });
 
   const errorMessages = {
-    'isbn': 'Benutzerdefinierte ISBN-Fehlermeldung',
-    'art': 'Benutzerdefinierte Art-Fehlermeldung',
+    'isbn': 'Ungültiges ISBN-Format!',
+    'art': 'Bitte geben Sie eine Art an',
+    'rabatt': 'Geben Sie bitte ein Rabatt an',
+    'preis': 'Bitte geben Sie einen Preis an',
+    'lieferbar': 'Ist das Buch lieferbar?',
+    'datum': 'Geben Sie bitte ein Datum ein',
+    'homepage': 'Geben Sie bitte eine Homepage ein',
+    'schlagwoerter': 'Geben Sie bitte Schlagwörter ein',
+    'titel': 'Geben Sie bitte einen gültigen Titel ein. Es sind nur Buchstaben und Zahlen erlaubt!',
+    'untertitel': 'Geben Sie bitte einen Untertitel ein',
   };
+
+  const errorMessageISBN = 'Sie müssen eine ISBN eintragen!';
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -84,7 +94,7 @@ const CreatePage: React.FC = () => {
       .then((response) => {
         setResult(response.data);
       })
-      .catch((err) => handleCreateError(setErrors, setError, errorMessages, properties, err))
+      .catch((err) => handleCreateError(setErrors, setError, errorMessages, errorMessageISBN, properties, isbn, err))
   };
 
   return (

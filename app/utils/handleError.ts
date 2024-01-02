@@ -39,7 +39,9 @@ export const handleCreateError = (
     setErrors: React.Dispatch<React.SetStateAction<Record<string, string>>>,
     setError: React.Dispatch<React.SetStateAction<string | null>>,
     errorMessages: Record<string, string>,
+    errorMessageISBN: string,
     properties: string[],
+    isbn: string,
     error: any,
     ) => {
         if (
@@ -50,8 +52,12 @@ export const handleCreateError = (
                 const newErrors: Record<string, string> = {};
                 error.response.data.message.forEach((message: string) => {
                     properties.forEach((property) => {
-                        if (message.toLowerCase().includes(property)) {
-                            newErrors[property] = errorMessages[property] || message;
+                        if (message.toLowerCase().includes(property)) { 
+                            if (property === 'isbn' && isbn === '') { 
+                                newErrors[property] = errorMessageISBN;
+                            } else {
+                                newErrors[property] = errorMessages[property] || message;
+                            }
                         }
                     });
                 });
