@@ -1,6 +1,5 @@
 import React from 'react';
 import { BuchProps } from '~/types';
-import { Button } from '../components/ButtonComponent';
 
 type BuchDetailsProps = {
   buch: BuchProps;
@@ -24,6 +23,11 @@ export const BuchDetailsComponent: React.FC<BuchDetailsProps> = ({ buch, onClose
 
   return (
     <div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <button onClick={onClose} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>
+          <span style={{ fontSize: '20px', fontWeight: 'bold' }}>x</span>
+        </button>
+      </div>
       <h2>Details</h2>
       <table>
         {buchDetails.map((detail) => (
@@ -33,7 +37,6 @@ export const BuchDetailsComponent: React.FC<BuchDetailsProps> = ({ buch, onClose
           </tr>
         ))}
       </table>
-      <Button onClick={onClose} text="Schließen"/>
     </div>
   );
 };
