@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { https, host, port, rest } from '~/constants';
+import { REST_API_URL } from '~/constants';
 
 export const handleSearchError = (
     setError: Dispatch<SetStateAction<string | null>>,
@@ -10,7 +10,7 @@ export const handleSearchError = (
 
         if (url.includes('art')) {
           search = 'art';
-        } else if (url === `${https}${host}${port}${rest}`) {
+        } else if (url === REST_API_URL) {
           search = 'all';
         } else {
           search = 'id';
@@ -38,34 +38,34 @@ export const handleSearchError = (
 export const handleCreateError = (
     setErrors: React.Dispatch<React.SetStateAction<Record<string, string>>>,
     setError: React.Dispatch<React.SetStateAction<string | null>>,
-    errorMessages: Record<string, string>,
-    errorMessageISBN: string,
+    errorMessagesInvalid: Record<string, string>,
+    errorMessagesNull: Record<string, string>,
     properties: string[],
-    isbn: string,
+    values: Record<string, string | number | undefined>,
     error: any,
-    ) => {
-        if (
-            error.response &&
-            error.response.data &&
-            Array.isArray(error.response.data.message)
-            ) {
-                const newErrors: Record<string, string> = {};
-                error.response.data.message.forEach((message: string) => {
-                    properties.forEach((property) => {
-                        if (message.toLowerCase().includes(property)) { 
-                            if (property === 'isbn' && isbn === '') { 
-                                newErrors[property] = errorMessageISBN;
-                            } else {
-                                newErrors[property] = errorMessages[property] || message;
-                            }
-                        }
-                    });
-                });
-                setErrors(newErrors);
-            } else {
-                setError(error.message);
-            }
-        };
+) => {
+    if (
+        error.response &&
+        error.response.data &&
+        Array.isArray(error.response.data.message)
+    ) {
+        const newErrors: Record<string, string> = {};
+        error.response.data.message.forEach((message: string) => {
+            properties.forEach((property) => {
+                if (message.toLowerCase().includes(property)) {
+                    if ((property in values && values[property] === '') || values[property] === 0) {
+                        newErrors[property] = errorMessagesNull[property];
+                    } else {
+                        newErrors[property] = errorMessagesInvalid[property] || message;
+                    }
+                }
+            });
+        });
+        setErrors(newErrors);
+    } else {
+        setError(error.message);
+    }
+};
 
   export const handleLoginError = (
     setUsernameError: Dispatch<SetStateAction<string | null>>,

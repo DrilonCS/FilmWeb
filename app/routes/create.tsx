@@ -25,6 +25,10 @@ const CreatePage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const values: Record<string, string | number | undefined> = {
+    isbn, art, rabatt, preis, datum, homepage, titel,
+  }
+
   const {
     handleInputChange,
     handleNumberChange,
@@ -68,20 +72,24 @@ const CreatePage: React.FC = () => {
     },
   });
 
-  const errorMessages = {
-    'isbn': 'Ungültiges ISBN-Format!',
-    'art': 'Bitte geben Sie eine Art an',
-    'rabatt': 'Geben Sie bitte ein Rabatt an',
-    'preis': 'Bitte geben Sie einen Preis an',
-    'lieferbar': 'Ist das Buch lieferbar?',
-    'datum': 'Geben Sie bitte ein Datum ein',
-    'homepage': 'Geben Sie bitte eine Homepage ein',
-    'schlagwoerter': 'Geben Sie bitte Schlagwörter ein',
-    'titel': 'Geben Sie bitte einen gültigen Titel ein. Es sind nur Buchstaben und Zahlen erlaubt!',
-    'untertitel': 'Geben Sie bitte einen Untertitel ein',
+  const errorMessagesInvalid: Record<string, string> = {
+    isbn: 'Ungültiges ISBN-Format!',
+    rabatt : 'Geben Sie bitte ein gültigen Rabatt an',
+    preis : 'Bitte geben Sie einen gültigen Preis an',
+    datum: 'Geben Sie bitte ein gültiges Datum an',
+    homepage: 'Geben Sie bitte eine gültige Homepage an',
+    titel: 'Geben Sie bitte einen gültigen Titel ein. Es sind nur Buchstaben und Zahlen erlaubt!',
   };
 
-  const errorMessageISBN = 'Sie müssen eine ISBN eintragen!';
+  const errorMessagesNull: Record<string, string> = {
+    isbn: 'Sie müssen eine ISBN eintragen!',
+    art: 'Sie müssen eine Buchart eintragen!',
+    rabatt : 'Sie müssen einen Rabatt eintragen!',
+    preis : 'Sie müssen einen Preis eintragen!',
+    datum: 'Sie müssen ein Datum eintragen!',
+    homepage: 'Sie müssen eine Homepage eintragen!',
+    titel: 'Sie müssen einen Titel eintragen!',
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -94,7 +102,14 @@ const CreatePage: React.FC = () => {
       .then((response) => {
         setResult(response.data);
       })
-      .catch((err) => handleCreateError(setErrors, setError, errorMessages, errorMessageISBN, properties, isbn, err))
+      .catch((err) => handleCreateError(
+        setErrors, 
+        setError, 
+        errorMessagesInvalid, 
+        errorMessagesNull, 
+        properties, 
+        values, 
+        err))
   };
 
   return (
