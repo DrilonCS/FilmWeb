@@ -80,6 +80,7 @@ function SearchPage() {
       style={{
         background: 'linear-gradient(#90AFC5, #3B7EA1)',
         minHeight: '100vh',
+        marginBottom: '60px',
       }}
     >
       <div>

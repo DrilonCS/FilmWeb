@@ -113,6 +113,7 @@ const CreatePage: React.FC = () => {
         padding: '20px',
         boxSizing: 'border-box',
         marginTop: '60px',
+        marginBottom: '60px',
       }}
     >
       <h1>Buch anlegen </h1>
@@ -263,6 +264,9 @@ const CreatePage: React.FC = () => {
             value={untertitel}
             onChange={(event) => handleInputChange(event, setUntertitel)}
           />
+        </div>
+        <div>
+          
         </div>
         <button
           type="submit"
