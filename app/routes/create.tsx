@@ -5,10 +5,10 @@ import axios from 'axios';
 import { REST_API_URL } from '~/constants';
 import { withAuth } from '../components/AuthentificationComponent';
 import { useFormHandlers } from '../hooks/useFormHandlers';
-import { Button } from '../components/ButtonComponent';
-import { Footer } from '../components/FooterComponent';
+import { Button, Form, Container, Alert } from 'react-bootstrap';
 import { handleCreateError } from '~/utils/handleError';
 import { useAuthHeaders } from '../hooks/useAuthHeaders';
+import { Footer } from '../components/FooterComponent';
 
 const CreatePage: React.FC = () => {
   const [isbn, setISBN] = useState<string>('');
@@ -123,8 +123,7 @@ const CreatePage: React.FC = () => {
   };
 
   return (
-    <div
-      className="container"
+    <Container
       style={{
         minHeight: '100vh',
         padding: '20px',
@@ -134,83 +133,78 @@ const CreatePage: React.FC = () => {
       }}
     >
       <h1>Buch anlegen </h1>
-      {error && <p>Error: {error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>ISBN:</label>
-          <input
+      {error && <Alert variant="danger">Error: {error}</Alert>}
+      <Form onSubmit={handleSubmit}>
+        <Form.Group>
+          <Form.Label>ISBN:</Form.Label>
+          <Form.Control
             type="text"
-            className="form-control"
             value={isbn}
             onChange={(event) => handleInputChange(event, setISBN)}
             placeholder="z.B. 978-3-7375-0553-6"
           />
-          {errors['isbn'] && <p className="error">{errors['isbn']}</p>}
-        </div>
-        <div className="form-group">
-          <label>Rating:</label>
+          {errors['isbn'] && <Alert variant="danger">{errors['isbn']}</Alert>}
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Rating:</Form.Label>
           <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
             {[1, 2, 3, 4, 5].map((value) => (
               <div key={value} style={{ marginRight: '15px' }}>
-                <input
+                <Form.Check
                   type="radio"
                   id={`rating-${value}`}
                   name="rating"
                   value={value}
                   checked={rating === value}
                   onChange={(event) => handleNumberChange(event, setRating)}
-                />
-                <label htmlFor={`rating-${value}`}>
-                  {Array.from({ length: value }, (_, index) => (
+                  label={Array.from({ length: value }, (_, index) => (
                     <span key={index}>★</span>
                   ))}
-                </label>
+                />
               </div>
             ))}
           </div>
-        </div>
-        <div className="form-group">
-          <label>Art:</label>
-          <select
-            className="form-control"
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Art:</Form.Label>
+          <Form.Control
+            as="select"
             value={art}
             onChange={(event) => handleSelectChange(event, setArt)}
           >
             <option value="">Select Art</option>
             <option value="KINDLE">KINDLE</option>
             <option value="DRUCKAUSGABE">DRUCKAUSGABE</option>
-          </select>
-          {errors['art'] && <p className="error">{errors['art']}</p>}
-        </div>
-        <div className="form-group">
-          <label>Preis:</label>
-          <input
+          </Form.Control>
+          {errors['art'] && <Alert variant="danger">{errors['art']}</Alert>}
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Preis:</Form.Label>
+          <Form.Control
             type="number"
             step="0.01"
-            className="form-control"
             value={preis}
             onChange={(event) => handleNumberChange(event, setPreis)}
             placeholder="in €"
           />
-          {errors['preis'] && <p className="error">{errors['preis']}</p>}
-        </div>
-        <div className="form-group">
-          <label>Rabatt:</label>
-          <input
+          {errors['preis'] && <Alert variant="danger">{errors['preis']}</Alert>}
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Rabatt:</Form.Label>
+          <Form.Control
             type="number"
             step="0.01"
-            className="form-control"
             value={rabatt}
             onChange={(event) => handleNumberChange(event, setRabatt)}
           />
-          {errors['rabatt'] && <p className="error">{errors['rabatt']}</p>}
-        </div>
-        <div className="form-group">
-          <label>Lieferbar:</label>
+          {errors['rabatt'] && <Alert variant="danger">{errors['rabatt']}</Alert>}
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Lieferbar:</Form.Label>
           <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
             {['true', 'false'].map((value) => (
               <div key={value} style={{ marginRight: '15px' }}>
-                <input
+                <Form.Check
                   type="radio"
                   id={`lieferbar-${value}`}
                   name="lieferbar"
@@ -219,80 +213,73 @@ const CreatePage: React.FC = () => {
                   onChange={(event) =>
                     handleCheckboxChange(event, setLieferbar)
                   }
+                  label={value === 'true' ? 'Ja' : 'Nein'}
                 />
-                <label htmlFor={`lieferbar-${value}`}>
-                  {value === 'true' ? 'Ja' : 'Nein'}
-                </label>
               </div>
             ))}
           </div>
           {errors['lieferbar'] && (
-            <p className="error">{errors['lieferbar']}</p>
+            <Alert variant="danger">{errors['lieferbar']}</Alert>
           )}
-        </div>
-        <div className="form-group">
-          <label>Datum:</label>
-          <input
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Datum:</Form.Label>
+          <Form.Control
             type="text"
-            className="form-control"
             value={datum}
             onChange={(event) => handleInputChange(event, setDatum)}
             placeholder="YYYY-MM-DD"
             style={{ color: datum ? 'black' : 'gray' }}
           />
-          {errors['datum'] && <p className="error">{errors['datum']}</p>}
-        </div>
-        <div className="form-group">
-          <label>Homepage:</label>
-          <input
+          {errors['datum'] && <Alert variant="danger">{errors['datum']}</Alert>}
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Homepage:</Form.Label>
+          <Form.Control
             type="text"
-            className="form-control"
             value={homepage}
             onChange={(event) => handleInputChange(event, setHomepage)}
             placeholder="https://www.website.com"
           />
-          {errors['homepage'] && <p className="error">{errors['homepage']}</p>}
-        </div>
-        <div className="form-group">
-          <label>Schlagwörter:</label>
-          <input
+          {errors['homepage'] && <Alert variant="danger">{errors['homepage']}</Alert>}
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Schlagwörter:</Form.Label>
+          <Form.Control
             type="text"
-            className="form-control"
             value={schlagwoerter}
             onChange={(event) => handleArrayChange(event, setSchlagwoerter)}
           />
           {errors['schlagwoerter'] && (
-            <p className="error">{errors['schlagwoerter']}</p>
+            <Alert variant="danger">{errors['schlagwoerter']}</Alert>
           )}
-        </div>
-        <div className="form-group">
-          <label>Titel:</label>
-          <input
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Titel:</Form.Label>
+          <Form.Control
             type="text"
-            className="form-control"
             value={titel}
             onChange={(event) => handleInputChange(event, setTitel)}
           />
-          {errors['titel'] && <p className="error">{errors['titel']}</p>}
-        </div>
-        <div className="form-group">
-          <label>Untertitel:</label>
-          <input
+          {errors['titel'] && <Alert variant="danger">{errors['titel']}</Alert>}
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Untertitel:</Form.Label>
+          <Form.Control
             type="text"
-            className="form-control"
             value={untertitel}
             onChange={(event) => handleInputChange(event, setUntertitel)}
           />
-        </div>
+        </Form.Group>
         <div></div>
-        <button
+        <Button
           type="submit"
-          className="btn btn-primary"
+          variant="primary"
           style={{ marginTop: '20px' }}
         >
           Create
-        </button>
-      </form>
+        </Button>
+      </Form>
       {result && <p>Result: {JSON.stringify(result)}</p>}
       <div
         style={{
@@ -303,12 +290,13 @@ const CreatePage: React.FC = () => {
       >
         <Button
           onClick={navigateToIndex}
-          text="Zurück zur Startseite"
-          classes="hover-effect ms-3 mt-4"
-        />
+          className="hover-effect ms-3 mt-4"
+        >
+            Zurück zur Startseite
+        </Button>
       </div>
       <Footer />
-    </div>
+    </Container>
   );
 };
 

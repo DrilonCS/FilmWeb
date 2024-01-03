@@ -10,6 +10,7 @@ import { BuchTableRow } from '../components/BuchTableRowComponent';
 import { Button } from '../components/ButtonComponent';
 import { Footer } from '../components/FooterComponent';
 import { BuchDetailsComponent } from '../components/BuchDetailsComponent';
+import { Alert } from 'react-bootstrap';
 
 function SearchPage() {
   const [id, setId] = useState('');
@@ -134,10 +135,11 @@ function SearchPage() {
         />
       </div>
       <div style={{ marginTop: '51px' }}>
+        {error && <Alert variant="danger">{error}</Alert>}
         {result && (
           <table
             className="table table-striped table-hover table-bordered"
-            style={{ border: '3px solid blue' }}
+            style={{ border: '2px solid black' }}
           >
             <thead className="table-dark">
               <tr>
@@ -169,7 +171,6 @@ function SearchPage() {
             </tbody>
           </table>
         )}
-        {error && <p>{error}</p>}
         {result && Array.isArray(result) && result.length > 5 && (
           <div className="d-flex justify-content-center">
             <Button
