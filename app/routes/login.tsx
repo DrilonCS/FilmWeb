@@ -33,8 +33,8 @@ export function LoginPage() {
       setIsLoggedIn(false);
       localStorage.removeItem('authToken');
       localStorage.removeItem('expiresAt');
-    } else {
-      setIsLoggedIn(!!token);
+    } else if (token) {
+      setIsLoggedIn(true);
     }
   }, []);
 
