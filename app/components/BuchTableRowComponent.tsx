@@ -1,4 +1,5 @@
 import { BuchProps } from '~/types';
+import { Button } from 'react-bootstrap';
 
 interface BuchTableRowProps extends BuchProps {
   handleShowDetails: (buch: BuchProps) => void;
@@ -15,12 +16,12 @@ export const BuchTableRow = ({
     <td>{props.preis} €</td>
     <td>{props.rabatt}</td>
     <td>
-      <button
+      <Button
         onClick={() => handleShowDetails(props)}
-        className="btn btn-primary"
+        variant="primary"
       >
         Details
-      </button>
+      </Button>
     </td>
   </tr>
 );

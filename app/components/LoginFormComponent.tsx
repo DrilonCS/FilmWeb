@@ -1,5 +1,6 @@
 import React from 'react';
 import './LoginStyleComponent';
+import { Form, Button } from 'react-bootstrap';
 
 interface LoginFormProps {
   username: string;
@@ -21,37 +22,35 @@ export const LoginForm: React.FC<LoginFormProps> = ({
   handleSubmit,
 }) => {
   return (
-    <form onSubmit={handleSubmit} className="d-flex align-items-start">
-      <h1 style={{ fontSize: '3em' }} className="me-5 mb-3 ms-3 mt-3">
-        Login:
-      </h1>
-      <div style={{ position: 'relative' }} className="mb-3 me-3">
-        <label className="form-label">Username:</label>
-        <input
-          type="text"
-          className="form-control"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+    <Form onSubmit={handleSubmit} className="d-flex align-items-start">
+      <h1 className="display-4 me-5 mb-3 ms-3 mt-3">Login:</h1>
+      <Form.Group className="mb-3 me-3 position-relative">
+        <Form.Label>Username:</Form.Label>
+        <Form.Control 
+          type="text" 
+          value={username} 
+          onChange={(e) => setUsername(e.target.value)} 
+          isInvalid={!!usernameError}
         />
-        {usernameError && (
-          <p style={{ position: 'absolute', color: 'red' }}>{usernameError}</p>
-        )}
-      </div>
-      <div style={{ position: 'relative' }} className="mb-3 me-3">
-        <label className="form-label">Password:</label>
-        <input
-          type="password"
-          className="form-control"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+        <Form.Control.Feedback type="invalid" style={{ position: 'absolute' }}>
+          {usernameError}
+        </Form.Control.Feedback>
+      </Form.Group>
+      <Form.Group className="mb-3 me-3 position-relative">
+        <Form.Label>Password:</Form.Label>
+        <Form.Control 
+          type="password" 
+          value={password} 
+          onChange={(e) => setPassword(e.target.value)} 
+          isInvalid={!!passwordError}
         />
-        {passwordError && (
-          <p style={{ position: 'absolute', color: 'blue' }}>{passwordError}</p>
-        )}
-      </div>
-      <button type="submit" className="btn btn-primary ms-3 mt-4 hover-effect">
+        <Form.Control.Feedback type="invalid" style={{ position: 'absolute' }}>
+          {passwordError}
+        </Form.Control.Feedback>
+      </Form.Group>
+      <Button type="submit" className="btn btn-primary ms-3 mt-4 hover-effect">
         Anmelden
-      </button>
-    </form>
+      </Button>
+    </Form>
   );
 };

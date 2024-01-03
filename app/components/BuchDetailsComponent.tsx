@@ -1,5 +1,6 @@
 import React from 'react';
 import { BuchProps } from '~/types';
+import { Button } from 'react-bootstrap';
 
 type BuchDetailsProps = {
   buch: BuchProps;
@@ -29,22 +30,29 @@ export const BuchDetailsComponent: React.FC<BuchDetailsProps> = ({
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <button
-          onClick={onClose}
-          style={{ border: 'none', background: 'none', cursor: 'pointer' }}
-        >
-          <span style={{ fontSize: '20px', fontWeight: 'bold' }}>x</span>
-        </button>
-      </div>
+      <Button
+        variant="primary"
+        onClick={onClose}
+        style={{ position: 'absolute', top: '10px', right: '10px' }}
+      >
+        Schließen
+      </Button>
       <h2>Details</h2>
-      <table>
-        {buchDetails.map((detail) => (
-          <tr key={detail.label}>
-            <td>{detail.label}:</td>
-            <td>{detail.value}</td>
-          </tr>
-        ))}
+      <table className="table table-hover">
+        <tbody>
+          {buchDetails.map((detail) => (
+            <tr key={detail.label} style={{ cursor: 'pointer' }}>
+              <td>{detail.label}:</td>
+              <td>
+                {detail.label === 'Homepage' ? (
+                  <a href={detail.value?.toString() ?? ''}>{detail.value?.toString() ?? ''}</a>
+                ) : (
+                  detail.value
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </div>
   );
