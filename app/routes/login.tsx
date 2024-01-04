@@ -10,7 +10,7 @@ import { Footer } from '../components/FooterComponent';
 import { handleLoginError } from '~/handler/handleError';
 
 export function LoginPage() {
-  // UseStates für die Benutzerdaten
+  // Verwendung von useState-Hooks für verschiedene Zustände
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [usernameError, setUsernameError] = useState<string | null>(null);
@@ -43,7 +43,7 @@ export function LoginPage() {
     }
   }, []);
 
-  // Funktion um den Benutzer einzuloggen
+  // Funktion zur Anmeldung des Benutzers
   const loginUser = async (username: string, password: string) => {
     const headers = {
       'Content-Type': 'application/x-www-form-urlencoded',
