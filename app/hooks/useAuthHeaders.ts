@@ -2,13 +2,13 @@
 import { useCallback } from 'react';
 
 export const useAuthHeaders = () => {
-  const createHeaders = useCallback(
-    () => ({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('authToken')}`,
-    }),
-    [],
-  );
+    const createHeaders = useCallback(
+        () => ({
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+        }),
+        [],
+    );
 
-  return createHeaders;
+    return createHeaders;
 };
