@@ -5,6 +5,7 @@ interface ErrorResponse {
     message: string[];
 }
 
+// Funktion zum Behandeln von Suchfehlern
 export const handleSearchError = (
     setError: Dispatch<SetStateAction<string | null>>,
     url: string,
@@ -12,6 +13,7 @@ export const handleSearchError = (
 ) => {
     let search = '';
 
+    // Bestimmen der Suchart basierend auf der URL
     if (url.includes('art')) {
         search = 'art';
     } else if (url === REST_API_URL) {
@@ -20,6 +22,7 @@ export const handleSearchError = (
         search = 'id';
     }
 
+    // Behandeln von Fehlern basierend auf der Suchart
     if (search === 'art') {
         if (err.response && err.response.status === 500) {
             setError('Wähle eine Buchart (Kindle/Druckausgabe) aus!');
@@ -35,9 +38,11 @@ export const handleSearchError = (
     } else {
         setError(err.message);
     }
+    // Fehlermeldung nach 5 Sekunden löschen
     setTimeout(() => setError(null), 5000);
 };
 
+// Funktion zum Behandeln von Erstellungsfehlern
 export const handleCreateError = (
     setErrors: React.Dispatch<React.SetStateAction<Record<string, string>>>,
     setError: React.Dispatch<React.SetStateAction<string | null>>,
@@ -47,6 +52,7 @@ export const handleCreateError = (
     values: Record<string, string | number | undefined>,
     error: AxiosError<ErrorResponse>,
 ) => {
+    // Behandeln von Fehlern, die vom Server zurückgegeben werden
     if (
         error.response &&
         error.response.data &&
@@ -74,6 +80,7 @@ export const handleCreateError = (
     }
 };
 
+// Funktion zum Behandeln von Anmeldefehlern
 export const handleLoginError = (
     setUsernameError: Dispatch<SetStateAction<string | null>>,
     setPasswordError: Dispatch<SetStateAction<string | null>>,
@@ -81,6 +88,7 @@ export const handleLoginError = (
     password: string,
     error: AxiosError<ErrorResponse>,
 ) => {
+    // Überprüfen der Eingaben und Setzen von Fehlern
     if (!username && password) {
         setUsernameError('Bitte geben Sie einen Benutzernamen ein!');
     } else if (username && !password) {
@@ -98,6 +106,7 @@ export const handleLoginError = (
             );
         }
     }
+    // Fehlermeldungen nach 5 Sekunden löschen
     setTimeout(() => setUsernameError(null), 5000);
     setTimeout(() => setPasswordError(null), 5000);
 };
