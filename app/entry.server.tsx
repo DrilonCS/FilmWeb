@@ -12,8 +12,10 @@ import { RemixServer } from '@remix-run/react';
 import isbot from 'isbot';
 import { renderToPipeableStream } from 'react-dom/server';
 
+// Definieren der Verzögerung vor dem Abbruch
 const ABORT_DELAY = 5_000;
 
+// Funktion zum Behandeln von Requests
 export default function handleRequest(
   request: Request,
   responseStatusCode: number,
@@ -37,6 +39,7 @@ export default function handleRequest(
       );
 }
 
+// Funktion zum Behandeln von Bot-Anfragen
 function handleBotRequest(
   request: Request,
   responseStatusCode: number,
@@ -73,9 +76,6 @@ function handleBotRequest(
         },
         onError(error: unknown) {
           responseStatusCode = 500;
-          // Log streaming rendering errors from inside the shell.  Don't log
-          // errors encountered during initial shell rendering since they'll
-          // reject and get logged in handleDocumentRequest.
           if (shellRendered) {
             console.error(error);
           }
@@ -87,6 +87,7 @@ function handleBotRequest(
   });
 }
 
+// Funktion zum Behandeln von Browser-Anfragen
 function handleBrowserRequest(
   request: Request,
   responseStatusCode: number,
@@ -122,10 +123,6 @@ function handleBrowserRequest(
           reject(error);
         },
         onError(error: unknown) {
-          responseStatusCode = 500;
-          // Log streaming rendering errors from inside the shell.  Don't log
-          // errors encountered during initial shell rendering since they'll
-          // reject and get logged in handleDocumentRequest.
           if (shellRendered) {
             console.error(error);
           }
