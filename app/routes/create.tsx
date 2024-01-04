@@ -85,7 +85,6 @@ const CreatePage: React.FC = () => {
     },
   });
 
-
   const errorMessagesInvalid: Record<string, string> = {
     isbn: 'Ungültiges ISBN-Format!',
     rabatt: 'Geben Sie bitte ein gültigen Rabatt an',

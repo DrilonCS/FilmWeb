@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 
 export function useFormHandlers() {
-    
     // Funktion zum Behandeln von Änderungen in Input-Feldern
     const handleInputChange = (
         event: React.ChangeEvent<
