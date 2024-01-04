@@ -1,5 +1,5 @@
 import React from 'react';
-import './LoginStyleComponent';
+import './LoginStyleComponent.css';
 
 interface UserActionsProps {
   handleLogout: () => void;

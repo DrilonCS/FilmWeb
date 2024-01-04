@@ -31,12 +31,16 @@
   "devDependencies": {
     "@remix-run/dev": "^2.4.1",
     "@remix-run/eslint-config": "^2.4.1",
-    "@types/react": "^18.2.46",
+    "@types/react": "18.2.46",
     "@types/react-dom": "^18.2.18",
     "@types/react-modal": "3.16.3",
     "@typescript-eslint/eslint-plugin": "6.17.0",
     "@typescript-eslint/parser": "6.17.0",
     "eslint": "8.56.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-import": "2.29.1",
+    "eslint-plugin-n": "16.6.1",
+    "eslint-plugin-prettier": "5.1.2",
     "eslint-plugin-react-hooks": "4.6.0",
     "prettier": "3.1.1",
     "typescript": "^5.1.6"
