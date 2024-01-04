@@ -25,6 +25,7 @@ const CreatePage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [showSuccessAlert, setShowSuccessAlert] = useState<boolean>(false);
   const values: Record<string, string | number | undefined> = {
     isbn,
     art,
@@ -108,6 +109,18 @@ const CreatePage: React.FC = () => {
       .post(REST_API_URL, buch, { headers })
       .then((response) => {
         setResult(response.data);
+        setShowSuccessAlert(true);
+        setISBN('');
+        setRating(0);
+        setArt('');
+        setPreis('');
+        setRabatt(0);
+        setLieferbar(false);
+        setDatum('');
+        setHomepage('');
+        setSchlagwoerter([]);
+        setTitel('');
+        setUntertitel('');
       })
       .catch((err) =>
         handleCreateError(
@@ -280,6 +293,11 @@ const CreatePage: React.FC = () => {
           Create
         </Button>
       </Form>
+      {showSuccessAlert && (
+      <Alert variant="success" style={{ marginTop: '20px' }} onClose={() => setShowSuccessAlert(false)} dismissible>
+        Buch erfolgreich erstellt!
+      </Alert>
+      )}
       {result && <p>Result: {JSON.stringify(result)}</p>}
       <div
         style={{
