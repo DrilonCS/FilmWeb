@@ -1,5 +1,5 @@
 import React from 'react';
-import gmailLogo from './gmail.png';
+import gmailLogo from '../../public/images/gmail.png';
 import { Container, Row, Col } from 'react-bootstrap';
 
 export const Footer: React.FC = () => {

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from '@remix-run/react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { LOGIN_API_URL } from '../constants';
-import logo from '~/log.png';
+import logo from '../../public/images/log.png';
 import { LoginForm } from '../components/LoginFormComponent';
 import { UserActions } from '../components/LoginActionsComponent';
 import { Footer } from '../components/FooterComponent';
