@@ -10,22 +10,27 @@ import { Footer } from '../components/FooterComponent';
 import { handleLoginError } from '../handler/handleError';
 
 export function LoginPage() {
+  // Verwendung von useState-Hooks für verschiedene Zustände
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [usernameError, setUsernameError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
+  // useNavigate Hook um die Navigation zu steuern
   const navigate = useNavigate();
 
+  // Funktion um zur Suchseite zu navigieren
   const navigateToSearch = () => {
     navigate('/search');
   };
 
+  // Funktion um zur Create Seite zu navigieren
   const navigateToCreate = () => {
     navigate('/create');
   };
 
+  // UseEffect Hook um zu prüfen ob der Benutzer eingeloggt ist
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     const expiresAt = localStorage.getItem('expiresAt');
@@ -38,6 +43,7 @@ export function LoginPage() {
     }
   }, []);
 
+  // Funktion zur Anmeldung des Benutzers
   const loginUser = async (username: string, password: string) => {
     const headers = {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -50,6 +56,7 @@ export function LoginPage() {
     return response.data;
   };
 
+  // Funktion zum Verarbeiten des Formulars
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
 
@@ -73,6 +80,7 @@ export function LoginPage() {
       );
   };
 
+  // Funktion zum Ausloggen des Benutzers
   const handleLogout = () => {
     setUsername('');
     setPassword('');
@@ -80,6 +88,7 @@ export function LoginPage() {
     localStorage.removeItem('authToken');
   };
 
+  // Rendern der Komponente
   return (
     <div
       style={{

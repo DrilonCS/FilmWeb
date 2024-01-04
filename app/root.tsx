@@ -13,6 +13,7 @@ export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
 ];
 
+// Viewport definiert, wie viel von der Webseite auf dem Bildschrim sichtbar ist und wie die Inhate skaliert und angeordnet werden.
 export default function App() {
   return (
     <html lang="en">
