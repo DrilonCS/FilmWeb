@@ -1,5 +1,5 @@
 import React from 'react';
-import { BuchProps } from '~/types';
+import { BuchProps } from '~/constants/types';
 import { Button } from 'react-bootstrap';
 
 type BuchDetailsProps = {

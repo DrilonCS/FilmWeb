@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { REST_API_URL } from '~/constants';
+import { REST_API_URL } from '~/constants/constants';
 import { AxiosError } from 'axios';
 interface ErrorResponse {
   message: string[];
