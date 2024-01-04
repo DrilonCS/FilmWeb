@@ -19,7 +19,10 @@ const SimpleBarChart: React.FC<BarChartProps> = ({ data }) => {
   if (!data) {
     return (
       <Container fluid>
-        <Row className="justify-content-center align-items-center" style={{ height: '100vh' }}>
+        <Row
+          className="justify-content-center align-items-center"
+          style={{ height: '100vh' }}
+        >
           <Col className="text-center">
             <h1 className="text-right">Sie müssen nach einem Buch suchen!</h1>
           </Col>
@@ -46,7 +49,10 @@ const SimpleBarChart: React.FC<BarChartProps> = ({ data }) => {
 
   return (
     <Container fluid>
-      <Row className="justify-content-center align-items-center" style={{ height: '100vh' }}>
+      <Row
+        className="justify-content-center align-items-center"
+        style={{ height: '100vh' }}
+      >
         <Col>
           <h1>Bücher Rating</h1>
           <BarChart

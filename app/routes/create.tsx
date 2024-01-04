@@ -197,7 +197,9 @@ const CreatePage: React.FC = () => {
             value={rabatt}
             onChange={(event) => handleNumberChange(event, setRabatt)}
           />
-          {errors['rabatt'] && <Alert variant="danger">{errors['rabatt']}</Alert>}
+          {errors['rabatt'] && (
+            <Alert variant="danger">{errors['rabatt']}</Alert>
+          )}
         </Form.Group>
         <Form.Group>
           <Form.Label>Lieferbar:</Form.Label>
@@ -241,7 +243,9 @@ const CreatePage: React.FC = () => {
             onChange={(event) => handleInputChange(event, setHomepage)}
             placeholder="https://www.website.com"
           />
-          {errors['homepage'] && <Alert variant="danger">{errors['homepage']}</Alert>}
+          {errors['homepage'] && (
+            <Alert variant="danger">{errors['homepage']}</Alert>
+          )}
         </Form.Group>
         <Form.Group>
           <Form.Label>Schlagwörter:</Form.Label>
@@ -272,11 +276,7 @@ const CreatePage: React.FC = () => {
           />
         </Form.Group>
         <div></div>
-        <Button
-          type="submit"
-          variant="primary"
-          style={{ marginTop: '20px' }}
-        >
+        <Button type="submit" variant="primary" style={{ marginTop: '20px' }}>
           Create
         </Button>
       </Form>
@@ -288,11 +288,8 @@ const CreatePage: React.FC = () => {
           left: '10px',
         }}
       >
-        <Button
-          onClick={navigateToIndex}
-          className="hover-effect ms-3 mt-4"
-        >
-            Zurück zur Startseite
+        <Button onClick={navigateToIndex} className="hover-effect ms-3 mt-4">
+          Zurück zur Startseite
         </Button>
       </div>
       <Footer />

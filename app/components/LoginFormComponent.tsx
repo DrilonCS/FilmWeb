@@ -26,10 +26,10 @@ export const LoginForm: React.FC<LoginFormProps> = ({
       <h1 className="display-4 me-5 mb-3 ms-3 mt-3">Login:</h1>
       <Form.Group className="mb-3 me-3 position-relative">
         <Form.Label>Username:</Form.Label>
-        <Form.Control 
-          type="text" 
-          value={username} 
-          onChange={(e) => setUsername(e.target.value)} 
+        <Form.Control
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           isInvalid={!!usernameError}
         />
         <Form.Control.Feedback type="invalid" style={{ position: 'absolute' }}>
@@ -38,10 +38,10 @@ export const LoginForm: React.FC<LoginFormProps> = ({
       </Form.Group>
       <Form.Group className="mb-3 me-3 position-relative">
         <Form.Label>Password:</Form.Label>
-        <Form.Control 
-          type="password" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
+        <Form.Control
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           isInvalid={!!passwordError}
         />
         <Form.Control.Feedback type="invalid" style={{ position: 'absolute' }}>
