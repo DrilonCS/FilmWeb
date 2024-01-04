@@ -38,7 +38,7 @@ const SimpleBarChart: React.FC<BarChartProps> = ({ data }) => {
     rating: buch.rating,
   }));
 
-  // Definieren der Farben für die Balken im Diagramm
+  // Definieren der Farben für die Balken im Statistik Diagramm
   const colors = [
     '#8884d8',
     '#82ca9d',
