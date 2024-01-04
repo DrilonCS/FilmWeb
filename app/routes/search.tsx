@@ -13,6 +13,7 @@ import { BuchDetailsComponent } from '../components/BuchDetailsComponent';
 import { Alert } from 'react-bootstrap';
 
 function SearchPage() {
+  // UseStates für die zu suchenden Daten
   const [id, setId] = useState('');
   const [art, setArt] = useState('');
   const {
@@ -28,15 +29,18 @@ function SearchPage() {
 
   const navigate = useNavigate();
 
+  // Funktion um zur Startseite zu navigieren
   const navigateToIndex = () => {
     navigate('/');
   };
 
+  // Funktion zum Anfordern der Daten von der API
   const handleRequest = (url: string) => {
     setResult(null);
     search(url);
   };
 
+  // Funktionen zum Anfordern von Büchern nach Art, ID oder alle Bücher
   const handleGetByArt = () => {
     handleRequest(`${REST_API_URL}?art=${art}`);
   };
@@ -53,6 +57,7 @@ function SearchPage() {
     handleRequest(REST_API_URL);
   };
 
+   // Funktionen zum Anzeigen und Schließen der Detail- und Chart-Modale
   const handleShowDetails = (buch: BuchProps) => {
     setSelectedBuch(buch);
     setModalIsOpen(true);
@@ -71,6 +76,7 @@ function SearchPage() {
     setChartModalOpen(false);
   };
 
+    // Funktion zum Umschalten der Anzeige aller Ergebnisse
   const handleToggleShowAllResults = () => {
     setShowAllResults(!showAllResults);
   };
@@ -210,5 +216,6 @@ function SearchPage() {
   );
 }
 
+// Schützen der SearchPage mit Authentifizierung
 const ProtectedSearchPage = withAuth(SearchPage);
 export default ProtectedSearchPage;

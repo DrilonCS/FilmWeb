@@ -10,7 +10,10 @@ import { handleCreateError } from '~/handler/handleError';
 import { useAuthHeaders } from '../hooks/useAuthHeaders';
 import { Footer } from '../components/FooterComponent';
 
+
+// Definieren der CreatePage Komponente
 const CreatePage: React.FC = () => {
+  // UseStates für die Verwaltung des Zustands der Komponente
   const [isbn, setISBN] = useState<string>('');
   const [rating, setRating] = useState<number>(0);
   const [art, setArt] = useState<string | undefined>('');
@@ -36,6 +39,7 @@ const CreatePage: React.FC = () => {
     titel,
   };
 
+  // UseFormHandlers um die Formularfelder zu verwalten
   const {
     handleInputChange,
     handleNumberChange,
@@ -44,13 +48,16 @@ const CreatePage: React.FC = () => {
     handleArrayChange,
   } = useFormHandlers();
 
+  // useNavigate um zwischen den Seiten zu navigieren
   const navigate = useNavigate();
   const navigateToIndex = () => {
     navigate('/');
   };
 
+  // useAuthHeaders um die Authentifizierung zu verwalten
   const createHeaders = useAuthHeaders();
 
+  // Properties für die Validierung der Formularfelder
   const properties = [
     'titel',
     'isbn',
@@ -63,6 +70,7 @@ const CreatePage: React.FC = () => {
     'schlagwoerter',
   ];
 
+  // Funktion um ein Buch zu erstellen
   const createBuch = () => ({
     isbn,
     rating,
@@ -79,6 +87,12 @@ const CreatePage: React.FC = () => {
     },
   });
 
+/*
+  Fehlermeldungen für die Validierung der Formularfelder. 
+  Einmal für die Validierung der Formularfelder, wenn diese leer sind 
+  und einmal für die Validierung der Formularfelder,
+  wenn diese nicht dem gewünschten Format entsprechen
+*/
   const errorMessagesInvalid: Record<string, string> = {
     isbn: 'Ungültiges ISBN-Format!',
     rabatt: 'Geben Sie bitte ein gültigen Rabatt an',
@@ -99,12 +113,14 @@ const CreatePage: React.FC = () => {
     titel: 'Sie müssen einen Titel eintragen!',
   };
 
+  // Funktion zum Vearbeiten des Formulars
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const headers = createHeaders();
     const buch = createBuch();
 
+    // POST Request an die REST API
     axios
       .post(REST_API_URL, buch, { headers })
       .then((response) => {
@@ -135,6 +151,7 @@ const CreatePage: React.FC = () => {
       );
   };
 
+  // Rendern der CreatePage Komponente
   return (
     <Container
       style={{
