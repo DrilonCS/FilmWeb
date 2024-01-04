@@ -1,13 +1,13 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from '@remix-run/react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { LOGIN_API_URL } from '../constants';
-import logo from '~/log.png';
+import { LOGIN_API_URL } from '../constants/constants';
+import logo from '../../public/images/log.png';
 import { LoginForm } from '../components/LoginFormComponent';
 import { UserActions } from '../components/LoginActionsComponent';
 import { Footer } from '../components/FooterComponent';
-import { handleLoginError } from '~/utils/handleError';
+import { handleLoginError } from '~/handler/handleError';
 
 export function LoginPage() {
   const [username, setUsername] = useState('');

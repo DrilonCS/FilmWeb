@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useApi } from '~/hooks/useGetApi';
-import { REST_API_URL } from '../constants';
+import { REST_API_URL } from '../constants/constants';
 import { useNavigate } from 'react-router-dom';
-import { type BuchProps } from '~/types';
+import { type BuchProps } from '~/constants/types';
 import Modal from 'react-modal';
 import SimpleBarChart from '../components/BarChartComponent';
 import { withAuth } from '../components/AuthentificationComponent';

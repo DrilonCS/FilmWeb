@@ -1,4 +1,4 @@
-import { BuchProps } from '~/types';
+import { BuchProps } from '~/constants/types';
 import { Button } from 'react-bootstrap';
 
 interface BuchTableRowProps extends BuchProps {
