@@ -88,7 +88,7 @@ export const handleLoginError = (
     password: string,
     error: AxiosError<ErrorResponse>,
 ) => {
-    // Überprüfen der Eingaben und Setzen von LoginFehlern
+    // Überprüfen der Eingaben und Setzen von Anmeldefehlern
     if (!username && password) {
         setUsernameError('Bitte geben Sie einen Benutzernamen ein!');
     } else if (username && !password) {
