@@ -45,7 +45,9 @@ export const BuchDetailsComponent: React.FC<BuchDetailsProps> = ({
               <td>{detail.label}:</td>
               <td>
                 {detail.label === 'Homepage' ? (
-                  <a href={detail.value?.toString() ?? ''}>{detail.value?.toString() ?? ''}</a>
+                  <a href={detail.value?.toString() ?? ''}>
+                    {detail.value?.toString() ?? ''}
+                  </a>
                 ) : (
                   detail.value
                 )}
