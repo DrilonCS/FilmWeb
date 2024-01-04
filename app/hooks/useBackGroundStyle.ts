@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 
+// Hook für den Hintergrund
 export const useBackgroundStyle = () => {
     useEffect(() => {
         const originalStyleHtml = window.getComputedStyle(
