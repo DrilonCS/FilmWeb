@@ -1,45 +1,9 @@
-import { createGlobalStyle } from 'styled-components';
-import React, { useEffect } from 'react';
+import { GlobalStyle } from '../components/GlobalStyleComponent';
 import { LoginPage } from './login';
-
-export const GlobalStyle = createGlobalStyle`
-  body {
-    background: linear-gradient(#90AFC5, #3B7EA1);
-  }
-  .center-logo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 0vh;
-  }
-  .login-logo {
-    width: 400px; // Breite des Logos
-    height: auto; // Höhe des Logos automatisch anpassen
-    background: transparent; // Hintergrund des Logos transparent machen
-  }
-  .mt-4 {
-    margin-top: 2rem !important;
-}
-`;
+import { useBackgroundStyle } from '~/hooks/useBackGroundStyle';
 
 export default function IndexPage() {
-  useEffect(() => {
-    const originalStyleHtml = window.getComputedStyle(
-      document.documentElement,
-    ).background;
-    const originalStyleBody = window.getComputedStyle(document.body).background;
-    document.documentElement.style.background =
-      'linear-gradient(#90AFC5, #3B7EA1)';
-    document.body.style.background = 'linear-gradient(#90AFC5, #3B7EA1)';
-    document.body.style.margin = '0';
-    document.body.style.padding = '0';
-    return () => {
-      document.documentElement.style.background = originalStyleHtml;
-      document.body.style.background = originalStyleBody;
-      document.body.style.margin = '';
-      document.body.style.padding = '';
-    };
-  }, []);
+  useBackgroundStyle();
 
   return (
     <>

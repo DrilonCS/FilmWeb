@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useApi } from '~/hooks/useGetApi';
 import { REST_API_URL } from '../constants/constants';
 import { useNavigate } from 'react-router-dom';
