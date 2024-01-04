@@ -21,7 +21,7 @@ export const Footer: React.FC = () => {
           flexDirection: 'column',
           alignItems: 'center',
           width: '100%',
-          maxWidth: '100%', // Set the width to 100% to match the page width
+          maxWidth: '100%', 
           backgroundColor: 'white',
           borderRadius: '5px',
           padding: '10px',
@@ -31,7 +31,7 @@ export const Footer: React.FC = () => {
           style={{
             display: 'flex',
             justifyContent: 'space-between',
-            width: '100%', // Adjusted width to take up the whole page
+            width: '100%', 
           }}
         >
           <Col style={{ display: 'flex', alignItems: 'center' }}>

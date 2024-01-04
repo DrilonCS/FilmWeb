@@ -12,6 +12,7 @@ export const UserActions: React.FC<UserActionsProps> = ({
   navigateToSearch,
   navigateToCreate,
 }) => {
+  // Buttons die beim klicken die entsprechende Funktion aufrufen
   return (
     <div className="d-flex justify-content-between">
       <div>

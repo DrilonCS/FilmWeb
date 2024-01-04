@@ -11,6 +11,7 @@ export const BuchDetailsComponent: React.FC<BuchDetailsProps> = ({
   buch,
   onClose,
 }) => {
+  // Erstellen eines Arrays mit den Details des Buches
   const buchDetails = [
     { label: 'ISBN', value: buch.isbn },
     { label: 'Art', value: buch.art },

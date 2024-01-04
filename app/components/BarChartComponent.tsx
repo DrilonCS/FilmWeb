@@ -15,7 +15,9 @@ type BarChartProps = {
   data: BuchProps | BuchProps[] | null;
 };
 
+// Definieren der BarChart-Komponente
 const SimpleBarChart: React.FC<BarChartProps> = ({ data }) => {
+  // Wenn keine Daten vorhanden sind, wird eine Nachricht angezeigt, dass der Benutzer nach einem Buch suchen muss
   if (!data) {
     return (
       <Container fluid>
@@ -31,12 +33,14 @@ const SimpleBarChart: React.FC<BarChartProps> = ({ data }) => {
     );
   }
 
+    // Wenn es sich um ein einzelnes Buch handelt, wird es in ein Array umgewandelt
   const dataArray = Array.isArray(data) ? data : [data];
   const chartData = dataArray.map((buch: BuchProps) => ({
     name: buch.titel.titel,
     rating: buch.rating,
   }));
 
+  // Definieren der Farben für die Balken im Diagramm
   const colors = [
     '#8884d8',
     '#82ca9d',
