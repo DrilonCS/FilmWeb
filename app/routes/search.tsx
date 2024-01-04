@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { useApi } from '~/hooks/useGetApi';
+import { useApi } from '../hooks/useGetApi';
 import { REST_API_URL } from '../constants/constants';
 import { useNavigate } from 'react-router-dom';
-import { type BuchProps } from '~/constants/types';
+import { type BuchProps } from '../constants/types';
 import Modal from 'react-modal';
 import SimpleBarChart from '../components/BarChartComponent';
 import { withAuth } from '../components/AuthentificationComponent';
@@ -57,7 +57,7 @@ function SearchPage() {
     handleRequest(REST_API_URL);
   };
 
-   // Funktionen zum Anzeigen und Schließen der Detail- und Chart-Modale
+  // Funktionen zum Anzeigen und Schließen der Detail- und Chart-Modale
   const handleShowDetails = (buch: BuchProps) => {
     setSelectedBuch(buch);
     setModalIsOpen(true);
@@ -76,7 +76,7 @@ function SearchPage() {
     setChartModalOpen(false);
   };
 
-    // Funktion zum Umschalten der Anzeige aller Ergebnisse
+  // Funktion zum Umschalten der Anzeige aller Ergebnisse
   const handleToggleShowAllResults = () => {
     setShowAllResults(!showAllResults);
   };

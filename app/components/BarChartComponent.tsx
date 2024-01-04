@@ -8,7 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
 } from 'recharts';
-import { BuchProps } from '~/constants/types';
+import { BuchProps } from '../constants/types';
 import { Container, Row, Col } from 'react-bootstrap';
 
 type BarChartProps = {

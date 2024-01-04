@@ -1,5 +1,5 @@
 import React from 'react';
-import './LoginStyleComponent';
+import './LoginStyleComponent.css';
 import { Form, Button } from 'react-bootstrap';
 
 interface LoginFormProps {

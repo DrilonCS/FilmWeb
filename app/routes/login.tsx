@@ -7,7 +7,7 @@ import logo from '../../public/images/log.png';
 import { LoginForm } from '../components/LoginFormComponent';
 import { UserActions } from '../components/LoginActionsComponent';
 import { Footer } from '../components/FooterComponent';
-import { handleLoginError } from '~/handler/handleError';
+import { handleLoginError } from '../handler/handleError';
 
 export function LoginPage() {
   // Verwendung von useState-Hooks für verschiedene Zustände

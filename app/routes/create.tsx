@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { REST_API_URL } from '~/constants/constants';
+import { REST_API_URL } from '../constants/constants';
 import { withAuth } from '../components/AuthentificationComponent';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { Button, Form, Container, Alert } from 'react-bootstrap';
-import { handleCreateError } from '~/handler/handleError';
+import { handleCreateError } from '../handler/handleError';
 import { useAuthHeaders } from '../hooks/useAuthHeaders';
 import { Footer } from '../components/FooterComponent';
-
 
 // Definieren der CreatePage Komponente
 const CreatePage: React.FC = () => {
@@ -87,7 +86,7 @@ const CreatePage: React.FC = () => {
     },
   });
 
-/*
+  /*
   Fehlermeldungen für die Validierung der Formularfelder. 
   Einmal für die Validierung der Formularfelder, wenn diese leer sind 
   und einmal für die Validierung der Formularfelder,
