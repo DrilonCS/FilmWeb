@@ -13,7 +13,6 @@ export const handleSearchError = (
 ) => {
     let search = '';
 
-    // Bestimmen der Suchart basierend auf der URL
     if (url.includes('art')) {
         search = 'art';
     } else if (url === REST_API_URL) {
@@ -38,7 +37,6 @@ export const handleSearchError = (
     } else {
         setError(err.message);
     }
-    // Fehlermeldung nach 5 Sekunden löschen
     setTimeout(() => setError(null), 5000);
 };
 
@@ -106,7 +104,6 @@ export const handleLoginError = (
             );
         }
     }
-    // Fehlermeldungen nach 5 Sekunden löschen
     setTimeout(() => setUsernameError(null), 5000);
     setTimeout(() => setPasswordError(null), 5000);
 };

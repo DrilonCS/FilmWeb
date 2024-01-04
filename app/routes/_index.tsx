@@ -8,11 +8,8 @@ export default function IndexPage() {
 
   return (
     <>
-      {/* Anwenden des globalen Stils */}
       <GlobalStyle />
-      {/* Rendern der LoginPage Komponente */}
       <LoginPage />
-      {/* Rendern eines div mit der Klasse "center-logo" */}
       <div className="center-logo"></div>
     </>
   );

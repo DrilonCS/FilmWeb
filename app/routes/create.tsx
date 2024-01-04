@@ -10,7 +10,6 @@ import { handleCreateError } from '../handler/handleError';
 import { useAuthHeaders } from '../hooks/useAuthHeaders';
 import { Footer } from '../components/FooterComponent';
 
-// Definieren der CreatePage Komponente
 const CreatePage: React.FC = () => {
   // UseStates für die Verwaltung des Zustands der Komponente
   const [isbn, setISBN] = useState<string>('');
@@ -86,12 +85,7 @@ const CreatePage: React.FC = () => {
     },
   });
 
-  /*
-  Fehlermeldungen für die Validierung der Formularfelder. 
-  Einmal für die Validierung der Formularfelder, wenn diese leer sind 
-  und einmal für die Validierung der Formularfelder,
-  wenn diese nicht dem gewünschten Format entsprechen
-*/
+
   const errorMessagesInvalid: Record<string, string> = {
     isbn: 'Ungültiges ISBN-Format!',
     rabatt: 'Geben Sie bitte ein gültigen Rabatt an',
@@ -150,7 +144,6 @@ const CreatePage: React.FC = () => {
       );
   };
 
-  // Rendern der CreatePage Komponente
   return (
     <Container
       style={{

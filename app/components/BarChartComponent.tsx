@@ -17,7 +17,6 @@ type BarChartProps = {
 
 // Definieren der BarChart-Komponente
 const SimpleBarChart: React.FC<BarChartProps> = ({ data }) => {
-  // Wenn keine Daten vorhanden sind, wird eine Nachricht angezeigt, dass der Benutzer nach einem Buch suchen muss
   if (!data) {
     return (
       <Container fluid>
@@ -33,7 +32,6 @@ const SimpleBarChart: React.FC<BarChartProps> = ({ data }) => {
     );
   }
 
-    // Wenn es sich um ein einzelnes Buch handelt, wird es in ein Array umgewandelt
   const dataArray = Array.isArray(data) ? data : [data];
   const chartData = dataArray.map((buch: BuchProps) => ({
     name: buch.titel.titel,
