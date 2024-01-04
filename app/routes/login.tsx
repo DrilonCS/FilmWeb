@@ -17,15 +17,13 @@ export function LoginPage() {
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
-  // useNavigate Hook um die Navigation zu steuern
   const navigate = useNavigate();
 
-  // Funktion um zur Suchseite zu navigieren
+  // Funktion um zur Suchseite und Create Seite zu navigieren
   const navigateToSearch = () => {
     navigate('/search');
   };
 
-  // Funktion um zur Create Seite zu navigieren
   const navigateToCreate = () => {
     navigate('/create');
   };
@@ -88,7 +86,6 @@ export function LoginPage() {
     localStorage.removeItem('authToken');
   };
 
-  // Rendern der Komponente
   return (
     <div
       style={{

@@ -12,20 +12,15 @@ export const useApi = (initialUrl: string) => {
         axios
             .get(url)
             .then((response) => {
-                // Wenn die Antwort ein _embedded Objekt enthält, werden die Bücherdaten in den Zustand gespeichert
                 if (response.data._embedded) {
                     setData(response.data._embedded.buecher);
                 } else {
-                    // Ansonsten werden die Daten direkt in den Zustand gespeichert
                     setData(response.data);
                 }
-                // Der Fehlerzustand wird auf null gesetzt
                 setError(null);
             })
-            // Bei einem Fehler wird die Funktion handleSearchError aufgerufen
             .catch((err) => handleSearchError(setError, url, err));
     };
 
-    // Die Daten, der Fehler und die Funktionen request und setData werden zurückgegeben
     return { data, error, request, setData };
 };

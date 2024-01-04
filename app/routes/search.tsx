@@ -22,10 +22,10 @@ function SearchPage() {
     request: search,
     setData: setResult,
   } = useApi(REST_API_URL);
-  const [selectedBuch, setSelectedBuch] = useState<BuchProps | null>(null); // Zustand für das ausgewählte Buch
-  const [modalIsOpen, setModalIsOpen] = useState(false); // Zustand für das Öffnen des Modals
-  const [isChartModalOpen, setChartModalOpen] = useState(false); // Zustand für das Öffnen des Chart-Modals
-  const [showAllResults, setShowAllResults] = useState(false); // Zustand für die Anzeige aller Ergebnisse
+  const [selectedBuch, setSelectedBuch] = useState<BuchProps | null>(null); 
+  const [modalIsOpen, setModalIsOpen] = useState(false); 
+  const [isChartModalOpen, setChartModalOpen] = useState(false); 
+  const [showAllResults, setShowAllResults] = useState(false); 
 
   const navigate = useNavigate();
 
