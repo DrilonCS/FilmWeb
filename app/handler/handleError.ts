@@ -73,8 +73,10 @@ export const handleCreateError = (
             });
         });
         setErrors(newErrors);
+        setTimeout(() => setErrors({}), 5000);
     } else {
         setError(error.message);
+        setTimeout(() => setError(null), 5000);
     }
 };
 
