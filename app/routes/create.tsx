@@ -10,7 +10,6 @@ import { handleCreateError } from '../handler/handleError';
 import { useAuthHeaders } from '../hooks/useAuthHeaders';
 import { Footer } from '../components/FooterComponent';
 
-
 // Definieren der CreatePage Komponente
 const CreatePage: React.FC = () => {
   // UseStates für die Verwaltung des Zustands der Komponente
@@ -87,7 +86,7 @@ const CreatePage: React.FC = () => {
     },
   });
 
-/*
+  /*
   Fehlermeldungen für die Validierung der Formularfelder. 
   Einmal für die Validierung der Formularfelder, wenn diese leer sind 
   und einmal für die Validierung der Formularfelder,

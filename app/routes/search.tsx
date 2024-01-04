@@ -57,7 +57,7 @@ function SearchPage() {
     handleRequest(REST_API_URL);
   };
 
-   // Funktionen zum Anzeigen und Schließen der Detail- und Chart-Modale
+  // Funktionen zum Anzeigen und Schließen der Detail- und Chart-Modale
   const handleShowDetails = (buch: BuchProps) => {
     setSelectedBuch(buch);
     setModalIsOpen(true);
@@ -76,7 +76,7 @@ function SearchPage() {
     setChartModalOpen(false);
   };
 
-    // Funktion zum Umschalten der Anzeige aller Ergebnisse
+  // Funktion zum Umschalten der Anzeige aller Ergebnisse
   const handleToggleShowAllResults = () => {
     setShowAllResults(!showAllResults);
   };
