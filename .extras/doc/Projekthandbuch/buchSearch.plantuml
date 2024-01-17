@@ -1,6 +1,6 @@
 @startuml Zustandsdiagramm
 
-state "index.tsx" as index {
+state "search.tsx" as index {
   state "SucheBuecher" as SucheBuecher {
     state "Suchformular" as Suchformular
     state "Waiting" as Waiting
@@ -16,7 +16,7 @@ state "index.tsx" as index {
   index --> SucheBuecher: Menüpunkt "Suche"
   SucheBuecher --> Suchformular: Suchkritierien
   Suchformular --> Waiting: Button "Suchen"
-  Waiting --> SuchergebnisChoice: Suchergebisse eingeben
+  Waiting --> SuchergebnisChoice: Suchergebisse eingetroffen
   SuchergebnisChoice --> GefundeneBuecher: mind ein Buch
   SuchergebnisChoice --> ErrorMessage: keine Bücher
   GefundeneBuecher --> DetailsBuch: Button anklicken
