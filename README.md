@@ -1,3 +1,6 @@
+# Software Engineering University Project 
+# Frontend Single Page Application with TypeScript, RemixJS, Bootstrap and REST API
+
 # Welcome to Remix!
 
 - [Remix Docs](https://remix.run/docs)
